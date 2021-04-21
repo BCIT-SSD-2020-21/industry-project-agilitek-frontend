@@ -1,12 +1,12 @@
 import MainPage from './components/MainPage'
-import UserForm from './components/MainPage/UserForm'
+import UserForm from './components/UserForm'
 
 
 function App() {
   return (
    <>
   <MainPage></MainPage>
-  <UserForm></UserForm>
+  {/* <UserForm></UserForm> */}
    </>
   );
 }
