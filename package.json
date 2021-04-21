@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "@craco/craco": "^6.1.1",
+    "@headlessui/react": "^1.0.0",
+    "@heroicons/react": "^1.0.1",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -37,6 +39,7 @@
     ]
   },
   "devDependencies": {
+    "@iconify-icons/heroicons-outline": "^1.1.2",
     "@tailwindcss/postcss7-compat": "^2.1.0",
     "autoprefixer": "^9.8.6",
     "postcss": "^7.0.35",
