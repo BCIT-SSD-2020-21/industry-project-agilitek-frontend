@@ -17,11 +17,11 @@ function App() {
     <div className="bg-gray-800 pb-32">
       <Navbar/>
       <Switch>
-        <Route path="/workflow">
-          <></>
+        <Route path="/config">
+          <MainPage></MainPage>
         </Route>
         <Route path="/">
-          <MainPage></MainPage>
+          <></>
         </Route>
       </Switch>
       </div>
