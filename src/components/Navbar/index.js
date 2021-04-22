@@ -7,7 +7,7 @@ import UserForm from '../UserForm'
 
 export default function Navbar() {
 
-const navigation = ['Dashboard', 'Team', 'Projects', 'Calendar', 'Reports']
+const navigation = ['Dashboard', 'Work Flows']
 const profile = ['Your Profile', 'Settings', 'Sign out']
 
 function classNames(...classes) {
