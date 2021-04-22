@@ -1,23 +1,25 @@
 const fetch = require('node-fetch');
+const { URLSearchParams } = require('url');
 
-module.exports = async () => {
+(async () => {
     try {
-        const body = {
-            username: process.env.USERNAME,
-            password: `${process.env.PASSWORD}${process.env.SECURITY_TOKEN}`,
-            grant_type: process.env.GRANT_TYPE,
-            client_id: process.env.CLIENT_ID,
-            client_secret: process.env.CLIENT_SECRET,
-        };
+        // Setup body object
+        const params = new URLSearchParams();
+        params.append('username', process.env.USERNAME);
+        params.append(
+            'password',
+            `${process.env.PASSWORD}${process.env.SECURITY_TOKEN}`
+        );
+        params.append('grant_type', process.env.GRANT_TYPE);
+        params.append('client_id', process.env.CLIENT_ID);
+        params.append('client_secret', process.env.CLIENT_SECRET);
 
+        // Get the OAuth token
         const res = await fetch(
             `${process.env.INSTANCE_URL}/services/oauth2/token`,
             {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: JSON.stringify(body),
+                body: params,
             }
         );
         const data = await res.json();
@@ -29,4 +31,4 @@ module.exports = async () => {
     } catch (error) {
         throw Error(`Error while getting an OAuth 2.0 token: ${error}`);
     }
-};
+})();
