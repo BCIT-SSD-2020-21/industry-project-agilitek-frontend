@@ -20,6 +20,9 @@ module.exports = function () {
                 `${process.env.INSTANCE_URL}/services/oauth2/token`,
                 {
                     method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
                     body: params,
                 }
             );
