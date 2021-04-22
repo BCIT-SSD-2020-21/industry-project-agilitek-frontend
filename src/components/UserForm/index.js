@@ -1,5 +1,11 @@
 
 export default function UserForm() {
+
+    const people = [
+      { name: 'Jane Cooper', title: 'Regional Paradigm Technician', role: 'Admin', email: 'jane.cooper@example.com' },
+      // More people...
+    ]
+
     return (
       <>
         <div className="hidden sm:block" aria-hidden="true">
@@ -11,7 +17,7 @@ export default function UserForm() {
         <div className="mt-10 sm:mt-0">
           <div className="md:grid md:grid-cols-3 md:gap-6">
 
-            <div className="mt-5 md:mt-0 md:col-span-2">
+            <div className="mt-5 md:mt-0 md:col-span-full">
             {/* <form action="#" method="POST"> */}
                 <div className="shadow overflow-hidden sm:rounded-md">
                   <div className="px-4 py-5 bg-white sm:p-6">
@@ -30,7 +36,7 @@ export default function UserForm() {
                         />
                       </div>
                       
-                      <div className="col-span-6 sm:col-span-3">
+                      <div className="col-span-full sm:col-span-full">
                         <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
                           <button
                             type="submit"
@@ -39,21 +45,77 @@ export default function UserForm() {
                             Define Criteria
                           </button>
                         </div>
+                      </div>          
+                    </div>
+                  </div>
+                <div className="flex flex-col">
+                  <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                    <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                      <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                        <table className="min-w-full divide-y divide-gray-200">
+                          <thead className="bg-gray-50">
+                            <tr>
+                              <th
+                                scope="col"
+                                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                              >
+                                Name
+                              </th>
+                              <th
+                                scope="col"
+                                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                              >
+                                Title
+                              </th>
+                              <th
+                                scope="col"
+                                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                              >
+                                Email
+                              </th>
+                              <th
+                                scope="col"
+                                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                              >
+                                Role
+                              </th>
+                              <th scope="col" className="relative px-6 py-3">
+                                <span className="sr-only">Edit</span>
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody className="bg-white divide-y divide-gray-200">
+                            {people.map((person) => (
+                              <tr key={person.email}>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{person.name}</td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{person.title}</td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{person.email}</td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{person.role}</td>
+                                <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                  <a href="#" className="text-indigo-600 hover:text-indigo-900">
+                                    Edit
+                                  </a>
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
                       </div>
                     </div>
                   </div>
-                  <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
+                </div>
+                  {/* <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
                     <button
                       type="submit"
                       className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     >
                       Save
                     </button>
-                  </div>
+                  </div> */}
                 </div>
             </div>
 
-            <div className="md:col-span-1">
+            <div className="md:col-span-full">
               {/* <form action="#" method="POST"> */}
                 <div className="shadow overflow-hidden sm:rounded-md">
                   <div className="px-4 py-5 bg-white sm:p-6">
