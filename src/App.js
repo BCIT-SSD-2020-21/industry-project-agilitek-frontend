@@ -12,9 +12,10 @@ import {
 function App() {
   return (
    <>
+   
     <Router>
-    {/* <div className="bg-gray-800 pb-32">
-      <Navbar/> */}
+    <div className="bg-gray-800 pb-32">
+      <Navbar/>
       <Switch>
         <Route path="/workflow">
           <></>
@@ -23,7 +24,7 @@ function App() {
           <MainPage></MainPage>
         </Route>
       </Switch>
-      {/* </div> */}
+      </div>
     </Router>
    </>
   );
