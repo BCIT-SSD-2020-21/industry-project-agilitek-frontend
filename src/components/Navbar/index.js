@@ -2,6 +2,12 @@ import React from 'react'
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+  } from "react-router-dom";
 import UserForm from '../UserForm'
 
 
@@ -16,7 +22,6 @@ function classNames(...classes) {
     return (
         <>
     <div className="bg-gray-800 pb-32">
-
         <Disclosure as="nav" className="bg-gray-800">
           {({ open }) => (
             <>
@@ -33,24 +38,18 @@ function classNames(...classes) {
                       </div>
                       <div className="hidden md:block">
                         <div className="ml-10 flex items-baseline space-x-4">
-                          {navigation.map((item, itemIdx) =>
-                            itemIdx === 0 ? (
-                              <Fragment key={item}>
+                              <Fragment>
                                 {/* Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" */}
-                                <a href="#" className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">
-                                  {item}
+                                <a href="" className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">
+                                    <Link to="/">Dashboard</Link>
                                 </a>
                               </Fragment>
-                            ) : (
-                              <a
-                                key={item}
-                                href="#"
-                                className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                              >
-                                {item}
-                              </a>
-                            )
-                          )}
+                              <Fragment>
+                                {/* Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" */}
+                                <a href="" className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">
+                                    <Link to="/workflow">Work Flows</Link>
+                                </a>
+                              </Fragment>
                         </div>
                       </div>
                     </div>
@@ -186,9 +185,6 @@ function classNames(...classes) {
             <h1 className="text-3xl font-bold text-white">Dashboard</h1>
           </div>
         </header>
-
-        
-        
         </div>
         </>
 
