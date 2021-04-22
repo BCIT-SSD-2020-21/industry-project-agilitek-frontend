@@ -1,7 +1,7 @@
 const fetch = require('node-fetch');
 const { URLSearchParams } = require('url');
 
-(async () => {
+module.exports = async () => {
     try {
         // Setup body object
         const params = new URLSearchParams();
@@ -31,4 +31,4 @@ const { URLSearchParams } = require('url');
     } catch (error) {
         throw Error(`Error while getting an OAuth 2.0 token: ${error}`);
     }
-})();
+};
