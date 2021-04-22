@@ -25,10 +25,7 @@ module.exports = function () {
             );
             const data = await res.json();
 
-            // Check if data is undefined
-            if (data) {
-                return data.access_token;
-            }
+            return data;
         } catch (error) {
             throw Error(`Error while getting an OAuth 2.0 token: ${error}`);
         }
