@@ -9,7 +9,7 @@ module.exports = function () {
             params.append('username', process.env.USERNAME);
             params.append(
                 'password',
-                process.env.PASSWORDprocess.env.SECURITY_TOKEN
+                process.env.PASSWORD + process.env.SECURITY_TOKEN
             );
             params.append('grant_type', process.env.GRANT_TYPE);
             params.append('client_id', process.env.CLIENT_ID);
