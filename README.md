@@ -68,6 +68,12 @@ TBD with input from team
 
 ![](https://i.imgur.com/Gx9cBal.png)
 
+### Mockup
+
+[Figma Mockup](https://www.figma.com/file/LygDwPwX36r9qQos5ivEKh/Agilitek-Data-Fan-Platform?node-id=0%3A1)
+
+![](https://i.imgur.com/SivzG0t.png)
+
 ## :tada: Credits
 
 Created by:
