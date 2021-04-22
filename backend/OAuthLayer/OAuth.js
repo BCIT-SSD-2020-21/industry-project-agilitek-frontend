@@ -4,7 +4,7 @@ module.exports = async () => {
     try {
         const body = {
             username: process.env.USERNAME,
-            password: process.env.PASSWORD,
+            password: `${process.env.PASSWORD}${process.env.SECURITY_TOKEN}`,
             grant_type: process.env.GRANT_TYPE,
             client_id: process.env.CLIENT_ID,
             client_secret: process.env.CLIENT_SECRET,
