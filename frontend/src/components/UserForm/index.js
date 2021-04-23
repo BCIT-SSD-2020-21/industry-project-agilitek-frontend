@@ -1,15 +1,27 @@
 import React, { useState, useEffect } from "react"
+import { getSalesForceFlow } from "../../api/network"
+
+const people = [
+  {
+    name: "Jane Cooper",
+    title: "Regional Paradigm Technician",
+    role: "Admin",
+    email: "jane.cooper@example.com",
+  },
+  // More people...
+]
 
 export default function UserForm() {
-  const people = [
-    {
-      name: "Jane Cooper",
-      title: "Regional Paradigm Technician",
-      role: "Admin",
-      email: "jane.cooper@example.com",
-    },
-    // More people...
-  ]
+  const [options, setOptions] = useState([])
+
+  // fetch the salesforce workflow
+  useEffect(() => {
+    // make a req to salesforce flow endpoint]
+    ;(async () => {
+      const res = await getSalesForceFlow()
+      setOptions(res)
+    })()
+  }, [])
 
   return (
     <>
@@ -144,6 +156,7 @@ export default function UserForm() {
                     />
                   </div>
 
+                  {/* SELECT SALESFORCE FLOWS */}
                   <div className="col-span-6 sm:col-span-3">
                     <label
                       htmlFor="country"
@@ -157,9 +170,9 @@ export default function UserForm() {
                       autoComplete="country"
                       className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     >
-                      <option>Create Opportunity</option>
-                      <option></option>
-                      <option></option>
+                      {options.map((option, idx) => {
+                        return <option key={idx}>{option.label}</option>
+                      })}
                     </select>
                   </div>
                 </div>
