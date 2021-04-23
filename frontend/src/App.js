@@ -1,26 +1,26 @@
-import React from "react"
-import Navbar from "./components/Navbar/Navbar"
-import DashboardPage from "./Pages/DashboardPage"
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom"
+import React from "react";
+
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import CreateWorkflow from "./Pages/CreateWorkflow";
+import Landing from "./Pages/Landing";
 
 function App() {
   return (
     <>
       <Router>
-        <div className="bg-gray-800 pb-32">
-          <Navbar />
-          <Switch>
-            <Route exact path="/">
-              <DashboardPage></DashboardPage>
-            </Route>
-            <Route path="/workflow">
-              <></>
-            </Route>
-          </Switch>
-        </div>
+        {/* <div className="bg-gray-800 pb-32"> */}
+        <Switch>
+          <Route path="/create">
+            <CreateWorkflow />
+          </Route>
+          <Route exact path="/">
+            <Landing />
+          </Route>
+        </Switch>
+        {/* </div> */}
       </Router>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

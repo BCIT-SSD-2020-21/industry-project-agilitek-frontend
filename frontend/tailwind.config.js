@@ -1,12 +1,17 @@
-  // tailwind.config.js
-  module.exports = {
-    purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
-     darkMode: false, // or 'media' or 'class'
-     theme: {
-       extend: {},
-     },
-     variants: {
-       extend: {},
-     },
-     plugins: [],
-   }
+// tailwind.config.js
+const colors = require("tailwindcss/colors");
+module.exports = {
+  purge: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
+  darkMode: false, // or 'media' or 'class'
+  theme: {
+    extend: {
+      colors: {
+        cyan: colors.cyan,
+      },
+    },
+  },
+  variants: {
+    extend: {},
+  },
+  plugins: [require("@tailwindcss/forms")],
+};
