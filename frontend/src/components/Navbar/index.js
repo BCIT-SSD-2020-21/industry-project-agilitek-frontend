@@ -40,15 +40,6 @@ export default function Navbar() {
                               <Link to="/">Dashboard</Link>
                             </a>
                           </Fragment>
-                          <Fragment>
-                            {/* Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" */}
-                            <a
-                              href=""
-                              className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
-                            >
-                              <Link to="/config">WorkFlow Configuration</Link>
-                            </a>
-                          </Fragment>
                         </div>
                       </div>
                     </div>
