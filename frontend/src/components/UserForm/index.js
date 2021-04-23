@@ -14,9 +14,7 @@ const people = [
 export default function UserForm() {
   const [options, setOptions] = useState([])
 
-  // fetch the salesforce workflow
   useEffect(() => {
-    // make a req to salesforce flow endpoint]
     ;(async () => {
       const res = await getSalesForceFlow()
       setOptions(res)
@@ -61,7 +59,7 @@ export default function UserForm() {
                       type="submit"
                       className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     >
-                      Run Query
+                      Test Query
                     </button>
                     {/* </div> */}
                   </div>
@@ -182,7 +180,7 @@ export default function UserForm() {
                   type="submit"
                   className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
-                  Save
+                  Save Configuration
                 </button>
               </div>
             </div>
