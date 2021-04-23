@@ -13,6 +13,15 @@ export async function getAllWorkflows() {
   }
 }
 
+// Create a Workflow
+export async function createWorkflow() {
+  try {
+    const res = await axios.post(`${url}/myworkflows`)
+    return res.data
+  } catch (err) {
+    console.log(err)
+  }
+}
 // Dashboard: Get user workflow by id
 export async function getWorkflow(id) {
   try {
@@ -23,10 +32,10 @@ export async function getWorkflow(id) {
   }
 }
 
-// Create a Workflow
-export async function createWorkflow() {
+// Delete a Workflow
+export async function deleteWorkflow(id) {
   try {
-    const res = await axios.post(`${url}/myworkflows/${id}`)
+    const res = await axios.delete(`${url}/myworkflows/${id}`)
     return res.data
   } catch (err) {
     console.log(err)
