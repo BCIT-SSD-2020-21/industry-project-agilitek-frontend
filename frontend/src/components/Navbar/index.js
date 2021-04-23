@@ -1,27 +1,20 @@
-import React from 'react'
-import { Fragment } from 'react'
-import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link
-  } from "react-router-dom";
-import UserForm from '../UserForm'
-
+import React from "react"
+import { Fragment } from "react"
+import { Disclosure, Menu, Transition } from "@headlessui/react"
+import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline"
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom"
+import UserForm from "../UserForm"
 
 export default function Navbar() {
+  const navigation = ["Dashboard", "Work Flows"]
+  const profile = ["Your Profile", "Settings", "Sign out"]
 
-const navigation = ['Dashboard', 'Work Flows']
-const profile = ['Your Profile', 'Settings', 'Sign out']
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
-}
-    return (
-        <>
-    <div className="bg-gray-800 pb-32">
+  function classNames(...classes) {
+    return classes.filter(Boolean).join(" ")
+  }
+  return (
+    <>
+      <div className="bg-gray-800 pb-32">
         <Disclosure as="nav" className="bg-gray-800">
           {({ open }) => (
             <>
@@ -38,18 +31,15 @@ function classNames(...classes) {
                       </div>
                       <div className="hidden md:block">
                         <div className="ml-10 flex items-baseline space-x-4">
-                              <Fragment>
-                                {/* Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" */}
-                                <a href="" className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">
-                                    <Link to="/">Dashboard</Link>
-                                </a>
-                              </Fragment>
-                              <Fragment>
-                                {/* Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" */}
-                                <a href="" className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">
-                                    <Link to="/config">WorkFlow Configuration</Link>
-                                </a>
-                              </Fragment>
+                          <Fragment>
+                            {/* Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" */}
+                            <a
+                              href=""
+                              className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
+                            >
+                              <Link to="/">Dashboard</Link>
+                            </a>
+                          </Fragment>
                         </div>
                       </div>
                     </div>
@@ -66,7 +56,9 @@ function classNames(...classes) {
                             <>
                               <div>
                                 <Menu.Button className="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
-                                  <span className="sr-only">Open user menu</span>
+                                  <span className="sr-only">
+                                    Open user menu
+                                  </span>
                                   <img
                                     className="h-8 w-8 rounded-full"
                                     src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
@@ -94,8 +86,8 @@ function classNames(...classes) {
                                         <a
                                           href="#"
                                           className={classNames(
-                                            active ? 'bg-gray-100' : '',
-                                            'block px-4 py-2 text-sm text-gray-700'
+                                            active ? "bg-gray-100" : "",
+                                            "block px-4 py-2 text-sm text-gray-700"
                                           )}
                                         >
                                           {item}
@@ -117,7 +109,10 @@ function classNames(...classes) {
                         {open ? (
                           <XIcon className="block h-6 w-6" aria-hidden="true" />
                         ) : (
-                          <MenuIcon className="block h-6 w-6" aria-hidden="true" />
+                          <MenuIcon
+                            className="block h-6 w-6"
+                            aria-hidden="true"
+                          />
                         )}
                       </Disclosure.Button>
                     </div>
@@ -131,7 +126,10 @@ function classNames(...classes) {
                     itemIdx === 0 ? (
                       <Fragment key={item}>
                         {/* Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" */}
-                        <a href="#" className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium">
+                        <a
+                          href="#"
+                          className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
+                        >
                           {item}
                         </a>
                       </Fragment>
@@ -156,8 +154,12 @@ function classNames(...classes) {
                       />
                     </div>
                     <div className="ml-3">
-                      <div className="text-base font-medium leading-none text-white">Tom Cook</div>
-                      <div className="text-sm font-medium leading-none text-gray-400">tom@example.com</div>
+                      <div className="text-base font-medium leading-none text-white">
+                        Tom Cook
+                      </div>
+                      <div className="text-sm font-medium leading-none text-gray-400">
+                        tom@example.com
+                      </div>
                     </div>
                     <button className="ml-auto bg-gray-800 flex-shrink-0 p-1 text-gray-400 rounded-full hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                       <span className="sr-only">View notifications</span>
@@ -185,10 +187,7 @@ function classNames(...classes) {
             <h1 className="text-3xl font-bold text-white">Dashboard</h1>
           </div>
         </header>
-        </div>
-        </>
-    )
+      </div>
+    </>
+  )
 }
-
-
-
