@@ -1,5 +1,5 @@
-const fetch = require('node-fetch');
 const qs = require('qs');
+const fetch = require('node-fetch');
 
 module.exports = function () {
     async function getOAuthToken() {
