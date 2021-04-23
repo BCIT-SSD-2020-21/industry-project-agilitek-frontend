@@ -3,7 +3,6 @@ import { Fragment } from "react"
 import { Disclosure, Menu, Transition } from "@headlessui/react"
 import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline"
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom"
-import UserForm from "../UserForm"
 
 export default function Navbar() {
   const navigation = ["Dashboard", "Work Flows"]
