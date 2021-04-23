@@ -17,7 +17,7 @@ export async function getSalesForceFlow() {
     const res = await axios.get(
       "https://jzqdyrxgy2.execute-api.us-east-1.amazonaws.com/prod/salesforceflows"
     )
-    return res.data
+    return res.data.actions
   } catch (err) {
     console.log(err)
   }
