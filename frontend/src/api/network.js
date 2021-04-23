@@ -1,5 +1,5 @@
-import axios from "axios";
-import React, { useState, useEffect, useContext, createContext } from "react";
+import axios from "axios"
+import React, { useState, useEffect, useContext, createContext } from "react"
 
 // Dashboard: Get user current workflows
 export function getCurrentWorkFlows(id) {
@@ -8,18 +8,19 @@ export function getCurrentWorkFlows(id) {
       "https://jzqdyrxgy2.execute-api.us-east-1.amazonaws.com/prod/myworkflows"
     )
     .then((res) => {
-      return res.data;
-    });
+      return res.data
+    })
 }
 // UseEffect/PageLoad add new workflow: Request for input list of specific Workflow
-export function addSalesForceFlow() {
-  axios
-    .get(
+export async function getSalesForceFlow() {
+  try {
+    const res = await axios.get(
       "https://jzqdyrxgy2.execute-api.us-east-1.amazonaws.com/prod/salesforceflows"
     )
-    .then((res) => {
-      return res.data;
-    });
+    return res.data
+  } catch (err) {
+    console.log(err)
+  }
 }
 // onAction/Button: Need a request to send the SQL query as well as well as the workflow &&
 //    request to store new workflow in data in database
@@ -31,8 +32,8 @@ export function setQuery(name, query, workFlow) {
       // workFlow
     )
     .then((res) => {
-      return res.data;
-    });
+      return res.data
+    })
 
   axios
     .post(
@@ -42,6 +43,6 @@ export function setQuery(name, query, workFlow) {
       // workflow
     )
     .then((res) => {
-      return res.data;
-    });
+      return res.data
+    })
 }
