@@ -22,7 +22,8 @@ export default function UserForm() {
     })()
   }, [])
 
-  // Submit Sql Query and hit test database
+  // Makes a call to db to return query results
+  const submit = () => {}
 
   return (
     <>
