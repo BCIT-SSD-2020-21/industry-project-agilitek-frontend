@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { getSalesForceFlow } from "../../api/network"
+import { getSalesForceFlow, setQuery } from "../../api/network"
 
 const people = [
   {
@@ -13,6 +13,7 @@ const people = [
 
 export default function UserForm() {
   const [options, setOptions] = useState([])
+  const [query, setQuery] = useState("")
 
   useEffect(() => {
     ;(async () => {
@@ -20,6 +21,8 @@ export default function UserForm() {
       setOptions(res)
     })()
   }, [])
+
+  // Submit Sql Query and hit test database
 
   return (
     <>
@@ -35,35 +38,38 @@ export default function UserForm() {
             {/* <form action="#" method="POST"> */}
             <div className="shadow overflow-hidden sm:rounded-md">
               <div className="px-4 py-5 bg-white sm:p-6">
-                <div className="grid grid-cols-6 gap-6">
-                  <div className="col-span-6 sm:col-span-4">
-                    <label
-                      htmlFor="email_address"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      SQL QUERY
-                    </label>
-                    <input
-                      type="text"
-                      name="sql Query"
-                      id="email_address"
-                      autoComplete="email"
-                      placeholder="SQL Query"
-                      className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                    />
-                  </div>
+                <form onSubmit={submit}>
+                  <div className="grid grid-cols-6 gap-6">
+                    <div className="col-span-6 sm:col-span-4">
+                      <label
+                        htmlFor="email_address"
+                        className="block text-sm font-medium text-gray-700"
+                      >
+                        SQL QUERY
+                      </label>
+                      <input
+                        type="text"
+                        name="query"
+                        id="query"
+                        placeholder="SQL Query"
+                        className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                        value={query}
+                        onChange={(e) => setQuery(e.target.value)}
+                      />
+                    </div>
 
-                  <div className="col-span-full sm:col-span-full">
-                    {/* <div className="px-4 py-3 bg-gray-50 text-right sm:px-6"> */}
-                    <button
-                      type="submit"
-                      className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    >
-                      Test Query
-                    </button>
-                    {/* </div> */}
+                    <div className="col-span-full sm:col-span-full">
+                      {/* <div className="px-4 py-3 bg-gray-50 text-right sm:px-6"> */}
+                      <button
+                        type="submit"
+                        className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                      >
+                        Test Query
+                      </button>
+                      {/* </div> */}
+                    </div>
                   </div>
-                </div>
+                </form>
               </div>
               <div className="flex flex-col">
                 <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
