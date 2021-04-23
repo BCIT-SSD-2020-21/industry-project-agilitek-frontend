@@ -68,6 +68,78 @@ TBD with input from team
 
 ![](https://i.imgur.com/Gx9cBal.png)
 
+### Mockup
+
+[Figma Mockup](https://www.figma.com/file/LygDwPwX36r9qQos5ivEKh/Agilitek-Data-Fan-Platform?node-id=0%3A1)
+
+![](https://i.imgur.com/SivzG0t.png)
+
+# SSD-Agilitek Fan Data Platfrom API Documentation
+
+## Salesforce Flow
+
+### `GET`
+
+### GET All the available custom flows from Salesforce
+
+### `/salesforceflows`
+
+### Sample response:
+
+{
+
+    "actions" : [
+        {
+            "label": "Create Opportunities",
+            "name": "Create_Opportunities",
+            "type": "FLOW",
+            "url": "/services/data/v51.0/actions/custom/flow/Create_Opportunities"
+        },
+        {
+            "label": "Create Opportunity",
+            "name": "Create_Opportunity",
+            "type": "FLOW",
+            "url": "/services/data/v51.0/actions/custom/flow/Create_Opportunity"
+        }
+    ]
+
+}
+
+<hr>
+
+### `POST`
+
+### Triggers custom Salesforce flows
+
+### `/salesforceflows/flow`
+
+### Sample body:
+
+    {
+        "inputs": [
+            {
+                "contactId": "0034x000007DXthAAG"
+            }
+        ],
+        "salesforceFlowName: "create_opportunity",
+    }
+
+### Sample response:
+
+    [
+        {
+            "actionName": "Create_Opportunity",
+            "errors": null,
+            "isSuccess": true,
+            "outputValues": {
+                "recordId": null,
+                "Flow__InterviewStatus": "Finished"
+            }
+        }
+    ]
+
+<hr>
+
 ## :tada: Credits
 
 Created by:
