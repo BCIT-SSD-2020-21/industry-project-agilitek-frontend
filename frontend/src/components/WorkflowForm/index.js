@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { getSalesForceFlow, setQuery } from "../../api/network"
+import { createWorkflow, getSalesForceFlow, setQuery } from "../../api/network"
 import { Switch } from "@headlessui/react"
 
 function classNames(...classes) {
@@ -18,7 +18,13 @@ const people = [
 
 export default function UserForm() {
   const [options, setOptions] = useState([])
-  const [query, setQuery] = useState("")
+  const [formData, setFormData] = useState({
+    name: "",
+    desc: "",
+    flowUrl: "",
+    query: "",
+    active: true,
+  })
   const [enabled, setEnabled] = useState(false)
 
   useEffect(() => {
@@ -29,7 +35,11 @@ export default function UserForm() {
   }, [])
 
   // Makes a call to db to return query results
-  const submit = () => {}
+  const submit = async () => {
+    const res = await createWorkflow()
+  }
+
+  const { name, desc, flowUrl, query, active } = formData
 
   return (
     <div className="m-8">
@@ -94,7 +104,7 @@ export default function UserForm() {
                       id="query"
                       placeholder="Name.."
                       className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                      value={query}
+                      value={name}
                       onChange={(e) => setQuery(e.target.value)}
                     />
                   </div>
@@ -149,6 +159,7 @@ export default function UserForm() {
                       name="country"
                       autoComplete="country"
                       className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      value={flowUrl}
                     >
                       {options.map((option, idx) => {
                         return <option key={idx}>{option.label}</option>
