@@ -44,10 +44,8 @@ export default function UserForm() {
   }
 
   const handleSwitch = (e) => {
-    setEnabled(e.target.checked)
-    if (!e.target.checked) {
-      setFormData({ ...formData, active: "" })
-    }
+    setEnabled(e)
+    setFormData({ ...formData, active: e })
   }
 
   const { name, desc, flowUrl, query, active } = formData
@@ -108,20 +106,24 @@ export default function UserForm() {
                   {/* SELECT SALESFORCE FLOWS */}
                   <div className="col-span-6 sm:col-span-3 mt-5">
                     <label
-                      htmlFor="country"
+                      htmlFor="flowUrl"
                       className="block text-sm font-medium text-gray-700"
                     >
                       Choose Workflow
                     </label>
                     <select
-                      id="country"
-                      name="country"
-                      autoComplete="country"
+                      id="flowUrl"
+                      name="flowUrl"
                       className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                       value={flowUrl}
+                      onChange={handleChange}
                     >
                       {options.map((option, idx) => {
-                        return <option key={idx}>{option.label}</option>
+                        return (
+                          <option value={option.url} key={idx}>
+                            {option.label}
+                          </option>
+                        )
                       })}
                     </select>
                   </div>
@@ -130,7 +132,7 @@ export default function UserForm() {
                   <Switch.Group as="div" className="flex items-center">
                     <Switch
                       checked={enabled}
-                      onChange={setEnabled}
+                      onChange={handleSwitch}
                       className={classNames(
                         enabled ? "bg-indigo-600" : "bg-gray-200",
                         "relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
