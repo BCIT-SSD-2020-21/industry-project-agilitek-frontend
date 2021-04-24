@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { createWorkflow, getSalesForceFlow, setQuery } from "../../api/network"
 import { Switch } from "@headlessui/react"
+import { useHistory } from "react-router-dom"
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ")
@@ -17,6 +18,8 @@ const people = [
 ]
 
 export default function UserForm() {
+  const history = useHistory()
+
   const [options, setOptions] = useState([])
   const [formData, setFormData] = useState({
     name: "",
@@ -26,6 +29,7 @@ export default function UserForm() {
     active: true,
   })
   const [enabled, setEnabled] = useState(false)
+  const [processsing, setProcessing] = useState(false)
 
   useEffect(() => {
     ;(async () => {
@@ -38,6 +42,7 @@ export default function UserForm() {
   const submit = async (e) => {
     e.preventDefault()
     await createWorkflow(formData)
+    history.push("/")
   }
 
   const handleChange = (e) => {
@@ -47,6 +52,10 @@ export default function UserForm() {
   const handleSwitch = (e) => {
     setEnabled(e)
     setFormData({ ...formData, active: e })
+  }
+
+  const disableButton = () => {
+    setProcessing(true)
   }
 
   const { name, desc, flowUrl, query } = formData
@@ -161,9 +170,11 @@ export default function UserForm() {
                 <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
                   <button
                     type="submit"
+                    onClick={disableButton}
+                    style={{ backgroundColor: processsing && "grey" }}
                     className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                   >
-                    Save Configuration
+                    {processsing ? "Saving..." : "Save Configuration"}
                   </button>
                 </div>
               </div>
