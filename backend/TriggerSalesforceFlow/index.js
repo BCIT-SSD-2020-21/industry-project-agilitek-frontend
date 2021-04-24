@@ -3,7 +3,7 @@ const fetch = require('node-fetch');
 
 exports.handler = async (event) => {
     // Getting the body
-    const { endpoint, inputs } = event;
+    const { flowUrl, inputs } = event;
     var label = '';
 
     try {
@@ -13,7 +13,7 @@ exports.handler = async (event) => {
 
         // Get flow label
         const getLabelResponse = await fetch(
-            `${process.env.INSTANCE_URL}/services/data/v51.0/actions/custom/flow/${endpoint}`,
+            `${process.env.INSTANCE_URL}${flowUrl}`,
             {
                 method: 'GET',
                 headers: {
@@ -44,7 +44,7 @@ exports.handler = async (event) => {
 
         // Post request to Salesforce API
         const postResponse = await fetch(
-            `${process.env.INSTANCE_URL}/services/data/v51.0/actions/custom/flow/${endpoint}`,
+            `${process.env.INSTANCE_URL}${flowUrl}`,
             {
                 method: 'POST',
                 headers: {
