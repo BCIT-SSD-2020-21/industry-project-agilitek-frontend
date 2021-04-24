@@ -35,8 +35,9 @@ export default function UserForm() {
   }, [])
 
   // Makes a call to db to return query results
-  const submit = async () => {
-    const res = await createWorkflow()
+  const submit = async (e) => {
+    e.preventDefault()
+    await createWorkflow(formData)
   }
 
   const handleChange = (e) => {
@@ -61,112 +62,112 @@ export default function UserForm() {
       <div className="mt-10 sm:mt-0">
         <div className="md:grid md:grid-cols-3 md:gap-6">
           <div className="md:col-span-full">
-            {/* <form action="#" method="POST"> */}
-            <div className="shadow overflow-hidden sm:rounded-md">
-              <div className="px-4 py-5 bg-white sm:p-6">
-                <div className="grid grid-cols-6 gap-6 ">
-                  <div className="col-span-6 sm:col-span-4 mt-5">
-                    <label
-                      htmlFor="email_address"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      Name of the Workflow
-                    </label>
-                    <input
-                      type="text"
-                      name="name"
-                      id="name"
-                      placeholder="Name.."
-                      className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                      value={name}
-                      onChange={handleChange}
-                    />
-                  </div>
-                </div>
-                <div className="grid grid-cols-6 gap-6 ">
-                  <div className="col-span-6 sm:col-span-4 mt-5">
-                    <label
-                      htmlFor="email_address"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      SQL Query
-                    </label>
-                    <input
-                      type="text"
-                      name="query"
-                      id="query"
-                      placeholder="SQL Query"
-                      className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                      value={query}
-                      onChange={handleChange}
-                    />
-                  </div>
-                </div>
-                <div className="grid grid-cols-6 gap-6">
-                  {/* SELECT SALESFORCE FLOWS */}
-                  <div className="col-span-6 sm:col-span-3 mt-5">
-                    <label
-                      htmlFor="flowUrl"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      Choose Workflow
-                    </label>
-                    <select
-                      id="flowUrl"
-                      name="flowUrl"
-                      className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                      value={flowUrl}
-                      onChange={handleChange}
-                    >
-                      {options.map((option, idx) => {
-                        return (
-                          <option value={option.url} key={idx}>
-                            {option.label}
-                          </option>
-                        )
-                      })}
-                    </select>
-                  </div>
-                </div>
-                <div className="col-span-6 sm:col-span-3 mt-5">
-                  <Switch.Group as="div" className="flex items-center">
-                    <Switch
-                      checked={enabled}
-                      onChange={handleSwitch}
-                      className={classNames(
-                        enabled ? "bg-indigo-600" : "bg-gray-200",
-                        "relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                      )}
-                    >
-                      <span className="sr-only">Use setting</span>
-                      <span
-                        aria-hidden="true"
-                        className={classNames(
-                          enabled ? "translate-x-5" : "translate-x-0",
-                          "pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200"
-                        )}
+            <form onSubmit={submit}>
+              <div className="shadow overflow-hidden sm:rounded-md">
+                <div className="px-4 py-5 bg-white sm:p-6">
+                  <div className="grid grid-cols-6 gap-6 ">
+                    <div className="col-span-6 sm:col-span-4 mt-5">
+                      <label
+                        htmlFor="email_address"
+                        className="block text-sm font-medium text-gray-700"
+                      >
+                        Name of the Workflow
+                      </label>
+                      <input
+                        type="text"
+                        name="name"
+                        id="name"
+                        placeholder="Name.."
+                        className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                        value={name}
+                        onChange={handleChange}
                       />
-                    </Switch>
-                    <Switch.Label as="span" className="ml-3">
-                      <span className="text-sm font-medium text-gray-900">
-                        Pause Automation{" "}
-                      </span>
-                    </Switch.Label>
-                  </Switch.Group>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-6 gap-6 ">
+                    <div className="col-span-6 sm:col-span-4 mt-5">
+                      <label
+                        htmlFor="email_address"
+                        className="block text-sm font-medium text-gray-700"
+                      >
+                        SQL Query
+                      </label>
+                      <input
+                        type="text"
+                        name="query"
+                        id="query"
+                        placeholder="SQL Query"
+                        className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                        value={query}
+                        onChange={handleChange}
+                      />
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-6 gap-6">
+                    {/* SELECT SALESFORCE FLOWS */}
+                    <div className="col-span-6 sm:col-span-3 mt-5">
+                      <label
+                        htmlFor="flowUrl"
+                        className="block text-sm font-medium text-gray-700"
+                      >
+                        Choose Workflow
+                      </label>
+                      <select
+                        id="flowUrl"
+                        name="flowUrl"
+                        className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        value={flowUrl}
+                        onChange={handleChange}
+                      >
+                        {options.map((option, idx) => {
+                          return (
+                            <option value={option.url} key={idx}>
+                              {option.label}
+                            </option>
+                          )
+                        })}
+                      </select>
+                    </div>
+                  </div>
+                  <div className="col-span-6 sm:col-span-3 mt-5">
+                    <Switch.Group as="div" className="flex items-center">
+                      <Switch
+                        checked={enabled}
+                        onChange={handleSwitch}
+                        className={classNames(
+                          enabled ? "bg-indigo-600" : "bg-gray-200",
+                          "relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        )}
+                      >
+                        <span className="sr-only">Use setting</span>
+                        <span
+                          aria-hidden="true"
+                          className={classNames(
+                            enabled ? "translate-x-5" : "translate-x-0",
+                            "pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200"
+                          )}
+                        />
+                      </Switch>
+                      <Switch.Label as="span" className="ml-3">
+                        <span className="text-sm font-medium text-gray-900">
+                          Pause Automation{" "}
+                        </span>
+                      </Switch.Label>
+                    </Switch.Group>
+                  </div>
+                </div>
+
+                {/* Dont touch anything below this point */}
+                <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
+                  <button
+                    type="submit"
+                    className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  >
+                    Save Configuration
+                  </button>
                 </div>
               </div>
-
-              {/* Dont touch anything below this point */}
-              <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
-                <button
-                  type="submit"
-                  className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                >
-                  Save Configuration
-                </button>
-              </div>
-            </div>
-            {/* </form> */}
+            </form>
           </div>
         </div>
       </div>
