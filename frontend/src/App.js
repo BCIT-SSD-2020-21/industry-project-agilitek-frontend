@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom"
 import UserDash from "./components/Landing/userDash"
 import CreateWorkflow from "./Pages/CreateWorkflow"
 import Landing from "./Pages/Landing"
-import WorkflowForm from "./components/WorkflowForm/index"
+import WorkflowForm from "./components/WorkflowForm/WorfkflowForm"
 import WorkflowTable from "./components/WorkflowTable/WorkflowTable"
 
 function App() {
