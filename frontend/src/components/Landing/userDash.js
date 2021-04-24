@@ -23,7 +23,6 @@ import {
   OfficeBuildingIcon,
   SearchIcon,
 } from "@heroicons/react/solid"
-import WorkflowTable from "../WorkflowTable/WorkflowTable"
 
 const navigation = [
   { name: "Home", href: "#", icon: HomeIcon, current: true },
@@ -57,7 +56,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ")
 }
 
-export default function UserDash() {
+export default function UserDash({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const history = useHistory()
   return (
@@ -404,8 +403,9 @@ export default function UserDash() {
               </div>
             </div>
           </div>
-          <WorkflowTable />
         </main>
+        {/* <WorkflowForm /> */}
+        {children}
       </div>
     </div>
   )

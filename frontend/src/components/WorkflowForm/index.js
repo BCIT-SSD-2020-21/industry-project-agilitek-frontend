@@ -49,7 +49,7 @@ export default function UserForm() {
     setFormData({ ...formData, active: e })
   }
 
-  const { name, desc, flowUrl, query, active } = formData
+  const { name, desc, flowUrl, query } = formData
 
   return (
     <div className="m-8">
