@@ -1,8 +1,8 @@
-import React from "react";
+import React from "react"
 
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import CreateWorkflow from "./Pages/CreateWorkflow";
-import Landing from "./Pages/Landing";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom"
+import CreateWorkflow from "./Pages/CreateWorkflow"
+import Landing from "./Pages/Landing"
 
 function App() {
   return (
@@ -10,7 +10,7 @@ function App() {
       <Router>
         {/* <div className="bg-gray-800 pb-32"> */}
         <Switch>
-          <Route path="/create">
+          <Route exact path="/create">
             <CreateWorkflow />
           </Route>
           <Route exact path="/">
@@ -20,7 +20,7 @@ function App() {
         {/* </div> */}
       </Router>
     </>
-  );
+  )
 }
 
-export default App;
+export default App
