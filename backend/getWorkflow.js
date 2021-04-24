@@ -5,8 +5,10 @@ exports.handler = (event, context, callback) => {
     const query = `
         SELECT * 
         FROM workflows 
-        WHERE workflowid = ${event.pathParameters.id}
+        WHERE id = ${event.pathParameters.id}
         `;
+    var statusCode = 200;
+    var resBody = {};
 
     const client = new Client(dbConfig);
 
@@ -20,14 +22,25 @@ exports.handler = (event, context, callback) => {
         if (err) {
             callback(err);
         } else {
+            // Check if the data exists in the database
+            if (res.rows[0]) {
+                resBody = res.rows[0];
+            } else {
+                statusCode = 404;
+                resBody = {
+                    errorMessage: 'Data source not found',
+                };
+            }
+
             const response = {
-                statusCode: 200,
-                body: JSON.stringify(res.rows[0]),
+                statusCode,
+                body: JSON.stringify(resBody),
                 headers: {
                     'Access-Control-Allow-Origin': '*',
                     'Access-Control-Allow-Headers': '*',
                 },
             };
+
             callback(null, response);
             client.end();
         }
