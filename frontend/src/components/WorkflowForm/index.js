@@ -39,6 +39,17 @@ export default function UserForm() {
     const res = await createWorkflow()
   }
 
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+  }
+
+  const handleSwitch = (e) => {
+    setEnabled(e.target.checked)
+    if (!e.target.checked) {
+      setFormData({ ...formData, active: "" })
+    }
+  }
+
   const { name, desc, flowUrl, query, active } = formData
 
   return (
@@ -51,41 +62,6 @@ export default function UserForm() {
 
       <div className="mt-10 sm:mt-0">
         <div className="md:grid md:grid-cols-3 md:gap-6">
-          {/* <div className="mt-5 md:mt-0 md:col-span-full">
-            <div className="shadow overflow-hidden sm:rounded-md">
-              <div className="px-4 py-5 bg-white sm:p-6">
-                <div className="grid grid-cols-6 gap-6">
-                  <div className="col-span-6 sm:col-span-4">
-                    <label
-                      htmlFor="email_address"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      SQL QUERY
-                    </label>
-                    <input
-                      type="text"
-                      name="query"
-                      id="query"
-                      placeholder="SQL Query"
-                      className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                      value={query}
-                      onChange={(e) => setQuery(e.target.value)}
-                    />
-                  </div>
-
-                  <div className="col-span-full sm:col-span-full">
-                    <button
-                      type="submit"
-                      className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    >
-                      Test Query
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> */}
-
           <div className="md:col-span-full">
             {/* <form action="#" method="POST"> */}
             <div className="shadow overflow-hidden sm:rounded-md">
@@ -100,12 +76,12 @@ export default function UserForm() {
                     </label>
                     <input
                       type="text"
-                      name="query"
-                      id="query"
+                      name="name"
+                      id="name"
                       placeholder="Name.."
                       className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                       value={name}
-                      onChange={(e) => setQuery(e.target.value)}
+                      onChange={handleChange}
                     />
                   </div>
                 </div>
@@ -124,28 +100,11 @@ export default function UserForm() {
                       placeholder="SQL Query"
                       className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                       value={query}
-                      onChange={(e) => setQuery(e.target.value)}
+                      onChange={handleChange}
                     />
                   </div>
                 </div>
                 <div className="grid grid-cols-6 gap-6">
-                  {/* <div className="col-span-6 sm:col-span-4">
-                    <label
-                      htmlFor="email_address"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      INPUT
-                    </label>
-                    <input
-                      type="text"
-                      name="email_address"
-                      id="email_address"
-                      autoComplete="email"
-                      placeholder="INPUT"
-                      className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                    />
-                  </div> */}
-
                   {/* SELECT SALESFORCE FLOWS */}
                   <div className="col-span-6 sm:col-span-3 mt-5">
                     <label
