@@ -13,7 +13,7 @@ exports.handler = async (event) => {
 
         // Get flow label
         const getLabelResponse = await fetch(
-            `${process.env.INSTANCE_URL}${endpoint}`,
+            `${process.env.INSTANCE_URL}/services/data/v51.0/actions/custom/flow/${endpoint}`,
             {
                 method: 'GET',
                 headers: {
@@ -44,7 +44,7 @@ exports.handler = async (event) => {
 
         // Post request to Salesforce API
         const postResponse = await fetch(
-            `${process.env.INSTANCE_URL}${endpoint}`,
+            `${process.env.INSTANCE_URL}/services/data/v51.0/actions/custom/flow/${endpoint}`,
             {
                 method: 'POST',
                 headers: {
@@ -52,7 +52,11 @@ exports.handler = async (event) => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    inputs: [{ [label]: inputs }],
+                    inputs: [
+                        {
+                            [label]: inputs,
+                        },
+                    ],
                 }),
             }
         );
