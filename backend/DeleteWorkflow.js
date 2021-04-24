@@ -4,7 +4,7 @@ const { dbConfig } = require('/opt/config');
 exports.handler = (event, context, callback) => {
     const query = `
         DELETE FROM workflows 
-        WHERE workflowid = ${event.pathParameters.id};
+        WHERE id = ${event.pathParameters.id};
         `;
 
     const client = new Client(dbConfig);
@@ -15,10 +15,12 @@ exports.handler = (event, context, callback) => {
         }
     });
 
-    client.query(query, (err) => {
+    client.query(query, (err, res) => {
         if (err) {
             callback(err);
         } else {
+            console.log(res);
+
             const response = {
                 statusCode: 204,
                 headers: {
