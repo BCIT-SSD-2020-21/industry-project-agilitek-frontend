@@ -32,6 +32,16 @@ export async function getWorkflow(id) {
   }
 }
 
+// Update Workflow
+export async function updateWorkflow(id, data) {
+  try {
+    const res = await axios.put(`${url}/myworkflows/${id}`, data)
+    return res.data
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 // Delete a Workflow
 export async function deleteWorkflow(id) {
   try {
