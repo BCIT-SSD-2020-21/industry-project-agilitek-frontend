@@ -34,7 +34,6 @@ export default function UserForm() {
     query: "",
     active: true,
   })
-  const [enabled, setEnabled] = useState(false)
   const [processsing, setProcessing] = useState(false)
 
   useEffect(() => {
@@ -46,11 +45,10 @@ export default function UserForm() {
 
   useEffect(() => {
     // if params exists meaning it's not undefined then
-    ;(async () => {
-      if (id) {
+    if (id) {
+      ;(async () => {
         // get workflow by Id
         const res = await getWorkflow(id)
-        console.log(res)
         setFormData({
           name: res.name,
           desc: res.desc,
@@ -58,9 +56,8 @@ export default function UserForm() {
           query: res.sql_query,
           active: res.active,
         })
-      }
-      // populate formData
-    })()
+      })()
+    }
   }, [])
 
   // Makes a call to db to return query results
@@ -184,7 +181,7 @@ export default function UserForm() {
                       </Switch>
                       <Switch.Label as="span" className="ml-3">
                         <span className="text-sm font-medium text-gray-900">
-                          Pause Automation{" "}
+                          {active ? "Automation active" : "Automation paused"}
                         </span>
                       </Switch.Label>
                     </Switch.Group>
