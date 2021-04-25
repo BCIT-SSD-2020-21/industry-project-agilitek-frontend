@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { createWorkflow, getSalesForceFlow, setQuery } from "../../api/network"
 import { Switch } from "@headlessui/react"
-import { useHistory } from "react-router-dom"
+import { useHistory, useParams } from "react-router-dom"
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ")
@@ -19,6 +19,7 @@ const people = [
 
 export default function UserForm() {
   const history = useHistory()
+  const { id } = useParams()
 
   const [options, setOptions] = useState([])
   const [formData, setFormData] = useState({
@@ -36,6 +37,12 @@ export default function UserForm() {
       const res = await getSalesForceFlow()
       setOptions(res)
     })()
+  }, [])
+
+  useEffect(() => {
+    // if params exists meaning it's not undefined then
+    // get worfkflow by Id
+    // populate formData
   }, [])
 
   // Makes a call to db to return query results
