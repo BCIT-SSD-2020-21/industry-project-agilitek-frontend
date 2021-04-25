@@ -12,11 +12,14 @@ function App() {
     <Router>
       {/* <div className="bg-gray-800 pb-32"> */}
       <Switch>
+        <Route exact path="/">
+          <UserDash children={<WorkflowTable />} />
+        </Route>
         <Route exact path="/create">
           <UserDash children={<WorkflowForm />} />
         </Route>
-        <Route exact path="/">
-          <UserDash children={<WorkflowTable />} />
+        <Route exact path="/configure/:id">
+          <UserDash children={<WorkflowForm />} />
         </Route>
       </Switch>
       {/* </div> */}
