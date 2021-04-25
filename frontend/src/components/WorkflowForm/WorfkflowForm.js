@@ -4,6 +4,7 @@ import {
   getSalesForceFlow,
   getWorkflow,
   setQuery,
+  updateWorkflow,
 } from "../../api/network"
 import { Switch } from "@headlessui/react"
 import { useHistory, useParams } from "react-router-dom"
@@ -44,10 +45,8 @@ export default function UserForm() {
   }, [])
 
   useEffect(() => {
-    // if params exists meaning it's not undefined then
-    if (id) {
-      ;(async () => {
-        // get workflow by Id
+    ;(async () => {
+      if (id) {
         const res = await getWorkflow(id)
         setFormData({
           name: res.name,
@@ -56,14 +55,18 @@ export default function UserForm() {
           query: res.sql_query,
           active: res.active,
         })
-      })()
-    }
+      }
+    })()
   }, [])
 
   // Makes a call to db to return query results
   const submit = async (e) => {
     e.preventDefault()
-    await createWorkflow(formData)
+    if (id) {
+      await updateWorkflow(id, formData)
+    } else {
+      await createWorkflow(formData)
+    }
     history.push("/")
   }
 
