@@ -1,6 +1,6 @@
 import { Fragment, useState } from "react";
 import { Dialog, Menu, Transition } from "@headlessui/react";
-import agilitek from "../../images/agilitek.png";
+import agilitek from "../../images/agilitek.svg";
 import ProfileDrop from "./profileDrop";
 import {
   BellIcon,
@@ -110,7 +110,7 @@ export default function CreateWorkHeader() {
                 </div>
               </Transition.Child>
               <div className="flex-shrink-0 flex items-center px-4">
-                <img className="h-8 w-auto" src="" alt="Agilitek" />
+                <img className="h-8 w-auto" src={agilitek} alt="Agilitek" />
               </div>
               <nav
                 className="mt-5 flex-shrink-0 h-full divide-y divide-cyan-800 overflow-y-auto"

@@ -1,7 +1,7 @@
-import { Fragment, useState } from "react"
-import { Dialog, Menu, Transition } from "@headlessui/react"
-import { useHistory } from "react-router-dom"
-import agilitek from "../../images/agilitek.png"
+import { Fragment, useState } from "react";
+import { Dialog, Menu, Transition } from "@headlessui/react";
+import { useHistory } from "react-router-dom";
+import agilitek from "../../images/agilitek.svg";
 import {
   BellIcon,
   ClockIcon,
@@ -14,7 +14,7 @@ import {
   ShieldCheckIcon,
   UserGroupIcon,
   XIcon,
-} from "@heroicons/react/outline"
+} from "@heroicons/react/outline";
 import {
   CashIcon,
   CheckCircleIcon,
@@ -22,18 +22,18 @@ import {
   ChevronRightIcon,
   OfficeBuildingIcon,
   SearchIcon,
-} from "@heroicons/react/solid"
+} from "@heroicons/react/solid";
 
 const navigation = [
   { name: "Home", href: "#", icon: HomeIcon, current: true },
   { name: "History", href: "#", icon: ClockIcon, current: false },
   { name: "Statistics", href: "#", icon: DocumentReportIcon, current: false },
-]
+];
 const secondaryNavigation = [
   { name: "Settings", href: "#", icon: CogIcon },
   { name: "Help", href: "#", icon: QuestionMarkCircleIcon },
   { name: "Privacy", href: "#", icon: ShieldCheckIcon },
-]
+];
 const workflows = [
   {
     id: 1,
@@ -45,20 +45,20 @@ const workflows = [
     datetime: "2020-07-11",
   },
   // More transactions...
-]
+];
 const statusStyles = {
   success: "bg-green-100 text-green-800",
   processing: "bg-yellow-100 text-yellow-800",
   failed: "bg-gray-100 text-gray-800",
-}
+};
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(" ")
+  return classes.filter(Boolean).join(" ");
 }
 
 export default function UserDash({ children }) {
-  const [sidebarOpen, setSidebarOpen] = useState(false)
-  const history = useHistory()
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const history = useHistory();
   return (
     <div className="h-screen flex overflow-hidden bg-gray-100">
       <Transition.Root show={sidebarOpen} as={Fragment}>
@@ -170,7 +170,7 @@ export default function UserDash({ children }) {
           <div className="flex flex-col flex-grow bg-cyan-700 pt-5 pb-4 overflow-y-auto">
             <div className="flex items-center flex-shrink-0 px-4">
               {/* TODO: fix logo  */}
-              <img className="h-8 w-30" src={agilitek} alt="Easywire logo" />
+              <img className="h-8 w-30" src={agilitek} alt="Agilitek Logo" />
             </div>
             <nav
               className="mt-5 flex-1 flex flex-col divide-y divide-cyan-800 overflow-y-auto"
@@ -408,5 +408,5 @@ export default function UserDash({ children }) {
         {children}
       </div>
     </div>
-  )
+  );
 }
