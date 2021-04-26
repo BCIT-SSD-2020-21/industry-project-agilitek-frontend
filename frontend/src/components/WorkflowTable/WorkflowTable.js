@@ -9,7 +9,6 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ")
 }
 
-
 const statusStyles = {
   true: "bg-green-100 text-green-800",
   false: "bg-red-100 text-red-800",
@@ -43,7 +42,6 @@ const WorkflowTable = () => {
       setResData(res)
       const data = res.slice( offset, (offset + limit) )
       setWorkflows(data)
-  
       setTimeout(() => setLoading(false), 1000)
     })()
   }
@@ -59,7 +57,6 @@ const WorkflowTable = () => {
     if (resData.length > (offset + limit)) {
       setOffset( (offset + 5) )
     }
-    // if((offset + 5) >= workflows.length) 
     console.log(offset)
   }
 
