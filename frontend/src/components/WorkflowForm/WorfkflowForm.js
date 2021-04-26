@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react"
-import { createWorkflow, getSalesForceFlow, setQuery } from "../../api/network"
+import {
+  createWorkflow,
+  getSalesForceFlow,
+  getWorkflow,
+  setQuery,
+  updateWorkflow,
+} from "../../api/network"
 import { Switch } from "@headlessui/react"
-import { useHistory } from "react-router-dom"
+import { useHistory, useParams } from "react-router-dom"
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ")
@@ -19,6 +25,7 @@ const people = [
 
 export default function UserForm() {
   const history = useHistory()
+  const { id } = useParams()
 
   const [options, setOptions] = useState([])
   const [formData, setFormData] = useState({
@@ -28,7 +35,6 @@ export default function UserForm() {
     query: "",
     active: true,
   })
-  const [enabled, setEnabled] = useState(false)
   const [processsing, setProcessing] = useState(false)
 
   useEffect(() => {
@@ -38,10 +44,29 @@ export default function UserForm() {
     })()
   }, [])
 
+  useEffect(() => {
+    ;(async () => {
+      if (id) {
+        const res = await getWorkflow(id)
+        setFormData({
+          name: res.name,
+          desc: res.desc,
+          flowUrl: res.flow_url,
+          query: res.sql_query,
+          active: res.active,
+        })
+      }
+    })()
+  }, [])
+
   // Makes a call to db to return query results
   const submit = async (e) => {
     e.preventDefault()
-    await createWorkflow(formData)
+    if (id) {
+      await updateWorkflow(id, formData)
+    } else {
+      await createWorkflow(formData)
+    }
     history.push("/")
   }
 
@@ -50,7 +75,6 @@ export default function UserForm() {
   }
 
   const handleSwitch = (e) => {
-    setEnabled(e)
     setFormData({ ...formData, active: e })
   }
 
@@ -58,7 +82,7 @@ export default function UserForm() {
     setProcessing(true)
   }
 
-  const { name, desc, flowUrl, query } = formData
+  const { name, desc, flowUrl, query, active } = formData
 
   return (
     <div className="m-8">
@@ -128,6 +152,7 @@ export default function UserForm() {
                         value={flowUrl}
                         onChange={handleChange}
                       >
+                        <option>Choose Workflow...</option>
                         {options.map((option, idx) => {
                           return (
                             <option value={option.url} key={idx}>
@@ -141,10 +166,10 @@ export default function UserForm() {
                   <div className="col-span-6 sm:col-span-3 mt-5">
                     <Switch.Group as="div" className="flex items-center">
                       <Switch
-                        checked={enabled}
+                        checked={active}
                         onChange={handleSwitch}
                         className={classNames(
-                          enabled ? "bg-indigo-600" : "bg-gray-200",
+                          active ? "bg-indigo-600" : "bg-gray-200",
                           "relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                         )}
                       >
@@ -152,14 +177,14 @@ export default function UserForm() {
                         <span
                           aria-hidden="true"
                           className={classNames(
-                            enabled ? "translate-x-5" : "translate-x-0",
+                            active ? "translate-x-5" : "translate-x-0",
                             "pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200"
                           )}
                         />
                       </Switch>
                       <Switch.Label as="span" className="ml-3">
                         <span className="text-sm font-medium text-gray-900">
-                          Pause Automation{" "}
+                          {active ? "Automation active" : "Automation paused"}
                         </span>
                       </Switch.Label>
                     </Switch.Group>
