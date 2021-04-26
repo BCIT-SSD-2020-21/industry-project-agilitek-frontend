@@ -38,7 +38,7 @@ const WorkflowTable = () => {
   const fetchWorkflows = async() => {
     ;(async () => {
       const res = await getAllWorkflows()
-      const data = res.slice( Math.max(0, offset), Math.max(5, (offset + limit)) )
+      const data = res.slice( offset, (offset + limit) )
   
       setWorkflows(data)
   
