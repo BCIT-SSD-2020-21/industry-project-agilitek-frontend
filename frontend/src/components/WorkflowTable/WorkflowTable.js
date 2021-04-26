@@ -31,15 +31,17 @@ const WorkflowTable = () => {
 
   const [workflows, setWorkflows] = useState([])
   const [loading, setLoading] = useState(true)
-  const [limit, setLimit] = useState(10)
+  const [limit, setLimit] = useState(5)
   const [offset, setOffset] = useState(0)
 
   const handlePrevClicked = async() => {
     console.log('previous clicked')
+    setOffset(offset - 1)
   }
 
   const handleNextClicked = async() => {
     console.log('next clicked')
+    setOffset(offset + 5)
   }
 
   // fetch User Data
@@ -53,6 +55,17 @@ const WorkflowTable = () => {
       setTimeout(() => setLoading(false), 1000)
     })()
   }, [])
+
+  useEffect(() => {
+    ;(async () => {
+      const res = await getAllWorkflows()
+      const data = res.slice(offset, offset + limit)
+
+      setWorkflows(data)
+
+      setTimeout(() => setLoading(false), 1000)
+    })()
+  }, [offset])
 
   return (
     <>
@@ -83,13 +96,13 @@ const WorkflowTable = () => {
             >
               <div className="flex-1 flex justify-between">
                 <a
-                  href="#" onClick={handlePrevClicked}
+                   onClick={handlePrevClicked}
                   className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:text-gray-500"
                 >
                   Previous
                 </a>
                 <a
-                  href="#" onClick={handleNextClicked}
+                  onClick={handleNextClicked}
                   className="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:text-gray-500"
                 >
                   Next
@@ -180,13 +193,13 @@ const WorkflowTable = () => {
                     </div>
                     <div className="flex-1 flex justify-between sm:justify-end">
                       <a
-                        href="#"
+                        onClick={handlePrevClicked}
                         className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
                       >
                         Previous
                       </a>
                       <a
-                        href="#"
+                        onClick={handleNextClicked}
                         className="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
                       >
                         Next
