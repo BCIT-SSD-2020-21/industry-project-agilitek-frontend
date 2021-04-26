@@ -193,7 +193,7 @@ const WorkflowTable = () => {
                       <p className="text-sm text-gray-700">
                         Showing <span className="font-medium">1</span> to{" "}
                         <span className="font-medium">10</span> of{" "}
-                        <span className="font-medium">20</span> results
+                        <span className="font-medium">{resData.length}</span> results
                       </p>
                     </div>
                     <div className="flex-1 flex justify-between sm:justify-end">
