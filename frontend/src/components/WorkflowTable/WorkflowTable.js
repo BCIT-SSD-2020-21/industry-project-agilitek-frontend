@@ -34,11 +34,13 @@ const WorkflowTable = () => {
   const [loading, setLoading] = useState(true)
   const [limit, setLimit] = useState(5)
   const [offset, setOffset] = useState(0)
+  const [resData, setResData] = useState([])
 
   const fetchWorkflows = async() => {
     ;(async () => {
       const res = await getAllWorkflows()
       console.log(res.length)
+      setResData(res)
       const data = res.slice( offset, (offset + limit) )
       setWorkflows(data)
   
@@ -54,7 +56,10 @@ const WorkflowTable = () => {
 
   const handleNextClicked = async() => {
     console.log('next clicked')
-    setOffset( (offset + 5) )
+    if (resData.length > (offset + limit)) {
+      setOffset( (offset + 5) )
+    }
+    // if((offset + 5) >= workflows.length) 
     console.log(offset)
   }
 
