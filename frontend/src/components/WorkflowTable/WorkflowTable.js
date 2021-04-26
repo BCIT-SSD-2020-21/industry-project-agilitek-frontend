@@ -31,12 +31,17 @@ const WorkflowTable = () => {
 
   const [workflows, setWorkflows] = useState([])
   const [loading, setLoading] = useState(true)
+  const [limit, setLimit] = useState(10)
+  const [offset, setOffset] = useState(0)
 
   // fetch User Data
   useEffect(() => {
     ;(async () => {
       const res = await getAllWorkflows()
-      setWorkflows(res)
+      const data = res.slice(offset, offset + limit)
+
+      setWorkflows(data)
+
       setTimeout(() => setLoading(false), 1000)
     })()
   }, [])
@@ -70,13 +75,13 @@ const WorkflowTable = () => {
             >
               <div className="flex-1 flex justify-between">
                 <a
-                  href="#"
+                  href="#" onClick={handlePrevClicked}
                   className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:text-gray-500"
                 >
                   Previous
                 </a>
                 <a
-                  href="#"
+                  href="#" onClick={handleNextClicked}
                   className="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:text-gray-500"
                 >
                   Next
