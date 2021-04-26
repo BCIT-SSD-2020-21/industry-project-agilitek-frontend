@@ -34,6 +34,14 @@ const WorkflowTable = () => {
   const [limit, setLimit] = useState(10)
   const [offset, setOffset] = useState(0)
 
+  const handlePrevClicked = async() => {
+    console.log('previous clicked')
+  }
+
+  const handleNextClicked = async() => {
+    console.log('next clicked')
+  }
+
   // fetch User Data
   useEffect(() => {
     ;(async () => {
