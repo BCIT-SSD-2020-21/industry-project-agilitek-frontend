@@ -9,6 +9,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ")
 }
 
+
 const statusStyles = {
   true: "bg-green-100 text-green-800",
   false: "bg-red-100 text-red-800",
@@ -34,37 +35,35 @@ const WorkflowTable = () => {
   const [limit, setLimit] = useState(5)
   const [offset, setOffset] = useState(0)
 
+  const fetchWorkflows = async() => {
+    ;(async () => {
+      const res = await getAllWorkflows()
+      const data = res.slice( Math.max(0, offset), Math.max(5, (offset + limit)) )
+  
+      setWorkflows(data)
+  
+      setTimeout(() => setLoading(false), 1000)
+    })()
+  }
+
   const handlePrevClicked = async() => {
     console.log('previous clicked')
-    setOffset(offset - 1)
+    setOffset( Math.min(0,(offset - 5)) )
   }
 
   const handleNextClicked = async() => {
     console.log('next clicked')
-    setOffset(offset + 5)
+    setOffset( Math.min(0,(offset + 5)) )
+    console.log(offset)
   }
 
   // fetch User Data
   useEffect(() => {
-    ;(async () => {
-      const res = await getAllWorkflows()
-      const data = res.slice(offset, offset + limit)
-
-      setWorkflows(data)
-
-      setTimeout(() => setLoading(false), 1000)
-    })()
+    fetchWorkflows()
   }, [])
 
   useEffect(() => {
-    ;(async () => {
-      const res = await getAllWorkflows()
-      const data = res.slice(offset, offset + limit)
-
-      setWorkflows(data)
-
-      setTimeout(() => setLoading(false), 1000)
-    })()
+    fetchWorkflows()
   }, [offset])
 
   return (
