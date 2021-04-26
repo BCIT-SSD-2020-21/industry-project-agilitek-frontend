@@ -48,12 +48,13 @@ const WorkflowTable = () => {
 
   const handlePrevClicked = async() => {
     console.log('previous clicked')
-    setOffset( Math.min(0,(offset - 5)) )
+    setOffset( Math.min(0, (offset - 5)) )
+    console.log(offset)
   }
 
   const handleNextClicked = async() => {
     console.log('next clicked')
-    setOffset( Math.min(0,(offset + 5)) )
+    setOffset(offset + 5)
     console.log(offset)
   }
 
