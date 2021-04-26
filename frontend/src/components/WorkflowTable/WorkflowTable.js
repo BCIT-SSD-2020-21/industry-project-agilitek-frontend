@@ -10,8 +10,8 @@ function classNames(...classes) {
 }
 
 const statusStyles = {
-  success: "bg-green-100 text-green-800",
-  processing: "bg-yellow-100 text-yellow-800",
+  true: "bg-green-100 text-green-800",
+  false: "bg-red-100 text-red-800",
   failed: "bg-gray-100 text-gray-800",
 }
 
@@ -131,7 +131,7 @@ const WorkflowTable = () => {
                           <td className="hidden px-6 py-4 whitespace-nowrap text-sm text-gray-500 md:block">
                             <span
                               className={classNames(
-                                statusStyles[workflow.status],
+                                statusStyles[workflow.active],
                                 "inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium capitalize"
                               )}
                             >
