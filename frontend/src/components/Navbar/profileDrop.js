@@ -1,7 +1,6 @@
 import React from "react";
 import { Fragment, useState } from "react";
 import { Dialog, Menu, Transition } from "@headlessui/react";
-import agilitek from "../../images/agilitek.png";
 import { ChevronDownIcon } from "@heroicons/react/solid";
 
 function classNames(...classes) {
