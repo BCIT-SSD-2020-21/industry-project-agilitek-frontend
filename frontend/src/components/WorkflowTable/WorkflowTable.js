@@ -38,8 +38,8 @@ const WorkflowTable = () => {
   const fetchWorkflows = async() => {
     ;(async () => {
       const res = await getAllWorkflows()
+      console.log(res.length)
       const data = res.slice( offset, (offset + limit) )
-  
       setWorkflows(data)
   
       setTimeout(() => setLoading(false), 1000)
@@ -54,7 +54,7 @@ const WorkflowTable = () => {
 
   const handleNextClicked = async() => {
     console.log('next clicked')
-    setOffset(offset + 5)
+    setOffset( (offset + 5) )
     console.log(offset)
   }
 
