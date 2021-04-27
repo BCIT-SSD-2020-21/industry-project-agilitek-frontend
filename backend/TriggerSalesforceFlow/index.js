@@ -2,10 +2,8 @@ const OAuth = require('/opt/OAuth');
 const fetch = require('node-fetch');
 
 exports.handler = async (event) => {
-    // Getting the body
-    const { flowUrl, resultSet, query } = event.workflowData;
-    const { index, step } = event.iterator;
-    var result;
+    const { flowUrl, resultSet, query, index, step } = event.iterator;
+    var input;
 
     try {
         // Getting the OAuth token
@@ -40,22 +38,22 @@ exports.handler = async (event) => {
             // FALSE: set result to an object with attributes field
             // and all the columns from the SalesforceContacts table
             if (resultSet.length > 1) {
-                result = [];
+                input = [];
 
-                resultSet.forEach((input, index) => {
-                    result.push({
+                resultSet.forEach((result) => {
+                    input.push({
                         attributes: { type: sObjectType },
-                        ...resultSet[index],
+                        ...result,
                     });
                 });
             } else {
-                result = {
+                input = {
                     attributes: { type: sObjectType },
                     ...resultSet[0],
                 };
             }
         } else {
-            result = resultSet[0].Id;
+            input = resultSet[0].Id;
         }
 
         // Post request to Salesforce API
@@ -70,7 +68,7 @@ exports.handler = async (event) => {
                 body: JSON.stringify({
                     inputs: [
                         {
-                            [label]: result,
+                            [label]: input,
                         },
                     ],
                 }),
@@ -83,11 +81,13 @@ exports.handler = async (event) => {
                 index,
                 step,
             },
-            body: JSON.stringify({
+            response: {
                 triggered_response: postData,
-                sql_query: query,
-                flow_url: flowUrl,
-            }),
+                body: JSON.stringify({
+                    sql_query: query,
+                    flow_url: flowUrl,
+                }),
+            },
         };
     } catch (error) {
         throw Error(`Error while requesting Salesforce API: ${error}`);
