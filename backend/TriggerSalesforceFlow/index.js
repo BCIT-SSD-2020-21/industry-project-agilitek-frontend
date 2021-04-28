@@ -2,7 +2,7 @@ const OAuth = require('/opt/OAuth');
 const fetch = require('node-fetch');
 
 exports.handler = async (event) => {
-    const { flowUrl, resultSet, query, index, step } = event.iterator;
+    const { flowUrl, resultSet } = event.iterator;
     var input;
 
     try {
@@ -76,19 +76,9 @@ exports.handler = async (event) => {
         );
         const postData = await postResponse.json();
 
-        return {
-            iterator: {
-                index,
-                step,
-            },
-            response: {
-                triggered_response: postData,
-                body: JSON.stringify({
-                    sql_query: query,
-                    flow_url: flowUrl,
-                }),
-            },
-        };
+        event.triggered_response = postData;
+
+        return event;
     } catch (error) {
         throw Error(`Error while requesting Salesforce API: ${error}`);
     }
