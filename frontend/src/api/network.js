@@ -86,3 +86,15 @@ export function setQuery(name, query, workFlow) {
       return res.data
     })
 }
+
+//Get workflow logs
+export async function getWorkflowLogs(id) {
+  try {
+    const res = await axios.get(`${url}/myworkflows/logs/${id}`)
+    return res.data
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+
