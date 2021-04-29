@@ -12,6 +12,18 @@ import { useHistory, useParams } from "react-router-dom"
 
 
 export default function WorkflowDetail() {
+const history = useHistory()
+const { id } = useParams()
+
+const [formData, setFormData] = useState({
+    name: "",
+    desc: "",
+    flowUrl: "",
+    query: "",
+    active: true,
+    })
+
+
 
 useEffect(() => {
     ;(async () => {
