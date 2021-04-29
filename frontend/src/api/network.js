@@ -90,7 +90,7 @@ export function setQuery(name, query, workFlow) {
 //Get workflow logs
 export async function getWorkflowLogs(id) {
   try {
-    const res = await axios.get(`${url}/myworkflows/logs/${id}`)
+    const res = await axios.get(`${url}/myworkflows/logs/27`)
     return res.data
   } catch (err) {
     console.log(err)

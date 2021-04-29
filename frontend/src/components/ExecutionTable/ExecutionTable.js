@@ -17,6 +17,7 @@ const people = [
     // More people...
     ]
 
+const [logArray, setLogArray] = useState([])    
 const [logFormData, setLogFormData] = useState({
     workflow_id: "", 
     action_name: "",
@@ -24,11 +25,12 @@ const [logFormData, setLogFormData] = useState({
     record_id: "",
     })
 
+
 useEffect(() => {
     ;(async () => {
         const id = 27;
         if (id) {
-        const res = await getWorkflowLogs(33)
+        const res = await getWorkflowLogs(27)
         setLogFormData({
             workflow_id: res.workflow_id, 
             action_name: res.action_name ,
@@ -38,6 +40,12 @@ useEffect(() => {
         }   
     })()
     }, [])
+
+    useEffect(() => {
+        setLogArray( logArray => [...logArray, logFormData])
+    }, [logFormData])
+
+
 
     return (
         <div className="flex flex-col">
@@ -77,7 +85,7 @@ useEffect(() => {
                     </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                    {/* {logFormData.map((worfkflowLog) => ( */}
+                    {logArray.map((worfkflowLog) => (
                     <tr>
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{logFormData.workflow_id}</td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{logFormData.action_name}</td>
@@ -89,7 +97,7 @@ useEffect(() => {
                         </a> */}
                         </td>
                      </tr>
-                 
+                    ))}
                 </tbody>
                 </table>
             </div>
