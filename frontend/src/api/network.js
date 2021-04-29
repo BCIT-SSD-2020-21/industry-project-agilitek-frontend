@@ -15,6 +15,8 @@ export async function getAllWorkflows() {
 
 // Create a Workflow
 export async function createWorkflow(data) {
+    console.log(data);
+
     try {
         const res = await axios.post(`${url}/myworkflows`, data);
         return res.data;

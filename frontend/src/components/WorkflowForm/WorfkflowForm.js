@@ -42,6 +42,7 @@ export default function UserForm() {
         type: '',
         sObjectType: '',
         whereClause: '',
+        mapping: {},
         active: true,
         runAgain: true,
     });
@@ -101,6 +102,8 @@ export default function UserForm() {
 
     // Handle workflow dropdown list change
     const handleWorkflowChange = async (e) => {
+        console.log(e.target.value);
+
         if (e.target.value) {
             const workflowRes = await getWorkflowInputs(e.target.value);
 
@@ -207,6 +210,12 @@ export default function UserForm() {
                                                                     dbTable.table_name
                                                                 }
                                                                 key={idx}
+                                                                selected={
+                                                                    dbTable.table_name ===
+                                                                    table
+                                                                        ? 'selected'
+                                                                        : ''
+                                                                }
                                                             >
                                                                 {
                                                                     dbTable.table_name
@@ -237,15 +246,21 @@ export default function UserForm() {
                                                     Choose Workflow...
                                                 </option>
                                                 {workflows.map(
-                                                    (option, idx) => {
+                                                    (workflow, idx) => {
                                                         return (
                                                             <option
                                                                 value={
-                                                                    option.url
+                                                                    workflow.url
                                                                 }
                                                                 key={idx}
+                                                                selected={
+                                                                    workflow.url ===
+                                                                    flowUrl
+                                                                        ? 'selected'
+                                                                        : ''
+                                                                }
                                                             >
-                                                                {option.label}
+                                                                {workflow.label}
                                                             </option>
                                                         );
                                                     }
@@ -253,6 +268,7 @@ export default function UserForm() {
                                             </select>
                                         </div>
                                     </div>
+                                    {/* Show additional input or selection boxes only if table and workflow are selected */}
                                     {table && type && label ? (
                                         <>
                                             <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
@@ -277,44 +293,59 @@ export default function UserForm() {
                                                         disabled
                                                     />
                                                 </div>
-                                                <div className="sm:col-span-3">
-                                                    {/* SELECT DATABASE COLUMNS */}
+                                                {/* If not sObject type then show the column selection list*/}
+                                                {!sObjectType ? (
+                                                    <div className="sm:col-span-3">
+                                                        {/* SELECT DATABASE COLUMNS */}
 
-                                                    <label
-                                                        htmlFor="columns"
-                                                        className="block text-sm font-medium text-gray-700"
-                                                    >
-                                                        Choose Columns
-                                                    </label>
-                                                    <select
-                                                        id="columns"
-                                                        name="column"
-                                                        className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                                        onChange={handleChange}
-                                                    >
-                                                        <option value="">
-                                                            Choose Columns...
-                                                        </option>
-                                                        {dbColumns.map(
-                                                            (dbColumn, idx) => {
-                                                                return (
-                                                                    <option
-                                                                        value={
-                                                                            dbColumn.column_name
-                                                                        }
-                                                                        key={
-                                                                            idx
-                                                                        }
-                                                                    >
-                                                                        {
-                                                                            dbColumn.column_name
-                                                                        }
-                                                                    </option>
-                                                                );
+                                                        <label
+                                                            htmlFor="columns"
+                                                            className="block text-sm font-medium text-gray-700"
+                                                        >
+                                                            Choose Columns
+                                                        </label>
+                                                        <select
+                                                            id="columns"
+                                                            name="column"
+                                                            className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                                            onChange={
+                                                                handleChange
                                                             }
-                                                        )}
-                                                    </select>
-                                                </div>
+                                                        >
+                                                            <option value="">
+                                                                Choose
+                                                                Columns...
+                                                            </option>
+                                                            {dbColumns.map(
+                                                                (
+                                                                    dbColumn,
+                                                                    idx
+                                                                ) => {
+                                                                    return (
+                                                                        <option
+                                                                            value={
+                                                                                dbColumn.column_name
+                                                                            }
+                                                                            key={
+                                                                                idx
+                                                                            }
+                                                                            selected={
+                                                                                dbColumn.column_name ===
+                                                                                column
+                                                                                    ? 'selected'
+                                                                                    : ''
+                                                                            }
+                                                                        >
+                                                                            {
+                                                                                dbColumn.column_name
+                                                                            }
+                                                                        </option>
+                                                                    );
+                                                                }
+                                                            )}
+                                                        </select>
+                                                    </div>
+                                                ) : null}
                                             </div>
                                             <div className="grid grid-cols-6 gap-6 ">
                                                 <div className="col-span-6 sm:col-span-4 mt-5">
