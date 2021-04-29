@@ -1,9 +1,19 @@
 import React from 'react'
 
-function WorkflowDetail() {
+export default function WorkflowDetail() {
+
+useEffect(() => {
+    ;(async () => {
+        if (id) {
+        const res = await getWorkflowLogs(id)
+        console.log(res)
+        }
+    })()
+    }, [])
+
+
+
     return (
         <></>
     )
 }
-
-export default WorkflowDetail
