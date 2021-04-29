@@ -6,6 +6,9 @@ import {
     getWorkflowLogs,
     setQuery,
     updateWorkflow,
+    getDBTables,
+    getDBColumns,
+    getWorkflowInputs,
 } from '../../api/network';
 import { Switch } from '@headlessui/react';
 import { useHistory, useParams } from 'react-router-dom';
@@ -33,20 +36,26 @@ export default function UserForm() {
         name: '',
         desc: '',
         flowUrl: '',
-        query: '',
+        table: '',
+        column: '',
+        label: '',
+        type: '',
+        sObjectType: '',
+        whereClause: '',
         active: true,
     });
+    const [dbTables, setDbTables] = useState([]);
+    const [dbColumns, setDBColumns] = useState([]);
     const [processsing, setProcessing] = useState(false);
 
     useEffect(() => {
         (async () => {
-            const res = await getSalesForceFlow();
-            setWorkflows(res);
-        })();
-    }, []);
+            // Get all Salesforce flows from Salesforce Invoke Flow API
+            const sfFlowRes = await getSalesForceFlow();
+            setWorkflows(sfFlowRes);
 
-    useEffect(() => {
-        (async () => {
+            // If there is an id in the url parameters then retrieve all
+            // the data for that workflow
             if (id) {
                 const res = await getWorkflow(id);
                 setFormData({
@@ -57,6 +66,10 @@ export default function UserForm() {
                     active: res.active,
                 });
             }
+
+            // Get all database tables from the database
+            const dbTablesRes = await getDBTables();
+            setDbTables(dbTablesRes);
         })();
     }, []);
 
@@ -71,8 +84,40 @@ export default function UserForm() {
         history.push('/');
     };
 
+    // Handle form data change
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
+    // Handle table dropdown list change
+    const handleDBTableChange = async (e) => {
+        const dbColumnsRes = await getDBColumns(e.target.value);
+        setDBColumns(dbColumnsRes);
+
+        handleChange(e);
+    };
+
+    // Handle workflow dropdown list change
+    const handleWorkflowChange = async (e) => {
+        if (e.target.value) {
+            const workflowRes = await getWorkflowInputs(e.target.value);
+
+            setFormData({
+                ...formData,
+                type: workflowRes.type,
+                label: workflowRes.label,
+                sObjectType: workflowRes.sObjectType,
+                flowUrl: e.target.value,
+            });
+        } else {
+            setFormData({
+                ...formData,
+                type: '',
+                label: '',
+                sObjectType: '',
+                flowUrl: '',
+            });
+        }
     };
 
     const handleSwitch = (e) => {
@@ -83,7 +128,18 @@ export default function UserForm() {
         setProcessing(true);
     };
 
-    const { name, desc, flowUrl, query, active } = formData;
+    const {
+        name,
+        desc,
+        flowUrl,
+        table,
+        column,
+        active,
+        type,
+        label,
+        sObjectType,
+        whereClause,
+    } = formData;
 
     return (
         <div className="m-8">
@@ -102,7 +158,7 @@ export default function UserForm() {
                                     <div className="grid grid-cols-6 gap-6 ">
                                         <div className="col-span-6 sm:col-span-4 mt-5">
                                             <label
-                                                htmlFor="email_address"
+                                                htmlFor="name"
                                                 className="block text-sm font-medium text-gray-700"
                                             >
                                                 Name of the Workflow
@@ -111,59 +167,43 @@ export default function UserForm() {
                                                 type="text"
                                                 name="name"
                                                 id="name"
-                                                placeholder="Name.."
+                                                placeholder="Enter name..."
                                                 className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                                 value={name}
                                                 onChange={handleChange}
                                             />
                                         </div>
                                     </div>
-                                    {/* <div className="grid grid-cols-6 gap-6 ">
-                    <div className="col-span-6 sm:col-span-4 mt-5">
-                      <label
-                        htmlFor="email_address"
-                        className="block text-sm font-medium text-gray-700"
-                      >
-                        SQL Query
-                      </label>
-                      <input
-                        type="text"
-                        name="query"
-                        id="query"
-                        placeholder="SQL Query"
-                        className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                        value={query}
-                        onChange={handleChange}
-                      />
-                    </div>
-                  </div> */}
                                     <div className="grid grid-cols-6 gap-6">
-                                        {/* SELECT SALESFORCE FLOWS */}
+                                        {/* SELECT DATABASAE TABLES */}
                                         <div className="col-span-6 sm:col-span-3 mt-5">
                                             <label
-                                                htmlFor="flowUrl"
+                                                htmlFor="tables"
                                                 className="block text-sm font-medium text-gray-700"
                                             >
                                                 Choose Table
                                             </label>
                                             <select
-                                                id="flowUrl"
-                                                name="flowUrl"
+                                                id="tables"
+                                                name="table"
                                                 className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                                value={flowUrl}
-                                                onChange={handleChange}
+                                                onChange={handleDBTableChange}
                                             >
-                                                <option>Choose Table...</option>
-                                                {workflows.map(
-                                                    (option, idx) => {
+                                                <option value="">
+                                                    Choose Table...
+                                                </option>
+                                                {dbTables.map(
+                                                    (dbTable, idx) => {
                                                         return (
                                                             <option
                                                                 value={
-                                                                    option.url
+                                                                    dbTable.table_name
                                                                 }
                                                                 key={idx}
                                                             >
-                                                                {option.label}
+                                                                {
+                                                                    dbTable.table_name
+                                                                }
                                                             </option>
                                                         );
                                                     }
@@ -184,10 +224,9 @@ export default function UserForm() {
                                                 id="flowUrl"
                                                 name="flowUrl"
                                                 className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                                value={flowUrl}
-                                                onChange={handleChange}
+                                                onChange={handleWorkflowChange}
                                             >
-                                                <option>
+                                                <option value="">
                                                     Choose Workflow...
                                                 </option>
                                                 {workflows.map(
@@ -207,6 +246,91 @@ export default function UserForm() {
                                             </select>
                                         </div>
                                     </div>
+                                    {table && type && label ? (
+                                        <>
+                                            <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+                                                <div className="sm:col-span-3">
+                                                    <label
+                                                        htmlFor="inputs_type"
+                                                        className="block text-sm font-medium text-gray-700"
+                                                    >
+                                                        Salesforce Flow Inputs
+                                                        Type
+                                                    </label>
+                                                    <input
+                                                        type="text"
+                                                        name="inputs_type"
+                                                        id="inputs_type"
+                                                        className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                                        value={
+                                                            sObjectType
+                                                                ? `${label} (${type} of Type=${sObjectType})`
+                                                                : `${label} (Type=${type})`
+                                                        }
+                                                        disabled
+                                                    />
+                                                </div>
+                                                <div className="sm:col-span-3">
+                                                    {/* SELECT DATABASE COLUMNS */}
+
+                                                    <label
+                                                        htmlFor="columns"
+                                                        className="block text-sm font-medium text-gray-700"
+                                                    >
+                                                        Choose Columns
+                                                    </label>
+                                                    <select
+                                                        id="columns"
+                                                        name="column"
+                                                        className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                                        onChange={handleChange}
+                                                    >
+                                                        <option value="">
+                                                            Choose Columns...
+                                                        </option>
+                                                        {dbColumns.map(
+                                                            (dbColumn, idx) => {
+                                                                return (
+                                                                    <option
+                                                                        value={
+                                                                            dbColumn.column_name
+                                                                        }
+                                                                        key={
+                                                                            idx
+                                                                        }
+                                                                    >
+                                                                        {
+                                                                            dbColumn.column_name
+                                                                        }
+                                                                    </option>
+                                                                );
+                                                            }
+                                                        )}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div className="grid grid-cols-6 gap-6 ">
+                                                <div className="col-span-6 sm:col-span-4 mt-5">
+                                                    <label
+                                                        htmlFor="where_clause"
+                                                        className="block text-sm font-medium text-gray-700"
+                                                    >
+                                                        WHERE Clause
+                                                    </label>
+                                                    <input
+                                                        type="text"
+                                                        name="whereClause"
+                                                        id="where_clause"
+                                                        placeholder="Enter WHERE clause..."
+                                                        className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                                        value={whereClause}
+                                                        onChange={handleChange}
+                                                    />
+                                                </div>
+                                            </div>
+                                        </>
+                                    ) : null}
+
                                     <div className="col-span-6 sm:col-span-3 mt-5">
                                         <Switch.Group
                                             as="div"
