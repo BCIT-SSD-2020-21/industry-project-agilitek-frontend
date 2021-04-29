@@ -28,7 +28,7 @@ useEffect(() => {
     ;(async () => {
         const id = 27;
         if (id) {
-        const res = await getWorkflowLogs(27)
+        const res = await getWorkflowLogs(33)
         setLogFormData({
             workflow_id: res.workflow_id, 
             action_name: res.action_name ,
@@ -51,25 +51,25 @@ useEffect(() => {
                         scope="col"
                         className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                     >
-                        Name
+                        WorkFlow Id
                     </th>
                     <th
                         scope="col"
                         className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                     >
-                        Title
+                        WorkFlow Name
                     </th>
                     <th
                         scope="col"
                         className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                     >
-                        Email
+                        Time Executed
                     </th>
                     <th
                         scope="col"
                         className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                     >
-                        Role
+                        Record Id
                     </th>
                     <th scope="col" className="relative px-6 py-3">
                         <span className="sr-only">Edit</span>
@@ -77,19 +77,19 @@ useEffect(() => {
                     </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                    {logFormData.map((worfkflowLog) => (
+                    {/* {logFormData.map((worfkflowLog) => ( */}
                     <tr>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{worfkflowLog.workflow_id}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{worfkflowLog.action_name}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{worfkflowLog.time_of_completion}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{worfkflowLog.record_id}</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{logFormData.workflow_id}</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{logFormData.action_name}</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{logFormData.time_of_completion}</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{logFormData.record_id}</td>
                         <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                        <a href="#" className="text-indigo-600 hover:text-indigo-900">
+                        {/* <a href="#" className="text-indigo-600 hover:text-indigo-900">
                             Edit
-                        </a>
+                        </a> */}
                         </td>
                      </tr>
-                    ))}
+                 
                 </tbody>
                 </table>
             </div>
