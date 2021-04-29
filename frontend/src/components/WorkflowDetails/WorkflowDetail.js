@@ -16,11 +16,10 @@ const history = useHistory()
 const { id } = useParams()
 
 const [formData, setFormData] = useState({
-    name: "",
-    desc: "",
-    flowUrl: "",
-    query: "",
-    active: true,
+    workflow_id: "", 
+    action_name: "",
+    time_of_completion: "",
+    record_id: "",
     })
 
 
@@ -30,7 +29,15 @@ useEffect(() => {
         if (id) {
         const res = await getWorkflowLogs(id)
         console.log(res)
-        }     
+        setFormData({
+            name: res.name,
+            desc: res.desc,
+            flowUrl: res.flow_url,
+            query: res.sql_query,
+            active: res.active,
+          })
+        }   
+        console.log(formData)  
     })()
     }, [])
 
