@@ -9,6 +9,7 @@ import {
 } from "../../api/network"
 import { Switch } from "@headlessui/react"
 import { useHistory, useParams } from "react-router-dom"
+import ExecutionTable from "../ExecutionTable/ExecutionTable"
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(" ")
@@ -215,7 +216,7 @@ useEffect(() => {
                     </div>
     
                     {/* Dont touch anything below this point */}
-                    <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
+                    {/* <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
                       <button
                         type="submit"
                         onClick={disableButton}
@@ -224,12 +225,21 @@ useEffect(() => {
                       >
                         {processsing ? "Saving..." : "Save Configuration"}
                       </button>
-                    </div>
+                    </div> */}
                   </div>
                 </form>
               </div>
             </div>
           </div>
+
+        <div className="mt-10 sm:mt-0">
+            <div className="md:grid md:grid-cols-3 md:gap-6">
+                <div className="md:col-span-full">
+                <ExecutionTable/>
+                </div>
+            </div>
+        </div>
+
         </div>
       )
 }
