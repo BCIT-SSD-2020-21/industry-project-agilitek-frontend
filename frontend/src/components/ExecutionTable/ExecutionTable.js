@@ -11,6 +11,8 @@ import { Switch } from "@headlessui/react"
 import { useHistory, useParams } from "react-router-dom"
 
 export default function ExecutionTable() {
+const history = useHistory()
+const { id } = useParams()
 
 const people = [
     { name: 'Jane Cooper', title: 'Regional Paradigm Technician', role: 'Admin', email: 'jane.cooper@example.com' },
@@ -27,10 +29,10 @@ const [logFormData, setLogFormData] = useState({
 
 useEffect(() => {
     ;(async () => {
-        const id = 27;
         if (id) {
-        const res = await getWorkflowLogs(33)
+        const res = await getWorkflowLogs(id)
         console.log(res)
+        setLogArray(res)
         setLogFormData({
             workflow_id: res.workflow_id, 
             action_name: res.action_name ,
@@ -41,9 +43,9 @@ useEffect(() => {
     })()
     }, [])
 
-    useEffect(() => {
-        setLogArray( logArray => [...logArray, logFormData])
-    }, [logFormData])
+    // useEffect(() => {
+    //     setLogArray( logArray => [...logArray, logFormData])
+    // }, [logFormData])
 
     useEffect(() => {
         // console.log(logArray)
@@ -87,12 +89,12 @@ useEffect(() => {
                     </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                    {logArray.map((worfkflowLog) => (
+                    {logArray.map((logs) => (
                     <tr>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{logArray.workflow_id}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{logArray.action_name}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{logArray.time_of_completion}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{logArray.record_id}</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{logs.workflow_id}</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{logs.action_name}</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{logs.time_of_completion}</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{logs.record_id}</td>
                         <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                         {/* <a href="#" className="text-indigo-600 hover:text-indigo-900">
                             Edit
