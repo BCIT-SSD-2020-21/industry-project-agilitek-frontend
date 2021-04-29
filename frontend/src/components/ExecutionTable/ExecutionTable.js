@@ -25,12 +25,12 @@ const [logFormData, setLogFormData] = useState({
     record_id: "",
     })
 
-
 useEffect(() => {
     ;(async () => {
         const id = 27;
         if (id) {
-        const res = await getWorkflowLogs(27)
+        const res = await getWorkflowLogs(33)
+        console.log(res)
         setLogFormData({
             workflow_id: res.workflow_id, 
             action_name: res.action_name ,
@@ -46,7 +46,7 @@ useEffect(() => {
     }, [logFormData])
 
     useEffect(() => {
-        console.log(logArray)
+        // console.log(logArray)
     }, [logFormData])
 
     return (
