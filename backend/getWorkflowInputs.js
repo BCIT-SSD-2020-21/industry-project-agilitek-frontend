@@ -2,7 +2,7 @@ const OAuth = require('/opt/OAuth');
 const axios = require('axios');
 
 exports.handler = async (event) => {
-    const { flowUrl } = event;
+    const { flowUrl } = event.queryStringParameters;
     var result = {};
 
     try {
