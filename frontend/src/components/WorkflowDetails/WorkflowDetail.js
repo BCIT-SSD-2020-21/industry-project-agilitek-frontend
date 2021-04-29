@@ -24,7 +24,6 @@ const [formData, setFormData] = useState({
     })
 
 
-
 useEffect(() => {
     ;(async () => {
         const id = 27;
@@ -34,8 +33,6 @@ useEffect(() => {
         }     
     })()
     }, [])
-
-
 
     return (
         <></>
