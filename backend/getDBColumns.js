@@ -18,7 +18,6 @@ exports.handler = (event, context, callback) => {
         if (err) {
             callback(err);
         } else {
-            console.log(res);
             const response = {
                 statusCode: 200,
                 body: JSON.stringify(res.rows),
