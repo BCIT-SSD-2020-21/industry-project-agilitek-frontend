@@ -109,6 +109,7 @@ const { name, desc, flowUrl, query, active } = formData
                             Name of the Workflow
                           </label>
                           <input
+                            disabled
                             type="text"
                             name="name"
                             id="name"
@@ -128,6 +129,27 @@ const { name, desc, flowUrl, query, active } = formData
                             SQL Query
                           </label>
                           <input
+                            disabled
+                            type="text"
+                            name="query"
+                            id="query"
+                            placeholder="SQL Query"
+                            className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                            value={query}
+                            onChange={handleChange}
+                          />
+                        </div>
+                      </div>
+                      <div className="grid grid-cols-6 gap-6 ">
+                        <div className="col-span-6 sm:col-span-4 mt-5">
+                          <label
+                            htmlFor="email_address"
+                            className="block text-sm font-medium text-gray-700"
+                          >
+                            Automation Status
+                          </label>
+                          <input
+                            disabled
                             type="text"
                             name="query"
                             id="query"
