@@ -35,6 +35,7 @@ export default function UserForm() {
     flowUrl: "",
     query: "",
     active: true,
+    runAgain: true,
   })
   const [processsing, setProcessing] = useState(false)
 
@@ -55,6 +56,7 @@ export default function UserForm() {
           flowUrl: res.flow_url,
           query: res.sql_query,
           active: res.active,
+          runAgain: res.run_again,
         })
       }
     })()
@@ -79,11 +81,15 @@ export default function UserForm() {
     setFormData({ ...formData, active: e })
   }
 
+  const handleSwitchForRunAgain = (e) => {
+    setFormData({ ...formData, runAgain: e })
+  }
+
   const disableButton = () => {
     setProcessing(true)
   }
 
-  const { name, desc, flowUrl, query, active } = formData
+  const { name, desc, flowUrl, query, active, runAgain } = formData
 
   return (
     <div className="m-8">
@@ -186,6 +192,34 @@ export default function UserForm() {
                       <Switch.Label as="span" className="ml-3">
                         <span className="text-sm font-medium text-gray-900">
                           {active ? "Automation active" : "Automation paused"}
+                        </span>
+                      </Switch.Label>
+                    </Switch.Group>
+                  </div>
+                  <div className="col-span-6 sm:col-span-3 mt-5">
+                    <Switch.Group as="div" className="flex items-center">
+                      <Switch
+                        checked={runAgain}
+                        onChange={handleSwitchForRunAgain}
+                        className={classNames(
+                          runAgain ? "bg-indigo-600" : "bg-gray-200",
+                          "relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        )}
+                      >
+                        <span className="sr-only">Use setting</span>
+                        <span
+                          aria-hidden="true"
+                          className={classNames(
+                            runAgain ? "translate-x-5" : "translate-x-0",
+                            "pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200"
+                          )}
+                        />
+                      </Switch>
+                      <Switch.Label as="span" className="ml-3">
+                        <span className="text-sm font-medium text-gray-900">
+                          {runAgain
+                            ? "Runs for same contacts repeatedly"
+                            : "Only runs once for each contact"}
                         </span>
                       </Switch.Label>
                     </Switch.Group>
