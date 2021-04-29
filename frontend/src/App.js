@@ -14,7 +14,7 @@ function App() {
       {/* <div className="bg-gray-800 pb-32"> */}
       <Switch>
         <Route exact path="/">
-          <UserDash children={<WorkflowTable />} />
+          <UserDash page="main" children={<WorkflowTable />} />
         </Route>
         <Route exact path="/create">
           <UserDash children={<WorkflowForm />} />

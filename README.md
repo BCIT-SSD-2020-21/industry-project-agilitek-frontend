@@ -19,7 +19,11 @@ For a user to be able to perform an action against a list of customer contacts t
 
 ## :computer: Tech/FrameWorks
 
-TBD: Javascript / API Gateway / PostgreSQL / AWS RDS / Lambda / React
+- AWS (RDS, API Gateway, Lambda, EventBridge, Step Functions)
+- Node.js
+- PostgreSQL
+- React
+- Tailwind UI
 
 ## :chart_with_upwards_trend: Feature List
 
@@ -27,27 +31,30 @@ TBD with input from team
 
 ### Core Features
 
-- create, view, pause or un-pause automation
-- enter any SQL statment(as long as it returns a list of Salesforce Contact IDs)
-- user can select salesforce flow
-- user can select true false indicator
-- Show execution logs
-- Multiple automations
+* Create, view, pause or un-pause automation
+* Enter any SQL statment(as long as it returns a list of Salesforce Contact IDs)
+* User can select salesforce flow
+* User can select true false indicator indicating whether or not a user workflow can run on the same set of contacts multiple times
+* Show execution logs 
+* Multiple automations 
 
 ### Nice-To-Have
 
-- adding capability to "map" additional columns of the SQL statement output to additional "API Input Parameters"
-- Edit and delete automation
+* Adding capability to "map" additional columns of the SQL statement output to additional "API Input Parameters"
+* Edit and delete automation
+* User authentication/authorization
+* Search functionality for user workflow page
 
 ### Functional
 
-- User can create, view, pause or unpause automation
-- System queries the databases upon triggering automation
+* User can create, view, pause or unpause automation
+* System queries the databases upon triggering automation
+* Contact ID's returned from SQL query are posted to Salesforce flow
 
 ### Non-Functional
 
-- multiple automations
-- show output logs
+* Multiple automations
+* Show output logs
 
 ### Roles and Permission
 
@@ -73,6 +80,9 @@ TBD with input from team
 [Figma Mockup](https://www.figma.com/file/LygDwPwX36r9qQos5ivEKh/Agilitek-Data-Fan-Platform?node-id=0%3A1)
 
 ![](https://i.imgur.com/SivzG0t.png)
+
+### ERD
+![](https://i.imgur.com/MR8ljRd.png)
 
 # SSD-Agilitek Fan Data Platfrom API Documentation
 
@@ -142,12 +152,12 @@ TBD with input from team
 
 ## :tada: Credits
 
-Created by:
-[Leanne Sall](https://github.com/LeanneSall)
-[Gökay Abay](https://github.com/gokay-abay)
-[Nick Charvat](https://github.com/nickchvt):poop:
-[Steven Lai](https://github.com/stevenlai4)
-[Yaroslav Naft](https://github.com/Yaroslav-Naft)
+Created by:<br>
+[Leanne Sall](https://github.com/LeanneSall),<br>
+[Gökay Abay](https://github.com/gokay-abay),<br>
+[Nick Charvat](https://github.com/nickchvt):poop:,<br>
+[Steven Lai](https://github.com/stevenlai4),<br>
+[Yaroslav Naft](https://github.com/Yaroslav-Naft),<br>
 In partnership with [Agilitek Solutions](http://agiliteksolutions.com/)
 
 ## :lock: License
