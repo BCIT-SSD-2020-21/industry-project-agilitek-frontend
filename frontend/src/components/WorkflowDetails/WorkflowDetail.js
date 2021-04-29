@@ -15,8 +15,11 @@ export default function WorkflowDetail() {
 
 useEffect(() => {
     ;(async () => {
-        const res = await getWorkflowLogs(27)
+        const id = 27;
+        if (id) {
+        const res = await getWorkflowLogs(id)
         console.log(res)
+        }     
     })()
     }, [])
 
