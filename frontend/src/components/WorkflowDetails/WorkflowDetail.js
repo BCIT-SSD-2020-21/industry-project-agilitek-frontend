@@ -27,19 +27,22 @@ useEffect(() => {
     ;(async () => {
         const id = 27;
         if (id) {
-        const res = await getWorkflowLogs(id)
-        console.log(res)
+        const res = await getWorkflowLogs(27)
+        // console.log(res.action_name)
         setFormData({
-            name: res.name,
-            desc: res.desc,
-            flowUrl: res.flow_url,
-            query: res.sql_query,
-            active: res.active,
+            workflow_id: res.workflow_id, 
+            action_name: res.action_name ,
+            time_of_completion: res.time_of_completion,
+            record_id: res.record_id,
           })
         }   
-        console.log(formData)  
+        // console.log(formData)  
     })()
     }, [])
+
+    useEffect(() => {
+        console.log(formData)
+    }, [formData])
 
     return (
         <></>
