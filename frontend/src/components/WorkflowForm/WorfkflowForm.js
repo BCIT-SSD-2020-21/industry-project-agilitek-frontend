@@ -239,7 +239,7 @@ export default function UserForm() {
                     type="submit"
                     onClick={disableButton}
                     style={{ backgroundColor: processsing && "grey" }}
-                    className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-cyan-600 hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
                   >
                     {processsing ? "Saving..." : "Save Configuration"}
                   </button>
