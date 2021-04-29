@@ -86,28 +86,6 @@ const disableButton = () => {
 
 const { name, desc, flowUrl, query, active } = formData
 
-const [logFormData, setLogFormData] = useState({
-    workflow_id: "", 
-    action_name: "",
-    time_of_completion: "",
-    record_id: "",
-    })
-
-useEffect(() => {
-    ;(async () => {
-        const id = 27;
-        if (id) {
-        const res = await getWorkflowLogs(27)
-        setLogFormData({
-            workflow_id: res.workflow_id, 
-            action_name: res.action_name ,
-            time_of_completion: res.time_of_completion,
-            record_id: res.record_id,
-          })
-        }   
-    })()
-    }, [])
-
     return (
         <div className="m-8">
           <div className="hidden sm:block" aria-hidden="true">
@@ -162,7 +140,7 @@ useEffect(() => {
                       </div>
                       <div className="grid grid-cols-6 gap-6">
                         {/* SELECT SALESFORCE FLOWS */}
-                        <div className="col-span-6 sm:col-span-3 mt-5">
+                        {/* <div className="col-span-6 sm:col-span-3 mt-5">
                           <label
                             htmlFor="flowUrl"
                             className="block text-sm font-medium text-gray-700"
@@ -185,7 +163,7 @@ useEffect(() => {
                               )
                             })}
                           </select>
-                        </div>
+                        </div> */}
                       </div>
                       <div className="col-span-6 sm:col-span-3 mt-5">
                         <Switch.Group as="div" className="flex items-center">
