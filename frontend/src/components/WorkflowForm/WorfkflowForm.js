@@ -3,6 +3,7 @@ import {
     createWorkflow,
     getSalesForceFlow,
     getWorkflow,
+    getWorkflowLogs,
     setQuery,
     updateWorkflow,
 } from '../../api/network';
