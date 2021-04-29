@@ -45,7 +45,9 @@ useEffect(() => {
         setLogArray( logArray => [...logArray, logFormData])
     }, [logFormData])
 
-
+    useEffect(() => {
+        console.log(logArray)
+    }, [logFormData])
 
     return (
         <div className="flex flex-col">
@@ -87,10 +89,10 @@ useEffect(() => {
                 <tbody className="bg-white divide-y divide-gray-200">
                     {logArray.map((worfkflowLog) => (
                     <tr>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{logFormData.workflow_id}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{logFormData.action_name}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{logFormData.time_of_completion}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{logFormData.record_id}</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{logArray.workflow_id}</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{logArray.action_name}</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{logArray.time_of_completion}</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{logArray.record_id}</td>
                         <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                         {/* <a href="#" className="text-indigo-600 hover:text-indigo-900">
                             Edit
