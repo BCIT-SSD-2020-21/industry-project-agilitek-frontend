@@ -8,6 +8,7 @@ import {
   updateWorkflow,
 } from "../../api/network"
 import { Switch } from "@headlessui/react"
+import WorkflowForm from "../../components/WorkflowForm/WorfkflowForm"
 import { useHistory, useParams } from "react-router-dom"
 
 
@@ -45,6 +46,9 @@ useEffect(() => {
     }, [formData])
 
     return (
-        <></>
+        <>
+        <WorkflowForm></WorkflowForm>
+        
+        </>
     )
 }
