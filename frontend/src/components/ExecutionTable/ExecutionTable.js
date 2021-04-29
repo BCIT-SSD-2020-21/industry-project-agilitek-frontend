@@ -1,23 +1,13 @@
 import React, { useState, useEffect } from "react"
 import {
-  createWorkflow,
-  getSalesForceFlow,
-  getWorkflow,
   getWorkflowLogs,
-  setQuery,
-  updateWorkflow,
 } from "../../api/network"
-import { Switch } from "@headlessui/react"
 import { useHistory, useParams } from "react-router-dom"
 
 export default function ExecutionTable() {
 const history = useHistory()
 const { id } = useParams()
 
-const people = [
-    { name: 'Jane Cooper', title: 'Regional Paradigm Technician', role: 'Admin', email: 'jane.cooper@example.com' },
-    // More people...
-    ]
 
 const [logArray, setLogArray] = useState([])    
 const [logFormData, setLogFormData] = useState({
