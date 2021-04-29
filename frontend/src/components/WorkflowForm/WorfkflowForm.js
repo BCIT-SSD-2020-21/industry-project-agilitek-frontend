@@ -43,6 +43,7 @@ export default function UserForm() {
         sObjectType: '',
         whereClause: '',
         active: true,
+        runAgain: true,
     });
     const [dbTables, setDbTables] = useState([]);
     const [dbColumns, setDBColumns] = useState([]);
@@ -64,6 +65,7 @@ export default function UserForm() {
                     flowUrl: res.flow_url,
                     query: res.sql_query,
                     active: res.active,
+                    runAgain: res.run_again,
                 });
             }
 
@@ -120,6 +122,10 @@ export default function UserForm() {
         }
     };
 
+    const handleSwitchForRunAgain = (e) => {
+        setFormData({ ...formData, runAgain: e });
+    };
+
     const handleSwitch = (e) => {
         setFormData({ ...formData, active: e });
     };
@@ -139,6 +145,7 @@ export default function UserForm() {
         label,
         sObjectType,
         whereClause,
+        runAgain,
     } = formData;
 
     return (
@@ -371,10 +378,59 @@ export default function UserForm() {
                                             </Switch.Label>
                                         </Switch.Group>
                                     </div>
+                                    <div className="col-span-6 sm:col-span-3 mt-5">
+                                        <Switch.Group
+                                            as="div"
+                                            className="flex items-center"
+                                        >
+                                            <Switch
+                                                checked={runAgain}
+                                                onChange={
+                                                    handleSwitchForRunAgain
+                                                }
+                                                className={classNames(
+                                                    runAgain
+                                                        ? 'bg-indigo-600'
+                                                        : 'bg-gray-200',
+                                                    'relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+                                                )}
+                                            >
+                                                <span className="sr-only">
+                                                    Use setting
+                                                </span>
+                                                <span
+                                                    aria-hidden="true"
+                                                    className={classNames(
+                                                        runAgain
+                                                            ? 'translate-x-5'
+                                                            : 'translate-x-0',
+                                                        'pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200'
+                                                    )}
+                                                />
+                                            </Switch>
+                                            <Switch.Label
+                                                as="span"
+                                                className="ml-3"
+                                            >
+                                                <span className="text-sm font-medium text-gray-900">
+                                                    {runAgain
+                                                        ? 'Runs for same contacts repeatedly'
+                                                        : 'Only runs once for each contact'}
+                                                </span>
+                                            </Switch.Label>
+                                        </Switch.Group>
+                                    </div>
                                 </div>
 
                                 {/* Dont touch anything below this point */}
                                 <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
+                                    <button
+                                        type="submit"
+                                        onClick={() => history.push('/')}
+                                        className="mx-6 inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
+                                    >
+                                        Cancel
+                                    </button>
                                     <button
                                         type="submit"
                                         onClick={disableButton}
@@ -382,7 +438,7 @@ export default function UserForm() {
                                             backgroundColor:
                                                 processsing && 'grey',
                                         }}
-                                        className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                        className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-cyan-600 hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
                                     >
                                         {processsing
                                             ? 'Saving...'
