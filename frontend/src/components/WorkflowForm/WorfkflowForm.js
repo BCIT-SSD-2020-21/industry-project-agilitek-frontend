@@ -77,6 +77,10 @@ export default function UserForm() {
     setFormData({ ...formData, [e.target.name]: e.target.value })
   }
 
+  const handleDelete = (e) => {
+    set
+  }
+
   const handleSwitch = (e) => {
     setFormData({ ...formData, active: e })
   }
@@ -232,7 +236,7 @@ export default function UserForm() {
                 <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
                 <button
                     type="submit"
-                    onClick={disableButton}
+                    onClick={handleDelete}
                     style={{ backgroundColor: processsing && "grey" }}
                     className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
                   >
