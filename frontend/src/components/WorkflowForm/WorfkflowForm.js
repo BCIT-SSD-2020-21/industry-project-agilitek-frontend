@@ -8,6 +8,7 @@ import {
     updateWorkflow,
     getDBTables,
     getDBColumns,
+    deleteWorkflow,
     getWorkflowInputs,
     getMetadata,
 } from '../../api/network';
@@ -228,7 +229,7 @@ export default function UserForm() {
     const handleSwitch = (e) => {
         setFormData({ ...formData, active: e });
     };
-    
+
     const handleDelete = async (e) => {
       if (id) {
         await deleteWorkflow(id)
