@@ -549,7 +549,6 @@ export default function UserForm() {
                                         </Switch.Group>
                                     </div>
                                 </div>
-
                                 {/* Dont touch anything below this point */}
                                 <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
                                     <button
