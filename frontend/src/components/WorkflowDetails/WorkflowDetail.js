@@ -155,37 +155,13 @@ const { name, desc, flowUrl, query, active } = formData
                             id="query"
                             placeholder="SQL Query"
                             className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                            value={query}
+                            value={active}
                             onChange={handleChange}
                           />
                         </div>
                       </div>
                       <div className="grid grid-cols-6 gap-6">
-                        {/* SELECT SALESFORCE FLOWS */}
-                        {/* <div className="col-span-6 sm:col-span-3 mt-5">
-                          <label
-                            htmlFor="flowUrl"
-                            className="block text-sm font-medium text-gray-700"
-                          >
-                            Choose Workflow
-                          </label>
-                          <select
-                            id="flowUrl"
-                            name="flowUrl"
-                            className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                            value={flowUrl}
-                            onChange={handleChange}
-                          >
-                            <option>Choose Workflow...</option>
-                            {options.map((option, idx) => {
-                              return (
-                                <option value={option.url} key={idx}>
-                                  {option.label}
-                                </option>
-                              )
-                            })}
-                          </select>
-                        </div> */}
+
                       </div>
                       <div className="col-span-6 sm:col-span-3 mt-5">
                         <Switch.Group as="div" className="flex items-center">
