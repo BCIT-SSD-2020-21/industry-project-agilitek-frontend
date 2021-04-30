@@ -5,6 +5,7 @@ import {
   getWorkflow,
   getWorkflowLogs,
   setQuery,
+  deleteWorkflow,
   updateWorkflow,
 } from "../../api/network"
 import { Switch } from "@headlessui/react"
@@ -77,8 +78,11 @@ export default function UserForm() {
     setFormData({ ...formData, [e.target.name]: e.target.value })
   }
 
-  const handleDelete = (e) => {
-    set
+  const handleDelete = async (e) => {
+    if (id) {
+      await deleteWorkflow(id)
+    }
+    history.push("/")
   }
 
   const handleSwitch = (e) => {
