@@ -25,6 +25,9 @@ function App() {
         <Route exact path="/details/:id">
           <UserDash children={<WorkflowDetail />} />
         </Route>
+        <Route exact path="/404">
+        <UserDash children={<WorkflowDetail />} />
+        </Route>
       </Switch>
       {/* </div> */}
     </Router>
