@@ -106,7 +106,9 @@ export default function UserForm() {
               <div className="shadow overflow-hidden sm:rounded-md">
                 <div className="px-4 py-5 bg-white sm:p-6">
                   <div className="grid grid-cols-6 gap-6 ">
+
                     <div className="col-span-6 sm:col-span-4 mt-5">
+
                       <label
                         htmlFor="email_address"
                         className="block text-sm font-medium text-gray-700"
@@ -228,6 +230,14 @@ export default function UserForm() {
 
                 {/* Dont touch anything below this point */}
                 <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
+                <button
+                    type="submit"
+                    onClick={disableButton}
+                    style={{ backgroundColor: processsing && "grey" }}
+                    className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
+                  >
+                  Delete Configuration
+                  </button>
                   <button
                     type="submit"
                     onClick={() => history.push("/")}
