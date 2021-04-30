@@ -37,7 +37,6 @@ const [formData, setFormData] = useState({
   query: "",
   active: true,
 })
-const [processsing, setProcessing] = useState(false)
 
 useEffect(() => {
   ;(async () => {
@@ -76,31 +75,15 @@ const submit = async (e) => {
   history.push("/")
 }
 
-const handleChange = (e) => {
-  setFormData({ ...formData, [e.target.name]: e.target.value })
-}
-
-const handleSwitch = (e) => {
-  setFormData({ ...formData, active: e })
-}
-
-const disableButton = () => {
-  setProcessing(true)
-}
-
 const { name, desc, flowUrl, query, active } = formData
 
     return (
       !name ? (
         <div>Status Code 404</div>
       ) : (
-
-
-
         <div className="m-8">
           <div className="hidden sm:block" aria-hidden="true">
-            <div className="py-5">
-              {/* <div className="border-t border-gray-200" /> */}
+            <div className="py-2">
             </div>
           </div>
     
@@ -126,7 +109,6 @@ const { name, desc, flowUrl, query, active } = formData
                             placeholder="Name.."
                             className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                             value={name}
-                            onChange={handleChange}
                           />
                         </div>
                       </div>
@@ -146,7 +128,6 @@ const { name, desc, flowUrl, query, active } = formData
                             placeholder="SQL Query"
                             className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                             value={query}
-                            onChange={handleChange}
                           />
                         </div>
                       </div>
@@ -166,7 +147,6 @@ const { name, desc, flowUrl, query, active } = formData
                             placeholder="SQL Query"
                             className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                             value={active}
-                            onChange={handleChange}
                           />
                         </div>
                       </div>
@@ -183,7 +163,6 @@ const { name, desc, flowUrl, query, active } = formData
 
           <div className="hidden sm:block" aria-hidden="true">
             <div className="py-5">
-              {/* <div className="border-t border-gray-200" /> */}
             </div>
           </div>
           
