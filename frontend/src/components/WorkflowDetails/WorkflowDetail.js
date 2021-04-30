@@ -48,16 +48,21 @@ useEffect(() => {
 
 useEffect(() => {
   ;(async () => {
-    if (id) {
-      const res = await getWorkflow(id)    
-      setFormData({
-        name: res.name,
-        desc: res.desc,
-        flowUrl: res.flow_url,
-        query: res.sql_query,
-        active: res.active,
-      })
+    try {
+      if (id) {
+        const res = await getWorkflow(id)    
+        setFormData({
+          name: res.name,
+          desc: res.desc,
+          flowUrl: res.flow_url,
+          query: res.sql_query,
+          active: res.active,
+        })
+      }  
+    } catch (error) {
+      console.log(error)
     }
+
   })()
 }, [])
 
