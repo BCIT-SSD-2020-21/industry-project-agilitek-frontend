@@ -9,10 +9,13 @@ import {
     getDBTables,
     getDBColumns,
     getWorkflowInputs,
+    getMetadata,
 } from '../../api/network';
 import { Switch } from '@headlessui/react';
 import { useHistory, useParams } from 'react-router-dom';
 import MappingInput from './MappingInput';
+import { Snackbar } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ');
@@ -48,8 +51,12 @@ export default function UserForm() {
     });
     const [dbTables, setDbTables] = useState([]);
     const [dbColumns, setDBColumns] = useState([]);
+    const [sfMetadata, setSfMetadata] = useState([]);
     const [processsing, setProcessing] = useState(false);
     const [mappings, setMappings] = useState([]);
+    const [errorMessage, setErrorMessage] = useState('');
+    const [snackbarOpen, setSnackbarOpen] = useState(false);
+    const [tempMapping, setTempMapping] = useState({});
 
     // CDM
     useEffect(() => {
@@ -71,7 +78,6 @@ export default function UserForm() {
                     name: res.name,
                     desc: res.desc,
                     flowUrl: res.flow_url,
-                    query: res.sql_query,
                     active: res.active,
                     table: res.table,
                     type: res.type,
@@ -80,28 +86,99 @@ export default function UserForm() {
                     sObjectType: res.sobjecttype,
                     whereClause: res.where_clause,
                     runAgain: res.run_again,
+                    mapping: res.mapping,
                 });
+
+                // Fetch and set Salesforce metadata
+                if (res.type === 'SOBJECT') {
+                    const metadataRes = await getMetadata(res.sobjecttype);
+                    setSfMetadata(metadataRes);
+                }
+
+                setTempMapping(res.mapping);
             }
         })();
     }, []);
 
-    // CDM - Update when table selection changed
+    // CDU - Update when table selection changed
     useEffect(() => {
         (async () => {
+            setTempMapping({});
+
             const dbColumnsRes = await getDBColumns(formData.table);
             setDBColumns(dbColumnsRes);
         })();
     }, [formData.table]);
 
+    // CDU - Update when new mapping is added
+    useEffect(() => {
+        const temp = [];
+
+        for (const mappingKey in tempMapping) {
+            temp.push(
+                <MappingInput
+                    key={`${mappingKey}:${tempMapping[mappingKey]}`}
+                    sfMetadata={sfMetadata}
+                    dbColumns={dbColumns}
+                    tempMapping={tempMapping}
+                    setTempMapping={setTempMapping}
+                    mappingKey={mappingKey}
+                    mappingValue={tempMapping[mappingKey]}
+                />
+            );
+        }
+
+        setMappings([
+            ...temp,
+            <MappingInput
+                key={':'}
+                sfMetadata={sfMetadata}
+                dbColumns={dbColumns}
+                tempMapping={tempMapping}
+                setTempMapping={setTempMapping}
+                mappingKey=""
+                mappingValue=""
+                setSnackbarOpen={setSnackbarOpen}
+                setErrorMessage={setErrorMessage}
+            />,
+        ]);
+    }, [tempMapping, dbColumns]);
+
+    // CDU - Reset mapping inputs whenever the workflow changes
+    useEffect(() => {
+        setMappings([
+            <MappingInput
+                key={':'}
+                sfMetadata={sfMetadata}
+                dbColumns={dbColumns}
+                tempMapping={tempMapping}
+                setTempMapping={setTempMapping}
+                mappingKey=""
+                mappingValue=""
+                setSnackbarOpen={setSnackbarOpen}
+                setErrorMessage={setErrorMessage}
+            />,
+        ]);
+    }, [sfMetadata]);
+
     // Makes a call to db to return query results
     const submit = async (e) => {
         e.preventDefault();
         if (id) {
-            await updateWorkflow(id, formData);
+            await updateWorkflow(id, { ...formData, mapping: tempMapping });
         } else {
-            await createWorkflow(formData);
+            await createWorkflow({ ...formData, mapping: tempMapping });
         }
         history.push('/');
+    };
+
+    // Handle error message snackbar close event
+    const handleSnackbarClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setSnackbarOpen(false);
     };
 
     // Handle form data change
@@ -111,6 +188,10 @@ export default function UserForm() {
 
     // Handle workflow dropdown list change
     const handleWorkflowChange = async (e) => {
+        // Set mappings to empty array first
+        setMappings([]);
+        setTempMapping({});
+
         if (e.target.value) {
             const sfInputsRes = await getWorkflowInputs(e.target.value);
 
@@ -119,14 +200,22 @@ export default function UserForm() {
                 type: sfInputsRes.type,
                 label: sfInputsRes.label,
                 sObjectType: sfInputsRes.sObjectType,
+                column: '',
                 flowUrl: e.target.value,
             });
+
+            // Fetch and set Salesforce metadata
+            if (sfInputsRes.type === 'SOBJECT') {
+                const metadataRes = await getMetadata(sfInputsRes.sObjectType);
+                setSfMetadata(metadataRes);
+            }
         } else {
             setFormData({
                 ...formData,
                 type: '',
                 label: '',
                 sObjectType: '',
+                column: '',
                 flowUrl: '',
             });
         }
@@ -156,6 +245,7 @@ export default function UserForm() {
         sObjectType,
         whereClause,
         runAgain,
+        mapping,
     } = formData;
 
     return (
@@ -243,7 +333,10 @@ export default function UserForm() {
                                                 name="flowUrl"
                                                 value={flowUrl}
                                                 className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                                onChange={handleWorkflowChange}
+                                                onChange={(e) => {
+                                                    handleWorkflowChange(e);
+                                                    handleChange(e);
+                                                }}
                                             >
                                                 <option value="">
                                                     Choose Workflow...
@@ -266,7 +359,7 @@ export default function UserForm() {
                                         </div>
                                     </div>
                                     {/* Show additional input or selection boxes only if table and workflow are selected */}
-                                    {table && type && label ? (
+                                    {table && label ? (
                                         <>
                                             <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
                                                 <div className="sm:col-span-3">
@@ -299,7 +392,7 @@ export default function UserForm() {
                                                             htmlFor="columns"
                                                             className="block text-sm font-medium text-gray-700"
                                                         >
-                                                            Choose Columns
+                                                            Choose Column
                                                         </label>
                                                         <select
                                                             id="columns"
@@ -311,8 +404,7 @@ export default function UserForm() {
                                                             }
                                                         >
                                                             <option value="">
-                                                                Choose
-                                                                Columns...
+                                                                Choose Column...
                                                             </option>
                                                             {dbColumns.map(
                                                                 (
@@ -339,7 +431,8 @@ export default function UserForm() {
                                                     </div>
                                                 ) : null}
                                             </div>
-                                            {!sObjectType ? (
+                                            {/* Mapping dropdown lists */}
+                                            {sObjectType ? (
                                                 <div className="mappings">
                                                     {mappings}
                                                 </div>
@@ -452,7 +545,7 @@ export default function UserForm() {
                                 {/* Dont touch anything below this point */}
                                 <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
                                     <button
-                                        type="submit"
+                                        type="button"
                                         onClick={() => history.push('/')}
                                         className="mx-6 inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
                                     >
@@ -477,6 +570,15 @@ export default function UserForm() {
                     </div>
                 </div>
             </div>
+            <Snackbar
+                open={snackbarOpen}
+                autoHideDuration={5000}
+                onClose={handleSnackbarClose}
+            >
+                <Alert onClose={handleSnackbarClose} severity="warning">
+                    {errorMessage}
+                </Alert>
+            </Snackbar>
         </div>
     );
 }

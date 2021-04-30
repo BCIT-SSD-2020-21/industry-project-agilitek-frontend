@@ -141,7 +141,7 @@ export async function getMetadata(sObjectType) {
             `${url}/salesforceflows/metadata?sObjectType=${sObjectType}`
         );
 
-        return JSON.parse(res.data.body);
+        return res.data.metadata;
     } catch (err) {
         console.log(err);
     }
