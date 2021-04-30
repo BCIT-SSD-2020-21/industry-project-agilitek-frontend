@@ -133,3 +133,16 @@ export async function getWorkflowInputs(flowUrl) {
         console.log(err);
     }
 }
+
+// Get Salesforce metadata
+export async function getMetadata(sObjectType) {
+    try {
+        const res = await axios.get(
+            `${url}/salesforceflows/metadata?sObjectType=${sObjectType}`
+        );
+
+        return JSON.parse(res.data.body);
+    } catch (err) {
+        console.log(err);
+    }
+}

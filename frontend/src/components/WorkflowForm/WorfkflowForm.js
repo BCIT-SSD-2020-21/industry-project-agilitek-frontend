@@ -12,6 +12,7 @@ import {
 } from '../../api/network';
 import { Switch } from '@headlessui/react';
 import { useHistory, useParams } from 'react-router-dom';
+import MappingInput from './MappingInput';
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ');
@@ -30,7 +31,6 @@ const people = [
 export default function UserForm() {
     const history = useHistory();
     const { id } = useParams();
-
     const [workflows, setWorkflows] = useState([]);
     const [formData, setFormData] = useState({
         name: '',
@@ -49,9 +49,15 @@ export default function UserForm() {
     const [dbTables, setDbTables] = useState([]);
     const [dbColumns, setDBColumns] = useState([]);
     const [processsing, setProcessing] = useState(false);
+    const [mappings, setMappings] = useState([]);
 
+    // CDM
     useEffect(() => {
         (async () => {
+            // Get all database tables from the database
+            const dbTablesRes = await getDBTables();
+            setDbTables(dbTablesRes);
+
             // Get all Salesforce flows from Salesforce Invoke Flow API
             const sfFlowRes = await getSalesForceFlow();
             setWorkflows(sfFlowRes);
@@ -60,21 +66,32 @@ export default function UserForm() {
             // the data for that workflow
             if (id) {
                 const res = await getWorkflow(id);
+
                 setFormData({
                     name: res.name,
                     desc: res.desc,
                     flowUrl: res.flow_url,
                     query: res.sql_query,
                     active: res.active,
+                    table: res.table,
+                    type: res.type,
+                    label: res.label,
+                    column: res.column,
+                    sObjectType: res.sobjecttype,
+                    whereClause: res.where_clause,
                     runAgain: res.run_again,
                 });
             }
-
-            // Get all database tables from the database
-            const dbTablesRes = await getDBTables();
-            setDbTables(dbTablesRes);
         })();
     }, []);
+
+    // CDM - Update when table selection changed
+    useEffect(() => {
+        (async () => {
+            const dbColumnsRes = await getDBColumns(formData.table);
+            setDBColumns(dbColumnsRes);
+        })();
+    }, [formData.table]);
 
     // Makes a call to db to return query results
     const submit = async (e) => {
@@ -89,29 +106,19 @@ export default function UserForm() {
 
     // Handle form data change
     const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
-
-    // Handle table dropdown list change
-    const handleDBTableChange = async (e) => {
-        const dbColumnsRes = await getDBColumns(e.target.value);
-        setDBColumns(dbColumnsRes);
-
-        handleChange(e);
+        setFormData({ ...formData, [e.target.name]: e.target.value || '' });
     };
 
     // Handle workflow dropdown list change
     const handleWorkflowChange = async (e) => {
-        console.log(e.target.value);
-
         if (e.target.value) {
-            const workflowRes = await getWorkflowInputs(e.target.value);
+            const sfInputsRes = await getWorkflowInputs(e.target.value);
 
             setFormData({
                 ...formData,
-                type: workflowRes.type,
-                label: workflowRes.label,
-                sObjectType: workflowRes.sObjectType,
+                type: sfInputsRes.type,
+                label: sfInputsRes.label,
+                sObjectType: sfInputsRes.sObjectType,
                 flowUrl: e.target.value,
             });
         } else {
@@ -196,8 +203,9 @@ export default function UserForm() {
                                             <select
                                                 id="tables"
                                                 name="table"
+                                                value={table}
                                                 className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                                onChange={handleDBTableChange}
+                                                onChange={handleChange}
                                             >
                                                 <option value="">
                                                     Choose Table...
@@ -210,12 +218,6 @@ export default function UserForm() {
                                                                     dbTable.table_name
                                                                 }
                                                                 key={idx}
-                                                                selected={
-                                                                    dbTable.table_name ===
-                                                                    table
-                                                                        ? 'selected'
-                                                                        : ''
-                                                                }
                                                             >
                                                                 {
                                                                     dbTable.table_name
@@ -239,6 +241,7 @@ export default function UserForm() {
                                             <select
                                                 id="flowUrl"
                                                 name="flowUrl"
+                                                value={flowUrl}
                                                 className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                                 onChange={handleWorkflowChange}
                                             >
@@ -253,12 +256,6 @@ export default function UserForm() {
                                                                     workflow.url
                                                                 }
                                                                 key={idx}
-                                                                selected={
-                                                                    workflow.url ===
-                                                                    flowUrl
-                                                                        ? 'selected'
-                                                                        : ''
-                                                                }
                                                             >
                                                                 {workflow.label}
                                                             </option>
@@ -307,6 +304,7 @@ export default function UserForm() {
                                                         <select
                                                             id="columns"
                                                             name="column"
+                                                            value={column}
                                                             className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                                             onChange={
                                                                 handleChange
@@ -329,12 +327,6 @@ export default function UserForm() {
                                                                             key={
                                                                                 idx
                                                                             }
-                                                                            selected={
-                                                                                dbColumn.column_name ===
-                                                                                column
-                                                                                    ? 'selected'
-                                                                                    : ''
-                                                                            }
                                                                         >
                                                                             {
                                                                                 dbColumn.column_name
@@ -347,7 +339,12 @@ export default function UserForm() {
                                                     </div>
                                                 ) : null}
                                             </div>
-                                            <div className="grid grid-cols-6 gap-6 ">
+                                            {!sObjectType ? (
+                                                <div className="mappings">
+                                                    {mappings}
+                                                </div>
+                                            ) : null}
+                                            <div className="grid grid-cols-6 gap-6">
                                                 <div className="col-span-6 sm:col-span-4 mt-5">
                                                     <label
                                                         htmlFor="where_clause"
@@ -368,7 +365,6 @@ export default function UserForm() {
                                             </div>
                                         </>
                                     ) : null}
-
                                     <div className="col-span-6 sm:col-span-3 mt-5">
                                         <Switch.Group
                                             as="div"
