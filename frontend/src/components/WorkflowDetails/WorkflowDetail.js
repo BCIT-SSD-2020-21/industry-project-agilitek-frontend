@@ -49,7 +49,7 @@ useEffect(() => {
 useEffect(() => {
   ;(async () => {
     if (id) {
-      const res = await getWorkflow(id)
+      const res = await getWorkflow(id)    
       setFormData({
         name: res.name,
         desc: res.desc,

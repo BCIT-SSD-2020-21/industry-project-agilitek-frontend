@@ -61,7 +61,8 @@ useEffect(() => {
                 <tbody className="bg-white divide-y divide-gray-200">
                     
 
-                    { logArray[0].action_name ? (
+                { 
+                // logArray[0].action_name ? (
                     logArray.map((logs) => (
                     <tr>
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{logs.workflow_id}</td>
@@ -72,16 +73,16 @@ useEffect(() => {
                         </td>
                      </tr>
                     ))
-                    ) : (
-                        <tr>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">NULL</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">NULL</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">NULL</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">NULL</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                        </td>
-                     </tr>
-                    )
+                    // ) : (
+                    //     <tr>
+                    //     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">NULL</td>
+                    //     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">NULL</td>
+                    //     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">NULL</td>
+                    //     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">NULL</td>
+                    //     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                    //     </td>
+                    //  </tr>
+                    // )
                 
                 }
                 </tbody>
