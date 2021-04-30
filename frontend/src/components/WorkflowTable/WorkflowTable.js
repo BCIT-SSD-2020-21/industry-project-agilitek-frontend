@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react"
 import WorkflowItem from "../WorkflowItem/WorkflowItem"
-import { useHistory } from "react-router-dom"
+import { useHistory, Link } from "react-router-dom"
 import { getAllWorkflows } from "../../api/network"
 import CircularProgress from "@material-ui/core/CircularProgress"
 import { makeStyles } from "@material-ui/core/styles"
+
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ")
@@ -140,7 +141,7 @@ const WorkflowTable = () => {
                               className="group inline-flex space-x-2 truncate text-sm"
                             > */}
                               <p className="text-gray-500 truncate group-hover:text-gray-900">
-                                {workflow.name}
+                              <Link className="text-blue-500 truncate hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500" to={`/details/${workflow.id}`}>{workflow.name}</Link>
                               </p>
                               {/* </a> */}
                             </div>
