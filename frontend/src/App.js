@@ -5,6 +5,7 @@ import UserDash from "./components/Landing/userDash"
 import CreateWorkflow from "./Pages/CreateWorkflow"
 import Landing from "./Pages/Landing"
 import WorkflowForm from "./components/WorkflowForm/WorfkflowForm"
+import ErrorPage from "./components/ErrorPage/ErrorPage"
 import WorkflowTable from "./components/WorkflowTable/WorkflowTable"
 import WorkflowDetail from "./components/WorkflowDetails/WorkflowDetail"
 
@@ -26,7 +27,7 @@ function App() {
           <UserDash children={<WorkflowDetail />} />
         </Route>
         <Route exact path="/404">
-        <UserDash children={<WorkflowDetail />} />
+        <UserDash children={<ErrorPage />} />
         </Route>
       </Switch>
       {/* </div> */}

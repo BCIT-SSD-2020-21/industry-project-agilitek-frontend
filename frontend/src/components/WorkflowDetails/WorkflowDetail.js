@@ -78,9 +78,6 @@ const submit = async (e) => {
 const { name, desc, flowUrl, query, active } = formData
 
     return (
-      !name ? (
-        <div>Status Code 404</div>
-      ) : (
         <div className="m-8">
           <div className="hidden sm:block" aria-hidden="true">
             <div className="py-2">
@@ -176,6 +173,5 @@ const { name, desc, flowUrl, query, active } = formData
         </div>
 
         </div>
-      )
     )
 }

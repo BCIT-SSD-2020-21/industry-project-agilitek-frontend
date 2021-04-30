@@ -78,100 +78,101 @@ const submit = async (e) => {
 const { name, desc, flowUrl, query, active } = formData
 
     return (
-        <div className="m-8">
-          <div className="hidden sm:block" aria-hidden="true">
-            <div className="py-2">
-            </div>
-          </div>
+        <div className="ml-8">Error Status Code: 404</div>
+        // <div className="m-8">
+        //   <div className="hidden sm:block" aria-hidden="true">
+        //     <div className="py-2">
+        //     </div>
+        //   </div>
     
-          <div className="mt-10 sm:mt-0">
-            <div className="md:grid md:grid-cols-3 md:gap-6">
-              <div className="md:col-span-full">
-                <form onSubmit={submit}>
-                  <div className="shadow overflow-hidden sm:rounded-md">
-                    <div className="px-4 py-5 bg-white sm:p-6">
-                      <div className="grid grid-cols-6 gap-6 ">
-                        <div className="col-span-6 sm:col-span-4 mt-5">
-                          <label
-                            htmlFor="email_address"
-                            className="block text-sm font-medium text-gray-700"
-                          >
-                            Name of the Workflow
-                          </label>
-                          <input
-                            disabled
-                            type="text"
-                            name="name"
-                            id="name"
-                            placeholder="Name.."
-                            className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                            value={name}
-                          />
-                        </div>
-                      </div>
-                      <div className="grid grid-cols-6 gap-6 ">
-                        <div className="col-span-6 sm:col-span-4 mt-5">
-                          <label
-                            htmlFor="email_address"
-                            className="block text-sm font-medium text-gray-700"
-                          >
-                            SQL Query
-                          </label>
-                          <input
-                            disabled
-                            type="text"
-                            name="query"
-                            id="query"
-                            placeholder="SQL Query"
-                            className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                            value={query}
-                          />
-                        </div>
-                      </div>
-                      <div className="grid grid-cols-6 gap-6 ">
-                        <div className="col-span-6 sm:col-span-4 mt-5">
-                          <label
-                            htmlFor="email_address"
-                            className="block text-sm font-medium text-gray-700"
-                          >
-                            Automation Status
-                          </label>
-                          <input
-                            disabled
-                            type="text"
-                            name="query"
-                            id="query"
-                            placeholder="SQL Query"
-                            className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                            value={active}
-                          />
-                        </div>
-                      </div>
-                      <div className="grid grid-cols-6 gap-6">
+        //   <div className="mt-10 sm:mt-0">
+        //     <div className="md:grid md:grid-cols-3 md:gap-6">
+        //       <div className="md:col-span-full">
+        //         <form onSubmit={submit}>
+        //           <div className="shadow overflow-hidden sm:rounded-md">
+        //             <div className="px-4 py-5 bg-white sm:p-6">
+        //               <div className="grid grid-cols-6 gap-6 ">
+        //                 <div className="col-span-6 sm:col-span-4 mt-5">
+        //                   <label
+        //                     htmlFor="email_address"
+        //                     className="block text-sm font-medium text-gray-700"
+        //                   >
+        //                     Name of the Workflow
+        //                   </label>
+        //                   <input
+        //                     disabled
+        //                     type="text"
+        //                     name="name"
+        //                     id="name"
+        //                     placeholder="Name.."
+        //                     className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+        //                     value={name}
+        //                   />
+        //                 </div>
+        //               </div>
+        //               <div className="grid grid-cols-6 gap-6 ">
+        //                 <div className="col-span-6 sm:col-span-4 mt-5">
+        //                   <label
+        //                     htmlFor="email_address"
+        //                     className="block text-sm font-medium text-gray-700"
+        //                   >
+        //                     SQL Query
+        //                   </label>
+        //                   <input
+        //                     disabled
+        //                     type="text"
+        //                     name="query"
+        //                     id="query"
+        //                     placeholder="SQL Query"
+        //                     className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+        //                     value={query}
+        //                   />
+        //                 </div>
+        //               </div>
+        //               <div className="grid grid-cols-6 gap-6 ">
+        //                 <div className="col-span-6 sm:col-span-4 mt-5">
+        //                   <label
+        //                     htmlFor="email_address"
+        //                     className="block text-sm font-medium text-gray-700"
+        //                   >
+        //                     Automation Status
+        //                   </label>
+        //                   <input
+        //                     disabled
+        //                     type="text"
+        //                     name="query"
+        //                     id="query"
+        //                     placeholder="SQL Query"
+        //                     className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+        //                     value={active}
+        //                   />
+        //                 </div>
+        //               </div>
+        //               <div className="grid grid-cols-6 gap-6">
 
-                      </div>
-                    </div>
+        //               </div>
+        //             </div>
 
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
+        //           </div>
+        //         </form>
+        //       </div>
+        //     </div>
+        //   </div>
 
-          <div className="hidden sm:block" aria-hidden="true">
-            <div className="py-5">
-            </div>
-          </div>
+        //   <div className="hidden sm:block" aria-hidden="true">
+        //     <div className="py-5">
+        //     </div>
+        //   </div>
           
 
-        <div className="mt-10 sm:mt-0">
-            <div className="md:grid md:grid-cols-3 md:gap-6">
-                <div className="md:col-span-full">
-                <ExecutionTable/>
-                </div>
-            </div>
-        </div>
+        // <div className="mt-10 sm:mt-0">
+        //     <div className="md:grid md:grid-cols-3 md:gap-6">
+        //         <div className="md:col-span-full">
+        //         <ExecutionTable/>
+        //         </div>
+        //     </div>
+        // </div>
 
-        </div>
+        // </div>
     )
 }
