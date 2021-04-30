@@ -87,6 +87,12 @@ const disableButton = () => {
 const { name, desc, flowUrl, query, active } = formData
 
     return (
+      !name ? (
+        <div>Status Code 404</div>
+      ) : (
+
+
+
         <div className="m-8">
           <div className="hidden sm:block" aria-hidden="true">
             <div className="py-5">
@@ -190,7 +196,7 @@ const { name, desc, flowUrl, query, active } = formData
                         </Switch.Group>
                       </div>
                     </div>
-                    
+
                   </div>
                 </form>
               </div>
@@ -214,4 +220,5 @@ const { name, desc, flowUrl, query, active } = formData
 
         </div>
       )
+    )
 }

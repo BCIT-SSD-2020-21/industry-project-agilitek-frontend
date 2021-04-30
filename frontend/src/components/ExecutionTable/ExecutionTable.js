@@ -10,12 +10,6 @@ const { id } = useParams()
 
 
 const [logArray, setLogArray] = useState([])    
-const [logFormData, setLogFormData] = useState({
-    workflow_id: "", 
-    action_name: "",
-    time_of_completion: "",
-    record_id: "",
-    })
 
 useEffect(() => {
     ;(async () => {
@@ -23,23 +17,9 @@ useEffect(() => {
         const res = await getWorkflowLogs(id)
         console.log(res)
         setLogArray(res)
-        setLogFormData({
-            workflow_id: res.workflow_id, 
-            action_name: res.action_name ,
-            time_of_completion: res.time_of_completion,
-            record_id: res.record_id,
-            })
         }   
     })()
     }, [])
-
-    // useEffect(() => {
-    //     setLogArray( logArray => [...logArray, logFormData])
-    // }, [logFormData])
-
-    useEffect(() => {
-        // console.log(logArray)
-    }, [logFormData])
 
     return (
         <div className="flex flex-col">
@@ -79,19 +59,31 @@ useEffect(() => {
                     </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                    {logArray.map((logs) => (
+                    
+
+                    { logArray[0].action_name ? (
+                    logArray.map((logs) => (
                     <tr>
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{logs.workflow_id}</td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{logs.action_name}</td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{logs.time_of_completion}</td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{logs.record_id}</td>
                         <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                        {/* <a href="#" className="text-indigo-600 hover:text-indigo-900">
-                            Edit
-                        </a> */}
                         </td>
                      </tr>
-                    ))}
+                    ))
+                    ) : (
+                        <tr>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">NULL</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">NULL</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">NULL</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">NULL</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        </td>
+                     </tr>
+                    )
+                
+                }
                 </tbody>
                 </table>
             </div>
