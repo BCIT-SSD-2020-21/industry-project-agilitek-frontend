@@ -1,15 +1,26 @@
-import { Fragment, useRef, useState } from "react"
+import { Fragment, useRef, useState, useEffect } from "react"
 import { Dialog, Transition } from "@headlessui/react"
 import { ExclamationIcon } from "@heroicons/react/outline"
 
-export default function Modal({ deleteWorkflow }) {
-  const [open, setOpen] = useState(true)
+export default function Modal({ deleteWorkflow, modalOpen, modalClose }) {
+  const [open, setOpen] = useState(false)
+  const [processing, setProcessing] = useState(false)
 
   const cancelButtonRef = useRef()
-  const deleteClicked = () => {
-    deleteWorkflow()
+  const deleteClicked = async () => {
+    await deleteWorkflow()
     setOpen(false)
   }
+
+  useEffect(() => {
+    if (modalOpen) {
+      setOpen(true)
+    }
+  }, [modalOpen])
+
+  useEffect(() => {
+    modalClose()
+  }, [open])
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -77,12 +88,17 @@ export default function Modal({ deleteWorkflow }) {
               <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                 <button
                   type="button"
+                  style={{
+                    backgroundColor: processing && "grey",
+                    opacity: processing && "50%",
+                  }}
                   className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
                   onClick={() => {
+                    setProcessing(true)
                     deleteClicked()
                   }}
                 >
-                  Delete
+                  {processing ? "Deleting" : "Delete"}
                 </button>
                 <button
                   type="button"
