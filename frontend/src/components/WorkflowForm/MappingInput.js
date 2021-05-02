@@ -33,7 +33,9 @@ export default function MappingInput({
                 tempMapping[metadata] === column
             ) {
                 setSnackbarOpen(true);
-                setErrorMessage(`${metadata}: ${column} already exists`);
+                setErrorMessage(
+                    `${metadata}: ${column} mapping already exists`
+                );
             } else {
                 setTempMapping((prev) => ({
                     ...prev,
@@ -51,6 +53,7 @@ export default function MappingInput({
             tempMapping.hasOwnProperty(metadata) &&
             tempMapping[metadata] === column
         ) {
+            // Delete mapping input component
             const result = Object.keys(tempMapping).reduce((object, key) => {
                 if (key !== metadata) {
                     object[key] = tempMapping[key];
@@ -63,8 +66,8 @@ export default function MappingInput({
     };
 
     return (
-        <div className="mt-6 grid grid-cols-2 gap-y-6 gap-x-4 sm:grid-cols-6">
-            <div className="sm:col-span-3">
+        <div className="mt-6 grid grid-cols-3 gap-y-6 gap-x-4 sm:grid-cols-6">
+            <div className="sm:col-span-2">
                 {/* SELECT DATABASE COLUMNS */}
 
                 <label
@@ -91,7 +94,7 @@ export default function MappingInput({
                     })}
                 </select>
             </div>
-            <div className="sm:col-span-3">
+            <div className="sm:col-span-2">
                 {/* SELECT DATABASE COLUMNS */}
                 <label
                     htmlFor="columns"
@@ -117,11 +120,11 @@ export default function MappingInput({
                     })}
                 </select>
             </div>
-            <div className="sm:col-span-3">
+            <div className="sm:col-span-2">
                 {isAdded ? (
                     <button
                         type="button"
-                        className="inline-flex items-center px-5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                         style={{ backgroundColor: '#ff0021' }}
                         onClick={handleDeleteBtnClick}
                     >
@@ -130,7 +133,7 @@ export default function MappingInput({
                 ) : (
                     <button
                         type="button"
-                        className="inline-flex items-center px-5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        className="inline-flex items-center px-6 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                         style={{ backgroundColor: '#0891b2' }}
                         onClick={handleAddBtnClick}
                     >

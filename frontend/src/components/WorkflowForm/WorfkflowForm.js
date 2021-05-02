@@ -231,12 +231,11 @@ export default function UserForm() {
     };
 
     const handleDelete = async (e) => {
-      if (id) {
-        await deleteWorkflow(id)
-      }
-      history.push("/")
-    }
-  
+        if (id) {
+            await deleteWorkflow(id);
+        }
+        history.push('/');
+    };
 
     const disableButton = () => {
         setProcessing(true);
@@ -559,12 +558,15 @@ export default function UserForm() {
                                         Cancel
                                     </button>
                                     <button
-                                      type="submit"
-                                      onClick={handleDelete}
-                                      style={{ backgroundColor: processsing && "grey" }}
-                                      className="mr-6 inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
+                                        type="submit"
+                                        onClick={handleDelete}
+                                        style={{
+                                            backgroundColor:
+                                                processsing && 'grey',
+                                        }}
+                                        className="mr-6 inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
                                     >
-                                    Delete Configuration
+                                        Delete Configuration
                                     </button>
                                     <button
                                         type="submit"
@@ -590,7 +592,7 @@ export default function UserForm() {
                 autoHideDuration={5000}
                 onClose={handleSnackbarClose}
             >
-                <Alert onClose={handleSnackbarClose} severity="warning">
+                <Alert onClose={handleSnackbarClose} severity="error">
                     {errorMessage}
                 </Alert>
             </Snackbar>
