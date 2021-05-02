@@ -84,7 +84,7 @@ export default function UserForm() {
                     type: res.type,
                     label: res.label,
                     column: res.column,
-                    sObjectType: res.sobjecttype,
+                    sObjectType: res.sobject_type,
                     whereClause: res.where_clause,
                     runAgain: res.run_again,
                     mapping: res.mapping,
@@ -92,7 +92,7 @@ export default function UserForm() {
 
                 // Fetch and set Salesforce metadata
                 if (res.type === 'SOBJECT') {
-                    const metadataRes = await getMetadata(res.sobjecttype);
+                    const metadataRes = await getMetadata(res.sobject_type);
                     setSfMetadata(metadataRes);
                 }
 
@@ -391,7 +391,8 @@ export default function UserForm() {
                                                     />
                                                 </div>
                                                 {/* If not sObject type then show the column selection list*/}
-                                                {!sObjectType ? (
+                                                {!sObjectType ||
+                                                sObjectType === 'undefined' ? (
                                                     <div className="sm:col-span-3">
                                                         {/* SELECT DATABASE COLUMNS */}
 
@@ -439,7 +440,8 @@ export default function UserForm() {
                                                 ) : null}
                                             </div>
                                             {/* Mapping dropdown lists */}
-                                            {sObjectType ? (
+                                            {sObjectType &&
+                                            sObjectType !== 'undefined' ? (
                                                 <div className="mappings">
                                                     {mappings}
                                                 </div>
