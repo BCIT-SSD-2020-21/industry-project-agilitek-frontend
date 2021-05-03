@@ -99,6 +99,8 @@ useEffect(() => {
       // the data for that workflow
       if (id) {
         const res = await getWorkflow(id)
+        console.log(res)
+        console.log(res.mapping)
         setFormData({
           name: res.name,
           desc: res.desc,
@@ -211,6 +213,31 @@ const {
                             htmlFor="inputs_type"
                             className="block text-sm font-medium text-gray-700"
                           >
+                            Salesforce MetaData
+                          </label>
+                          <input
+                            type="text"
+                            name="inputs_type"
+                            id="inputs_type"
+                            className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                            value={
+                              sObjectType
+                                ? `${label} (${type} of Type=${sObjectType})`
+                                : `${label} (Type=${type})`
+                            }
+                            disabled
+                          />
+                        </div>
+                        <div>
+                        </div>
+                      </div>
+
+                      <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+                        <div className="sm:col-span-3">
+                          <label
+                            htmlFor="inputs_type"
+                            className="block text-sm font-medium text-gray-700"
+                          >
                             Salesforce Flow Inputs Type
                           </label>
                           <input
@@ -226,40 +253,14 @@ const {
                             disabled
                           />
                         </div>
-                        {/* If not sObject type then show the column selection list*/}
-                        {
-                        // !sObjectType ? (
-                        //   <div className="sm:col-span-3">
-                        //     {/* SELECT DATABASE COLUMNS */}
-
-                        //     <label
-                        //       htmlFor="columns"
-                        //       className="block text-sm font-medium text-gray-700"
-                        //     >
-                        //       Choose Column
-                        //     </label>
-                        //     <select
-                        //       id="columns"
-                        //       name="column"
-                        //       value={column}
-                        //       className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                        //     >
-                        //       <option value="">Choose Column...</option>
-                        //       {dbColumns.map((dbColumn, idx) => {
-                        //         return (
-                        //           <option
-                        //             value={dbColumn.column_name}
-                        //             key={idx}
-                        //           >
-                        //             {dbColumn.column_name}
-                        //           </option>
-                        //         )
-                        //       })}
-                        //     </select>
-                        //   </div>
-                        // ) : null
-                        }
+                        <div>
+                        </div>
                       </div>
+
+
+
+
+
                       {/* Mapping dropdown lists */}
                       {sObjectType ? (
                         <div className="mappings">{mappings}</div>
@@ -281,12 +282,6 @@ const {
                             value={whereClause}
                             disabled
                           />
-
-
-
-
-
-
                         </div>
                       </div>
                     </>
