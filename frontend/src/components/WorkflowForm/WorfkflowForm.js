@@ -17,6 +17,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import MappingInput from './MappingInput';
 import { Snackbar } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
+import Modal from '../Modal/Modal';
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ');
@@ -51,6 +52,7 @@ export default function UserForm() {
     });
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const [tempMapping, setTempMapping] = useState({});
+    const [modalOpen, setModalOpen] = useState(false);
 
     // CDM
     useEffect(() => {
@@ -77,7 +79,7 @@ export default function UserForm() {
                     type: res.type,
                     label: res.label,
                     column: res.column,
-                    sObjectType: res.sobject_type,
+                    sObjectType: res.sobjecttype,
                     whereClause: res.where_clause,
                     runAgain: res.run_again,
                     mapping: res.mapping,
@@ -85,7 +87,7 @@ export default function UserForm() {
 
                 // Fetch and set Salesforce metadata
                 if (res.type === 'SOBJECT') {
-                    const metadataRes = await getMetadata(res.sobject_type);
+                    const metadataRes = await getMetadata(res.sobjecttype);
                     setSfMetadata(metadataRes);
                 }
 
@@ -138,7 +140,7 @@ export default function UserForm() {
                 setAlertMessage={setAlertMessage}
             />,
         ]);
-    }, [tempMapping, dbColumns]);
+    }, [tempMapping]);
 
     // CDU - Reset mapping inputs whenever the workflow changes
     useEffect(() => {
@@ -155,7 +157,7 @@ export default function UserForm() {
                 setAlertMessage={setAlertMessage}
             />,
         ]);
-    }, [sfMetadata]);
+    }, [sfMetadata, dbColumns]);
 
     // Form validation
     const validateForm = () => {
@@ -230,7 +232,7 @@ export default function UserForm() {
         }
     };
 
-    // Handle error message snackbar close event
+    // Handle alert message snackbar close event
     const handleSnackbarClose = (event, reason) => {
         if (reason === 'clickaway') {
             return;
@@ -310,14 +312,12 @@ export default function UserForm() {
     };
 
     const handleDelete = async () => {
-        if (id) {
-            await deleteWorkflow(id);
-        }
+        await deleteWorkflow(id);
         history.push('/');
     };
 
-    const disableButton = () => {
-        setProcessing(true);
+    const closeModal = () => {
+        setModalOpen(false);
     };
 
     const {
@@ -640,10 +640,10 @@ export default function UserForm() {
                                         Cancel
                                     </button>
                                     {/* Only show delete button only when there is a URL id parameter */}
-                                    {id ? (
+                                    {id && (
                                         <button
                                             type="button"
-                                            onClick={handleDelete}
+                                            onClick={() => setModalOpen(true)}
                                             style={{
                                                 backgroundColor:
                                                     processsing && 'grey',
@@ -652,7 +652,7 @@ export default function UserForm() {
                                         >
                                             Delete Configuration
                                         </button>
-                                    ) : null}
+                                    )}
                                     <button
                                         type="submit"
                                         onClick={disableButton}
@@ -685,6 +685,11 @@ export default function UserForm() {
                     {alertMessage.message}
                 </Alert>
             </Snackbar>
+            <Modal
+                deleteWorkflow={handleDelete}
+                modalOpen={modalOpen}
+                modalClose={closeModal}
+            />
         </div>
     );
 }
