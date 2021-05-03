@@ -15,22 +15,12 @@ import {
 import { Switch } from '@headlessui/react';
 import { useHistory, useParams } from 'react-router-dom';
 import MappingInput from './MappingInput';
-import { Snackbar, CircularProgress } from '@material-ui/core';
+import { Snackbar } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ');
 }
-
-const people = [
-    {
-        name: 'Jane Cooper',
-        title: 'Regional Paradigm Technician',
-        role: 'Admin',
-        email: 'jane.cooper@example.com',
-    },
-    // More people...
-];
 
 export default function UserForm() {
     const history = useHistory();
@@ -226,16 +216,16 @@ export default function UserForm() {
     const submit = async (e) => {
         e.preventDefault();
 
-        // Check if id url parameter exists
-        // TRUE: Update the workflow
-        // FALSE: Create a new workflow
-        if (id) {
-            await updateWorkflow(id, { ...formData, mapping: tempMapping });
-        } else {
-            await createWorkflow({ ...formData, mapping: tempMapping });
-        }
-
         if (validateForm()) {
+            // Check if id url parameter exists
+            // TRUE: Update the workflow
+            // FALSE: Create a new workflow
+            if (id) {
+                await updateWorkflow(id, { ...formData, mapping: tempMapping });
+            } else {
+                await createWorkflow({ ...formData, mapping: tempMapping });
+            }
+
             history.push('/');
         }
     };
@@ -319,7 +309,7 @@ export default function UserForm() {
         });
     };
 
-    const handleDelete = async (e) => {
+    const handleDelete = async () => {
         if (id) {
             await deleteWorkflow(id);
         }
@@ -342,7 +332,6 @@ export default function UserForm() {
         sObjectType,
         whereClause,
         runAgain,
-        mapping,
     } = formData;
 
     return (
@@ -650,17 +639,20 @@ export default function UserForm() {
                                     >
                                         Cancel
                                     </button>
-                                    <button
-                                        type="submit"
-                                        onClick={handleDelete}
-                                        style={{
-                                            backgroundColor:
-                                                processsing && 'grey',
-                                        }}
-                                        className="mr-6 inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
-                                    >
-                                        Delete Configuration
-                                    </button>
+                                    {/* Only show delete button only when there is a URL id parameter */}
+                                    {id ? (
+                                        <button
+                                            type="button"
+                                            onClick={handleDelete}
+                                            style={{
+                                                backgroundColor:
+                                                    processsing && 'grey',
+                                            }}
+                                            className="mr-6 inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
+                                        >
+                                            Delete Configuration
+                                        </button>
+                                    ) : null}
                                     <button
                                         type="submit"
                                         onClick={disableButton}
