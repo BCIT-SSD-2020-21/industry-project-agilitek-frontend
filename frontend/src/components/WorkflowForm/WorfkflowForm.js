@@ -15,7 +15,7 @@ import {
 import { Switch } from '@headlessui/react';
 import { useHistory, useParams } from 'react-router-dom';
 import MappingInput from './MappingInput';
-import { Snackbar } from '@material-ui/core';
+import { Snackbar, CircularProgress } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 
 function classNames(...classes) {
@@ -167,6 +167,61 @@ export default function UserForm() {
         ]);
     }, [sfMetadata]);
 
+    // Form validation
+    const validateForm = () => {
+        if (!formData.name) {
+            handleAlertMessage({
+                type: 'error',
+                message: 'Workflow name cannot be empty',
+            });
+
+            setProcessing(false);
+
+            return false;
+        } else if (!formData.table) {
+            handleAlertMessage({
+                type: 'error',
+                message: 'Please choose a database table',
+            });
+
+            setProcessing(false);
+
+            return false;
+        } else if (!formData.flowUrl) {
+            handleAlertMessage({
+                type: 'error',
+                message: 'Please choose a Salesforce flow',
+            });
+
+            setProcessing(false);
+
+            return false;
+        } else if (formData.type !== 'SOBJECT' && !formData.column) {
+            handleAlertMessage({
+                type: 'error',
+                message: 'Please choose a database column',
+            });
+
+            setProcessing(false);
+
+            return false;
+        } else if (
+            formData.type === 'SOBJECT' &&
+            Object.keys(tempMapping).length === 0
+        ) {
+            handleAlertMessage({
+                type: 'error',
+                message: 'Please set at least one mapping',
+            });
+
+            setProcessing(false);
+
+            return false;
+        }
+
+        return true;
+    };
+
     // Makes a call to db to return query results
     const submit = async (e) => {
         e.preventDefault();
@@ -180,8 +235,9 @@ export default function UserForm() {
             await createWorkflow({ ...formData, mapping: tempMapping });
         }
 
-        // Form validation
-        history.push('/');
+        if (validateForm()) {
+            history.push('/');
+        }
     };
 
     // Handle error message snackbar close event
@@ -234,12 +290,33 @@ export default function UserForm() {
         }
     };
 
-    const handleSwitchForRunAgain = (e) => {
-        setFormData({ ...formData, runAgain: e });
+    // Handle alert message change
+    const handleAlertMessage = ({ type, message }) => {
+        setSnackbarOpen(true);
+        setAlertMessage({
+            type,
+            message,
+        });
     };
 
-    const handleSwitch = (e) => {
+    const handleSwitchForRunAgain = (e) => {
+        setFormData({ ...formData, runAgain: e });
+
+        handleAlertMessage({
+            type: 'success',
+            message: e
+                ? 'Run once for each contact turn ON'
+                : 'Run once for each contact turn OFF',
+        });
+    };
+
+    const handleAutomationSwitch = (e) => {
         setFormData({ ...formData, active: e });
+
+        handleAlertMessage({
+            type: 'success',
+            message: e ? 'Automation turn ON' : 'Automation turn OFF',
+        });
     };
 
     const handleDelete = async (e) => {
@@ -287,7 +364,7 @@ export default function UserForm() {
                                                 htmlFor="name"
                                                 className="block text-sm font-medium text-gray-700"
                                             >
-                                                Name of the Workflow
+                                                Name of the Workflow*
                                             </label>
                                             <input
                                                 type="text"
@@ -307,7 +384,7 @@ export default function UserForm() {
                                                 htmlFor="tables"
                                                 className="block text-sm font-medium text-gray-700"
                                             >
-                                                Choose Table
+                                                Database Table*
                                             </label>
                                             <select
                                                 id="tables"
@@ -317,7 +394,7 @@ export default function UserForm() {
                                                 onChange={handleChange}
                                             >
                                                 <option value="">
-                                                    Choose Table...
+                                                    Choose table...
                                                 </option>
                                                 {dbTables.map(
                                                     (dbTable, idx) => {
@@ -345,7 +422,7 @@ export default function UserForm() {
                                                 htmlFor="flowUrl"
                                                 className="block text-sm font-medium text-gray-700"
                                             >
-                                                Choose Workflow
+                                                Salesforce Flow*
                                             </label>
                                             <select
                                                 id="flowUrl"
@@ -358,7 +435,7 @@ export default function UserForm() {
                                                 }}
                                             >
                                                 <option value="">
-                                                    Choose Workflow...
+                                                    Choose flow...
                                                 </option>
                                                 {workflows.map(
                                                     (workflow, idx) => {
@@ -378,7 +455,7 @@ export default function UserForm() {
                                         </div>
                                     </div>
                                     {/* Show additional input or selection boxes only if table and workflow are selected */}
-                                    {table && label ? (
+                                    {table && flowUrl ? (
                                         <>
                                             <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
                                                 <div className="sm:col-span-3">
@@ -412,7 +489,7 @@ export default function UserForm() {
                                                             htmlFor="columns"
                                                             className="block text-sm font-medium text-gray-700"
                                                         >
-                                                            Choose Column
+                                                            Database Column*
                                                         </label>
                                                         <select
                                                             id="columns"
@@ -486,7 +563,9 @@ export default function UserForm() {
                                         >
                                             <Switch
                                                 checked={active}
-                                                onChange={handleSwitch}
+                                                onChange={
+                                                    handleAutomationSwitch
+                                                }
                                                 className={classNames(
                                                     active
                                                         ? 'bg-indigo-600'
