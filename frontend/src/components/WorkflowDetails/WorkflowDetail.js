@@ -213,7 +213,7 @@ const {
                             htmlFor="inputs_type"
                             className="block text-sm font-medium text-gray-700"
                           >
-                            Salesforce MetaData
+                            Salesforce Flow Inputs Type
                           </label>
                           <input
                             type="text"
@@ -238,7 +238,7 @@ const {
                             htmlFor="inputs_type"
                             className="block text-sm font-medium text-gray-700"
                           >
-                            Salesforce Flow Inputs Type
+                            Salesforce MetaData
                           </label>
                           <input
                             type="text"
@@ -246,9 +246,7 @@ const {
                             id="inputs_type"
                             className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                             value={
-                              sObjectType
-                                ? `${label} (${type} of Type=${sObjectType})`
-                                : `${label} (Type=${type})`
+                              mapping
                             }
                             disabled
                           />
@@ -256,11 +254,6 @@ const {
                         <div>
                         </div>
                       </div>
-
-
-
-
-
                       {/* Mapping dropdown lists */}
                       {sObjectType ? (
                         <div className="mappings">{mappings}</div>
