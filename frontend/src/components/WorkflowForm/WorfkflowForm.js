@@ -15,7 +15,7 @@ import {
 import { Switch } from '@headlessui/react';
 import { useHistory, useParams } from 'react-router-dom';
 import MappingInput from './MappingInput';
-import { Snackbar } from '@material-ui/core';
+import { Snackbar, CircularProgress } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import Modal from '../Modal/Modal';
 
@@ -53,6 +53,7 @@ export default function UserForm() {
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const [tempMapping, setTempMapping] = useState({});
     const [modalOpen, setModalOpen] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     // CDM
     useEffect(() => {
@@ -68,6 +69,7 @@ export default function UserForm() {
             // If there is an id in the url parameters then retrieve all
             // the data for that workflow
             if (id) {
+                setIsLoading(true);
                 const res = await getWorkflow(id);
 
                 setFormData({
@@ -92,6 +94,8 @@ export default function UserForm() {
                 }
 
                 setTempMapping(res.mapping);
+
+                setIsLoading(false);
             }
         })();
     }, []);
@@ -473,50 +477,55 @@ export default function UserForm() {
                                                 {/* If not sObject type then show the column selection list*/}
                                                 {!sObjectType ||
                                                 sObjectType === 'undefined' ? (
-                                                    <div className="sm:col-span-3">
-                                                        {/* SELECT DATABASE COLUMNS */}
+                                                    !isLoading ? (
+                                                        <div className="sm:col-span-3">
+                                                            {/* SELECT DATABASE COLUMNS */}
 
-                                                        <label
-                                                            htmlFor="columns"
-                                                            className="block text-sm font-medium text-gray-700"
-                                                        >
-                                                            Database Column*
-                                                        </label>
-                                                        <select
-                                                            id="columns"
-                                                            name="column"
-                                                            value={column}
-                                                            className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                                            onChange={
-                                                                handleChange
-                                                            }
-                                                        >
-                                                            <option value="">
-                                                                Choose Column...
-                                                            </option>
-                                                            {dbColumns.map(
-                                                                (
-                                                                    dbColumn,
-                                                                    idx
-                                                                ) => {
-                                                                    return (
-                                                                        <option
-                                                                            value={
-                                                                                dbColumn.column_name
-                                                                            }
-                                                                            key={
-                                                                                idx
-                                                                            }
-                                                                        >
-                                                                            {
-                                                                                dbColumn.column_name
-                                                                            }
-                                                                        </option>
-                                                                    );
+                                                            <label
+                                                                htmlFor="columns"
+                                                                className="block text-sm font-medium text-gray-700"
+                                                            >
+                                                                Database Column*
+                                                            </label>
+                                                            <select
+                                                                id="columns"
+                                                                name="column"
+                                                                value={column}
+                                                                className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                                                onChange={
+                                                                    handleChange
                                                                 }
-                                                            )}
-                                                        </select>
-                                                    </div>
+                                                            >
+                                                                <option value="">
+                                                                    Choose
+                                                                    Column...
+                                                                </option>
+                                                                {dbColumns.map(
+                                                                    (
+                                                                        dbColumn,
+                                                                        idx
+                                                                    ) => {
+                                                                        return (
+                                                                            <option
+                                                                                value={
+                                                                                    dbColumn.column_name
+                                                                                }
+                                                                                key={
+                                                                                    idx
+                                                                                }
+                                                                            >
+                                                                                {
+                                                                                    dbColumn.column_name
+                                                                                }
+                                                                            </option>
+                                                                        );
+                                                                    }
+                                                                )}
+                                                            </select>
+                                                        </div>
+                                                    ) : (
+                                                        <CircularProgress />
+                                                    )
                                                 ) : null}
                                             </div>
                                             {/* Mapping dropdown lists */}
