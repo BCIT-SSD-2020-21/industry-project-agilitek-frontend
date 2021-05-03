@@ -7,7 +7,7 @@ export default function MappingInput({
     setTempMapping,
     mappingKey,
     mappingValue,
-    setErrorMessage,
+    setAlertMessage,
     setSnackbarOpen,
 }) {
     const [metadata, setMetaData] = useState('');
@@ -23,6 +23,15 @@ export default function MappingInput({
         }
     }, []);
 
+    // Handle alert message change
+    const handleAlertMessage = ({ type, message }) => {
+        setSnackbarOpen(true);
+        setAlertMessage({
+            type,
+            message,
+        });
+    };
+
     const handleAddBtnClick = () => {
         // Only let user add mapping when metadata and column are
         // not empty
@@ -32,19 +41,26 @@ export default function MappingInput({
                 tempMapping.hasOwnProperty(metadata) &&
                 tempMapping[metadata] === column
             ) {
-                setSnackbarOpen(true);
-                setErrorMessage(
-                    `${metadata}: ${column} mapping already exists`
-                );
+                handleAlertMessage({
+                    type: 'error',
+                    message: `${metadata}: ${column} mapping already exists`,
+                });
             } else {
                 setTempMapping((prev) => ({
                     ...prev,
                     [metadata]: column,
                 }));
+
+                handleAlertMessage({
+                    type: 'success',
+                    message: `${metadata}: ${column} mapping added successfully`,
+                });
             }
         } else {
-            setSnackbarOpen(true);
-            setErrorMessage('Please select a metadata and a column');
+            handleAlertMessage({
+                type: 'error',
+                message: 'Please select a metadata and a column',
+            });
         }
     };
 
@@ -62,6 +78,11 @@ export default function MappingInput({
             }, {});
 
             setTempMapping(result);
+
+            handleAlertMessage({
+                type: 'success',
+                message: `${metadata}: ${column} mapping deleted successfully`,
+            });
         }
     };
 

@@ -55,7 +55,10 @@ export default function UserForm() {
     const [sfMetadata, setSfMetadata] = useState([]);
     const [processsing, setProcessing] = useState(false);
     const [mappings, setMappings] = useState([]);
-    const [errorMessage, setErrorMessage] = useState('');
+    const [alertMessage, setAlertMessage] = useState({
+        type: '',
+        message: '',
+    });
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const [tempMapping, setTempMapping] = useState({});
 
@@ -125,6 +128,8 @@ export default function UserForm() {
                     setTempMapping={setTempMapping}
                     mappingKey={mappingKey}
                     mappingValue={tempMapping[mappingKey]}
+                    setSnackbarOpen={setSnackbarOpen}
+                    setAlertMessage={setAlertMessage}
                 />
             );
         }
@@ -140,7 +145,7 @@ export default function UserForm() {
                 mappingKey=""
                 mappingValue=""
                 setSnackbarOpen={setSnackbarOpen}
-                setErrorMessage={setErrorMessage}
+                setAlertMessage={setAlertMessage}
             />,
         ]);
     }, [tempMapping, dbColumns]);
@@ -157,7 +162,7 @@ export default function UserForm() {
                 mappingKey=""
                 mappingValue=""
                 setSnackbarOpen={setSnackbarOpen}
-                setErrorMessage={setErrorMessage}
+                setAlertMessage={setAlertMessage}
             />,
         ]);
     }, [sfMetadata]);
@@ -165,11 +170,17 @@ export default function UserForm() {
     // Makes a call to db to return query results
     const submit = async (e) => {
         e.preventDefault();
+
+        // Check if id url parameter exists
+        // TRUE: Update the workflow
+        // FALSE: Create a new workflow
         if (id) {
             await updateWorkflow(id, { ...formData, mapping: tempMapping });
         } else {
             await createWorkflow({ ...formData, mapping: tempMapping });
         }
+
+        // Form validation
         history.push('/');
     };
 
@@ -189,8 +200,9 @@ export default function UserForm() {
 
     // Handle workflow dropdown list change
     const handleWorkflowChange = async (e) => {
-        // Set mappings to empty array first
+        // Set mappings to an empty array first
         setMappings([]);
+        // Also set tempMapping to an empty object
         setTempMapping({});
 
         if (e.target.value) {
@@ -591,11 +603,15 @@ export default function UserForm() {
             </div>
             <Snackbar
                 open={snackbarOpen}
-                autoHideDuration={5000}
+                autoHideDuration={3000}
                 onClose={handleSnackbarClose}
+                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
             >
-                <Alert onClose={handleSnackbarClose} severity="error">
-                    {errorMessage}
+                <Alert
+                    onClose={handleSnackbarClose}
+                    severity={alertMessage.type}
+                >
+                    {alertMessage.message}
                 </Alert>
             </Snackbar>
         </div>
