@@ -15,7 +15,7 @@ import {
 import { Switch } from '@headlessui/react';
 import { useHistory, useParams } from 'react-router-dom';
 import MappingInput from './MappingInput';
-import { Snackbar } from '@material-ui/core';
+import { Snackbar, CircularProgress } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import Modal from '../Modal/Modal';
 
@@ -53,6 +53,7 @@ export default function UserForm() {
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const [tempMapping, setTempMapping] = useState({});
     const [modalOpen, setModalOpen] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     // CDM
     useEffect(() => {
@@ -87,11 +88,14 @@ export default function UserForm() {
 
                 // Fetch and set Salesforce metadata
                 if (res.type === 'SOBJECT') {
+                    setIsLoading(true);
                     const metadataRes = await getMetadata(res.sobject_type);
                     setSfMetadata(metadataRes);
                 }
 
                 setTempMapping(res.mapping);
+
+                setIsLoading(false);
             }
         })();
     }, []);
@@ -267,8 +271,10 @@ export default function UserForm() {
 
             // Fetch and set Salesforce metadata
             if (sfInputsRes.type === 'SOBJECT') {
+                setIsLoading(true);
                 const metadataRes = await getMetadata(sfInputsRes.sObjectType);
                 setSfMetadata(metadataRes);
+                setIsLoading(false);
             }
         } else {
             setFormData({
@@ -522,9 +528,17 @@ export default function UserForm() {
                                             {/* Mapping dropdown lists */}
                                             {sObjectType &&
                                             sObjectType !== 'undefined' ? (
-                                                <div className="mappings">
-                                                    {mappings}
-                                                </div>
+                                                !isLoading ? (
+                                                    <div className="mappings">
+                                                        {mappings}
+                                                    </div>
+                                                ) : (
+                                                    <CircularProgress
+                                                        style={{
+                                                            marginTop: 30,
+                                                        }}
+                                                    />
+                                                )
                                             ) : null}
                                             <div className="grid grid-cols-6 gap-6">
                                                 <div className="col-span-6 sm:col-span-4 mt-5">
