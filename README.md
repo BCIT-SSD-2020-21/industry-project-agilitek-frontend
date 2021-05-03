@@ -17,6 +17,13 @@ For a user to be able to perform an action against a list of customer contacts t
 
 ## :camera: Screenshots
 
+![homePAge](https://user-images.githubusercontent.com/22161200/116915974-8fa78f80-ac01-11eb-86b1-75ed05da6f4f.png)
+
+![details](https://user-images.githubusercontent.com/22161200/116915985-946c4380-ac01-11eb-8e6a-5966807d1b2f.png)
+
+![newconfig](https://user-images.githubusercontent.com/22161200/116915992-96360700-ac01-11eb-8dfa-02b783cd7007.png)
+
+
 ## :computer: Tech/FrameWorks
 
 - AWS (RDS, API Gateway, Lambda, EventBridge, Step Functions)
