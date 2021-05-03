@@ -66,7 +66,7 @@ export default function MappingInput({
     };
 
     return (
-        <div className="mt-6 grid grid-cols-3 gap-y-6 gap-x-4 sm:grid-cols-6">
+        <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-5">
             <div className="sm:col-span-2">
                 {/* SELECT DATABASE COLUMNS */}
 
@@ -120,12 +120,14 @@ export default function MappingInput({
                     })}
                 </select>
             </div>
-            <div className="sm:col-span-2">
+            <div className="sm:col-span-1 flex">
                 {isAdded ? (
                     <button
                         type="button"
-                        className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                        style={{ backgroundColor: '#ff0021' }}
+                        className="inline-flex items-center self-end px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        style={{
+                            backgroundColor: '#ff0021',
+                        }}
                         onClick={handleDeleteBtnClick}
                     >
                         DELETE
@@ -133,8 +135,10 @@ export default function MappingInput({
                 ) : (
                     <button
                         type="button"
-                        className="inline-flex items-center px-6 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                        style={{ backgroundColor: '#0891b2' }}
+                        className="inline-flex items-center self-end px-5 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        style={{
+                            backgroundColor: '#0891b2',
+                        }}
                         onClick={handleAddBtnClick}
                     >
                         ADD
