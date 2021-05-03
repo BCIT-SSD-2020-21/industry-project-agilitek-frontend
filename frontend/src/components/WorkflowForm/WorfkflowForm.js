@@ -79,7 +79,7 @@ export default function UserForm() {
                     type: res.type,
                     label: res.label,
                     column: res.column,
-                    sObjectType: res.sobjecttype,
+                    sObjectType: res.sobject_type,
                     whereClause: res.where_clause,
                     runAgain: res.run_again,
                     mapping: res.mapping,
@@ -87,7 +87,7 @@ export default function UserForm() {
 
                 // Fetch and set Salesforce metadata
                 if (res.type === 'SOBJECT') {
-                    const metadataRes = await getMetadata(res.sobjecttype);
+                    const metadataRes = await getMetadata(res.sobject_type);
                     setSfMetadata(metadataRes);
                 }
 
@@ -461,7 +461,9 @@ export default function UserForm() {
                                                         id="inputs_type"
                                                         className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                                         value={
-                                                            sObjectType
+                                                            sObjectType &&
+                                                            sObjectType !==
+                                                                'undefined'
                                                                 ? `${label} (${type} of Type=${sObjectType})`
                                                                 : `${label} (Type=${type})`
                                                         }
@@ -655,7 +657,7 @@ export default function UserForm() {
                                     )}
                                     <button
                                         type="submit"
-                                        onClick={disableButton}
+                                        onClick={() => setProcessing(true)}
                                         style={{
                                             backgroundColor:
                                                 processsing && 'grey',
