@@ -15,6 +15,7 @@ import {
 import { Switch } from "@headlessui/react"
 import { useHistory, useParams } from "react-router-dom"
 import ExecutionTable from "../ExecutionTable/ExecutionTable"
+import MappingInput from '../WorkflowForm/MappingInput';
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(" ")
@@ -38,6 +39,7 @@ const { id } = useParams()
 const [dbTables, setDbTables] = useState([])
 const [workflows, setWorkflows] = useState([])
 const [dbColumns, setDBColumns] = useState([])
+
 const [sfMetadata, setSfMetadata] = useState([])
 const [processsing, setProcessing] = useState(false)
 const [mappings, setMappings] = useState([])
@@ -225,36 +227,38 @@ const {
                           />
                         </div>
                         {/* If not sObject type then show the column selection list*/}
-                        {!sObjectType ? (
-                          <div className="sm:col-span-3">
-                            {/* SELECT DATABASE COLUMNS */}
+                        {
+                        // !sObjectType ? (
+                        //   <div className="sm:col-span-3">
+                        //     {/* SELECT DATABASE COLUMNS */}
 
-                            <label
-                              htmlFor="columns"
-                              className="block text-sm font-medium text-gray-700"
-                            >
-                              Choose Column
-                            </label>
-                            <select
-                              id="columns"
-                              name="column"
-                              value={column}
-                              className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                            >
-                              <option value="">Choose Column...</option>
-                              {dbColumns.map((dbColumn, idx) => {
-                                return (
-                                  <option
-                                    value={dbColumn.column_name}
-                                    key={idx}
-                                  >
-                                    {dbColumn.column_name}
-                                  </option>
-                                )
-                              })}
-                            </select>
-                          </div>
-                        ) : null}
+                        //     <label
+                        //       htmlFor="columns"
+                        //       className="block text-sm font-medium text-gray-700"
+                        //     >
+                        //       Choose Column
+                        //     </label>
+                        //     <select
+                        //       id="columns"
+                        //       name="column"
+                        //       value={column}
+                        //       className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        //     >
+                        //       <option value="">Choose Column...</option>
+                        //       {dbColumns.map((dbColumn, idx) => {
+                        //         return (
+                        //           <option
+                        //             value={dbColumn.column_name}
+                        //             key={idx}
+                        //           >
+                        //             {dbColumn.column_name}
+                        //           </option>
+                        //         )
+                        //       })}
+                        //     </select>
+                        //   </div>
+                        // ) : null
+                        }
                       </div>
                       {/* Mapping dropdown lists */}
                       {sObjectType ? (
@@ -277,6 +281,12 @@ const {
                             value={whereClause}
                             disabled
                           />
+
+
+
+
+
+
                         </div>
                       </div>
                     </>
