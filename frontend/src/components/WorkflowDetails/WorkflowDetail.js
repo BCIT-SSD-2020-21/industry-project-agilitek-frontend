@@ -6,6 +6,11 @@ import {
   getWorkflowLogs,
   setQuery,
   updateWorkflow,
+  getDBTables,
+  getDBColumns,
+  deleteWorkflow,
+  getWorkflowInputs,
+  getMetadata,
 } from "../../api/network"
 import { Switch } from "@headlessui/react"
 import { useHistory, useParams } from "react-router-dom"
@@ -29,6 +34,18 @@ export default function WorkflowDetail() {
 const history = useHistory()
 const { id } = useParams()
 
+
+const [dbTables, setDbTables] = useState([])
+const [workflows, setWorkflows] = useState([])
+const [dbColumns, setDBColumns] = useState([])
+const [sfMetadata, setSfMetadata] = useState([])
+const [processsing, setProcessing] = useState(false)
+const [mappings, setMappings] = useState([])
+const [errorMessage, setErrorMessage] = useState("")
+const [snackbarOpen, setSnackbarOpen] = useState(false)
+const [tempMapping, setTempMapping] = useState({})
+const [modalOpen, setModalOpen] = useState(false)
+
 const [options, setOptions] = useState([])
 const [formData, setFormData] = useState({
   name: "",
@@ -45,24 +62,68 @@ useEffect(() => {
   })()
 }, [])
 
-useEffect(() => {
-  ;(async () => {
-    try {
+// useEffect(() => {
+//   ;(async () => {
+//     try {
+//       if (id) {
+//         const res = await getWorkflow(id)    
+//         setFormData({
+//           name: res.name,
+//           desc: res.desc,
+//           flowUrl: res.flow_url,
+//           query: res.sql_query,
+//           active: res.active,
+//         })
+//       }  
+//     } catch (error) {
+//       history.push('/404')
+//     }
+//   })()
+// }, [])
+
+  // CDM
+  useEffect(() => {
+    // try{
+    ;(async () => {
+      // Get all database tables from the database
+      const dbTablesRes = await getDBTables()
+      setDbTables(dbTablesRes)
+
+      // Get all Salesforce flows from Salesforce Invoke Flow API
+      const sfFlowRes = await getSalesForceFlow()
+      setWorkflows(sfFlowRes)
+
+      // If there is an id in the url parameters then retrieve all
+      // the data for that workflow
       if (id) {
-        const res = await getWorkflow(id)    
+        const res = await getWorkflow(id)
         setFormData({
           name: res.name,
           desc: res.desc,
           flowUrl: res.flow_url,
-          query: res.sql_query,
           active: res.active,
+          table: res.table,
+          type: res.type,
+          label: res.label,
+          column: res.column,
+          sObjectType: res.sobjecttype,
+          whereClause: res.where_clause,
+          runAgain: res.run_again,
+          mapping: res.mapping,
         })
-      }  
-    } catch (error) {
-      history.push('/404')
-    }
-  })()
-}, [])
+
+        // Fetch and set Salesforce metadata
+        if (res.type === "SOBJECT") {
+          const metadataRes = await getMetadata(res.sobjecttype)
+          setSfMetadata(metadataRes)
+        }
+        setTempMapping(res.mapping)
+      }
+    })()
+    // } catch(error){
+    //   history.push('/404')
+    // }
+  }, [])
 
 // Makes a call to db to return query results
 const submit = async (e) => {
@@ -75,7 +136,20 @@ const submit = async (e) => {
   history.push("/")
 }
 
-const { name, desc, flowUrl, query, active } = formData
+const {
+  name,
+  desc,
+  flowUrl,
+  table,
+  column,
+  active,
+  type,
+  label,
+  sObjectType,
+  whereClause,
+  runAgain,
+  mapping,
+} = formData
 
     return (
         <div className="m-8">
@@ -109,7 +183,7 @@ const { name, desc, flowUrl, query, active } = formData
                           />
                         </div>
                       </div>
-                      <div className="grid grid-cols-6 gap-6 ">
+                      {/* <div className="grid grid-cols-6 gap-6 ">
                         <div className="col-span-6 sm:col-span-4 mt-5">
                           <label
                             htmlFor="email_address"
@@ -127,7 +201,84 @@ const { name, desc, flowUrl, query, active } = formData
                             value={query}
                           />
                         </div>
+                      </div> */}
+                    <>
+                      <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+                        <div className="sm:col-span-3">
+                          <label
+                            htmlFor="inputs_type"
+                            className="block text-sm font-medium text-gray-700"
+                          >
+                            Salesforce Flow Inputs Type
+                          </label>
+                          <input
+                            type="text"
+                            name="inputs_type"
+                            id="inputs_type"
+                            className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                            value={
+                              sObjectType
+                                ? `${label} (${type} of Type=${sObjectType})`
+                                : `${label} (Type=${type})`
+                            }
+                            disabled
+                          />
+                        </div>
+                        {/* If not sObject type then show the column selection list*/}
+                        {!sObjectType ? (
+                          <div className="sm:col-span-3">
+                            {/* SELECT DATABASE COLUMNS */}
+
+                            <label
+                              htmlFor="columns"
+                              className="block text-sm font-medium text-gray-700"
+                            >
+                              Choose Column
+                            </label>
+                            <select
+                              id="columns"
+                              name="column"
+                              value={column}
+                              className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            >
+                              <option value="">Choose Column...</option>
+                              {dbColumns.map((dbColumn, idx) => {
+                                return (
+                                  <option
+                                    value={dbColumn.column_name}
+                                    key={idx}
+                                  >
+                                    {dbColumn.column_name}
+                                  </option>
+                                )
+                              })}
+                            </select>
+                          </div>
+                        ) : null}
                       </div>
+                      {/* Mapping dropdown lists */}
+                      {sObjectType ? (
+                        <div className="mappings">{mappings}</div>
+                      ) : null}
+                      <div className="grid grid-cols-6 gap-6">
+                        <div className="col-span-6 sm:col-span-4 mt-5">
+                          <label
+                            htmlFor="where_clause"
+                            className="block text-sm font-medium text-gray-700"
+                          >
+                            WHERE Clause
+                          </label>
+                          <input
+                            type="text"
+                            name="whereClause"
+                            id="where_clause"
+                            placeholder="Enter WHERE clause..."
+                            className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                            value={whereClause}
+                          />
+                        </div>
+                      </div>
+                    </>
                       <div className="grid grid-cols-6 gap-6 ">
                         <div className="col-span-6 sm:col-span-4 mt-5">
                           <label
