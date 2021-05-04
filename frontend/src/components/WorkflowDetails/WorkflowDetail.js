@@ -218,8 +218,29 @@ return (
                                 />
                           </div>
                        </div>
-                       <div className="grid grid-cols-6 gap-6">
+                       <div className="grid grid-cols-6 gap-6"></div>
+                       <div className="grid grid-cols-6 gap-6 ">
+                          <div className="col-span-6 sm:col-span-4 mt-5">
+                             <label
+                                htmlFor="email_address"
+                                className="block text-sm font-medium text-gray-700"
+                                >
+                             Run for Same Contacts Repeatedly
+                             </label>
+                             <input
+                                disabled
+                                type="text"
+                                name="query"
+                                id="query"
+                                placeholder="SQL Query"
+                                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                value={runAgain}
+                                />
+                          </div>
+                          <div className=" text-right sm:px-6">
+                          </div>
                        </div>
+                       <div className="grid grid-cols-6 gap-6"></div>
                     </div>
                  </div>
               </form>
