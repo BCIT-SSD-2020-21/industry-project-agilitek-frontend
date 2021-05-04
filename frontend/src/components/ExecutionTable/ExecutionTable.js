@@ -58,8 +58,8 @@ export default function ExecutionTable() {
                                 </tr>
                             </thead>
                             <tbody className="bg-white divide-y divide-gray-200">
-                                {logArray.map((logs) => (
-                                    <tr>
+                                {logArray.map((logs, i) => (
+                                    <tr key={i}>
                                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                             {logs.workflow_id}
                                         </td>
