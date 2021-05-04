@@ -33,7 +33,6 @@ const { id } = useParams()
 const [dbTables, setDbTables] = useState([])
 const [workflows, setWorkflows] = useState([])
 const [sfMetadata, setSfMetadata] = useState([])
-const [tempMapping, setTempMapping] = useState({})
 const [options, setOptions] = useState([])
 
 const [formData, setFormData] = useState({
@@ -89,7 +88,6 @@ useEffect(() => {
           const metadataRes = await getMetadata(res.sobjecttype)
           setSfMetadata(metadataRes)
         }
-        setTempMapping(res.mapping)
       }
     } catch(err) {
       history.push('/404')
@@ -97,16 +95,6 @@ useEffect(() => {
     })()
   }, [])
 
-// Makes a call to db to return query results
-const submit = async (e) => {
-  e.preventDefault()
-  if (id) {
-    await updateWorkflow(id, formData)
-  } else {
-    await createWorkflow(formData)
-  }
-  history.push("/")
-}
 
 const {
   name,
@@ -132,7 +120,7 @@ return (
      <div className="mt-10 sm:mt-0">
         <div className="md:grid md:grid-cols-3 md:gap-6">
            <div className="md:col-span-full">
-              <form onSubmit={submit}>
+              <form>
                  <div className="shadow overflow-hidden sm:rounded-md">
                     <div className="px-4 py-5 bg-white sm:p-6">
                        <div className="grid grid-cols-6 gap-6 ">
