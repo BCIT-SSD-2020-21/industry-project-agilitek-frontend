@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from "react"
 import {
-  createWorkflow,
   getSalesForceFlow,
   getWorkflow,
-  updateWorkflow,
   getDBTables,
   getMetadata,
 } from "../../api/network"
 import { useHistory, useParams } from "react-router-dom"
 import ExecutionTable from "../ExecutionTable/ExecutionTable"
-import MappingInput from '../WorkflowForm/MappingInput';
 import DetailInput from "./DetailInput"
 
 function classNames(...classes) {
