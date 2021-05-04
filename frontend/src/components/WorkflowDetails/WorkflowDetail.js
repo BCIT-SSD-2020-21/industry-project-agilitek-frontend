@@ -11,6 +11,7 @@ import { Switch } from "@headlessui/react"
 import { useHistory, useParams } from "react-router-dom"
 import ExecutionTable from "../ExecutionTable/ExecutionTable"
 import MappingInput from '../WorkflowForm/MappingInput';
+import DetailInput from "./DetailInput"
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(" ")
@@ -194,7 +195,8 @@ useEffect(() => {
                         </div>
                       </div>
                       {/* Salesforce MetaData field */}
-                      <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+                      <DetailInput mapping={mapping}></DetailInput>
+                      {/* <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
                         <div className="sm:col-span-3">
                           <label
                             htmlFor="inputs_type"
@@ -212,10 +214,11 @@ useEffect(() => {
                             }
                             disabled
                           />
+
                         </div>
                         <div>
                         </div>
-                      </div>
+                      </div> */}
                       {/* Mapping dropdown lists */}
                       {sObjectType ? (
                         <div className="mappings">{formData.mapping[0]}</div>
