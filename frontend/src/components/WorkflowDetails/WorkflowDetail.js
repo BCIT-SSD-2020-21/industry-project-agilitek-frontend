@@ -35,6 +35,7 @@ const { id } = useParams()
 const [dbTables, setDbTables] = useState([])
 const [workflows, setWorkflows] = useState([])
 const [dbColumns, setDBColumns] = useState([])
+const [detailInputs, setdetailInputs] = useState([])
 
 const [sfMetadata, setSfMetadata] = useState([])
 const [mappings, setMappings] = useState([])
@@ -131,11 +132,10 @@ const {
 useEffect(() => {
   console.log(mapping)
   for (const key in mapping) {
+    setdetailInputs(...detailInputs, <DetailInput mapping={mapping}></DetailInput>)
     console.log(`${key} : ${mapping[key]}`)
   }
-
-
-  }, [mapping])
+  }, [])
 
     return (
         <div className="m-8">
@@ -143,7 +143,6 @@ useEffect(() => {
             <div className="py-2">
             </div>
           </div>
-    
           <div className="mt-10 sm:mt-0">
             <div className="md:grid md:grid-cols-3 md:gap-6">
               <div className="md:col-span-full">
@@ -195,7 +194,19 @@ useEffect(() => {
                         </div>
                       </div>
                       {/* Salesforce MetaData field */}
-                      <DetailInput mapping={mapping}></DetailInput>
+                      {/* {detailInputs}   */}
+                      
+                      {mapping ? (
+                      
+                      
+                      Object.keys(mapping).map((key, i) => (
+                          <li className="travelcompany-input" key={i}>
+                              <span className="input-label">key: {key} Name: {mapping[key]}</span>
+                          </li>
+                      ))
+                      ) : ( null)   
+                      }
+
                       {/* <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
                         <div className="sm:col-span-3">
                           <label
