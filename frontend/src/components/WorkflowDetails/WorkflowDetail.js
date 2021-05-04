@@ -8,7 +8,7 @@ export default function WorkflowDetail() {
     const history = useHistory();
     const { id } = useParams();
 
-    const [options, setOptions] = useState([]);
+    const [, setOptions] = useState([]);
 
     const [formData, setFormData] = useState({
         name: '',
@@ -57,13 +57,10 @@ export default function WorkflowDetail() {
                 history.push('/404');
             }
         })();
-    }, [history]);
+    }, [history, id]);
 
     const {
         name,
-        desc,
-        table,
-        column,
         active,
         type,
         label,
