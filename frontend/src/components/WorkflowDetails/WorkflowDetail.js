@@ -3,13 +3,8 @@ import {
   createWorkflow,
   getSalesForceFlow,
   getWorkflow,
-  getWorkflowLogs,
-  setQuery,
   updateWorkflow,
   getDBTables,
-  getDBColumns,
-  deleteWorkflow,
-  getWorkflowInputs,
   getMetadata,
 } from "../../api/network"
 import { Switch } from "@headlessui/react"
@@ -41,12 +36,8 @@ const [workflows, setWorkflows] = useState([])
 const [dbColumns, setDBColumns] = useState([])
 
 const [sfMetadata, setSfMetadata] = useState([])
-const [processsing, setProcessing] = useState(false)
 const [mappings, setMappings] = useState([])
-const [errorMessage, setErrorMessage] = useState("")
-const [snackbarOpen, setSnackbarOpen] = useState(false)
 const [tempMapping, setTempMapping] = useState({})
-const [modalOpen, setModalOpen] = useState(false)
 
 const [options, setOptions] = useState([])
 const [formData, setFormData] = useState({
@@ -67,28 +58,6 @@ useEffect(() => {
 useEffect(() => {
 console.log(mappings)
 }, [mappings])
-
-
-
-
-// useEffect(() => {
-//   ;(async () => {
-//     try {
-//       if (id) {
-//         const res = await getWorkflow(id)    
-//         setFormData({
-//           name: res.name,
-//           desc: res.desc,
-//           flowUrl: res.flow_url,
-//           query: res.sql_query,
-//           active: res.active,
-//         })
-//       }  
-//     } catch (error) {
-//       history.push('/404')
-//     }
-//   })()
-// }, [])
 
   // CDM
   useEffect(() => {
@@ -194,25 +163,6 @@ const {
                           />
                         </div>
                       </div>
-                      {/* <div className="grid grid-cols-6 gap-6 ">
-                        <div className="col-span-6 sm:col-span-4 mt-5">
-                          <label
-                            htmlFor="email_address"
-                            className="block text-sm font-medium text-gray-700"
-                          >
-                            SQL Query
-                          </label>
-                          <input
-                            disabled
-                            type="text"
-                            name="query"
-                            id="query"
-                            placeholder="SQL Query"
-                            className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                            value={query}
-                          />
-                        </div>
-                      </div> */}
                     <>
                       <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
                         <div className="sm:col-span-3">
