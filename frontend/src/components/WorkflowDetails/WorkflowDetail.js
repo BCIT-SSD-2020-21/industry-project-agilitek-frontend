@@ -129,13 +129,13 @@ const {
   mapping,
 } = formData
 
-useEffect(() => {
-  console.log(mapping)
-  for (const key in mapping) {
-    setdetailInputs(...detailInputs, <DetailInput mapping={mapping}></DetailInput>)
-    console.log(`${key} : ${mapping[key]}`)
-  }
-  }, [])
+// useEffect(() => {
+//   // console.log(mapping)
+//   for (const key in mapping) {
+//     setdetailInputs(...detailInputs, <DetailInput mapping={mapping}></DetailInput>)
+//     // console.log(`${key} : ${mapping[key]}`)
+//   }
+//   }, [])
 
     return (
         <div className="m-8">
@@ -200,36 +200,11 @@ useEffect(() => {
                       
                       
                       Object.keys(mapping).map((key, i) => (
-                          <li className="travelcompany-input" key={i}>
-                              <span className="input-label">key: {key} Name: {mapping[key]}</span>
-                          </li>
+                        
+                        <DetailInput key={i} mapping={mapping[key]} mappingKey={key} />
                       ))
                       ) : ( null)   
                       }
-
-                      {/* <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-                        <div className="sm:col-span-3">
-                          <label
-                            htmlFor="inputs_type"
-                            className="block text-sm font-medium text-gray-700"
-                          >
-                            Salesforce MetaData
-                          </label>
-                          <input
-                            type="text"
-                            name="inputs_type"
-                            id="inputs_type"
-                            className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                            value={
-                              mapping
-                            }
-                            disabled
-                          />
-
-                        </div>
-                        <div>
-                        </div>
-                      </div> */}
                       {/* Mapping dropdown lists */}
                       {sObjectType ? (
                         <div className="mappings">{formData.mapping[0]}</div>
