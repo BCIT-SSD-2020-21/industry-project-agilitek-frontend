@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import WorkflowItem from '../WorkflowItem/WorkflowItem';
 import { useHistory, Link } from 'react-router-dom';
 import { getAllWorkflows } from '../../api/network';
@@ -31,11 +31,12 @@ const WorkflowTable = (search) => {
 
     const [workflows, setWorkflows] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [limit, setLimit] = useState(5);
+    const [limit] = useState(5);
     const [offset, setOffset] = useState(0);
     const [resData, setResData] = useState([]);
+    const fetchWorkflows = useRef(() => {});
 
-    const fetchWorkflows = async () => {
+    fetchWorkflows.current = async () => {
         (async () => {
             const res = await getAllWorkflows();
             setResData(res);
@@ -57,11 +58,11 @@ const WorkflowTable = (search) => {
 
     // fetch User Data
     useEffect(() => {
-        fetchWorkflows();
+        fetchWorkflows.current();
     }, []);
 
     useEffect(() => {
-        fetchWorkflows();
+        fetchWorkflows.current();
     }, [offset]);
 
     return (
@@ -82,21 +83,17 @@ const WorkflowTable = (search) => {
                         <ul className="mt-2 divide-y divide-gray-200 overflow-hidden shadow sm:hidden">
                             {workflows
                                 .filter((e) => {
-                                    if (search.value.search == '') {
-                                        return e;
-                                    } else if (
-                                        e.name.includes(search.value.search)
-                                    ) {
-                                        console.log(search.value.search);
-                                        console.log(e);
+                                    if (e.name.includes(search.value.search)) {
                                         return e;
                                     }
+
+                                    return '';
                                 })
-                                .map((e) => {
+                                .map((e) => (
                                     <li key={e.id}>
                                         <WorkflowItem workflow={e} />
-                                    </li>;
-                                })}
+                                    </li>
+                                ))}
                         </ul>
 
                         <nav
@@ -104,18 +101,18 @@ const WorkflowTable = (search) => {
                             aria-label="Pagination"
                         >
                             <div className="flex-1 flex justify-between">
-                                <a
+                                <button
                                     onClick={handlePrevClicked}
                                     className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:text-gray-500"
                                 >
                                     Previous
-                                </a>
-                                <a
+                                </button>
+                                <button
                                     onClick={handleNextClicked}
                                     className="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:text-gray-500"
                                 >
                                     Next
-                                </a>
+                                </button>
                             </div>
                         </nav>
                     </div>
@@ -146,23 +143,16 @@ const WorkflowTable = (search) => {
                                             {workflows
                                                 .filter((workflow) => {
                                                     if (
-                                                        search.value.search ==
-                                                        ''
-                                                    ) {
-                                                        return workflow;
-                                                    } else if (
                                                         workflow.name
                                                             .toLowerCase()
                                                             .includes(
                                                                 search.value.search.toLowerCase()
                                                             )
                                                     ) {
-                                                        console.log(
-                                                            search.value.search
-                                                        );
-                                                        console.log(workflow);
                                                         return workflow;
                                                     }
+
+                                                    return '';
                                                 })
                                                 .map((workflow) => (
                                                     <tr
@@ -171,10 +161,6 @@ const WorkflowTable = (search) => {
                                                     >
                                                         <td className="max-w-0 w-full px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                                             <div className="flex">
-                                                                {/* <a
-                              href={workflows.href}
-                              className="group inline-flex space-x-2 truncate text-sm"
-                            > */}
                                                                 <p className="text-gray-500 truncate group-hover:text-gray-900">
                                                                     <Link
                                                                         className="text-blue-500 truncate hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
@@ -251,18 +237,18 @@ const WorkflowTable = (search) => {
                                             </p>
                                         </div>
                                         <div className="flex-1 flex justify-between sm:justify-end">
-                                            <a
+                                            <button
                                                 onClick={handlePrevClicked}
                                                 className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 cursor-pointer"
                                             >
                                                 Previous
-                                            </a>
-                                            <a
+                                            </button>
+                                            <button
                                                 onClick={handleNextClicked}
                                                 className="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 cursor-pointer"
                                             >
                                                 Next
-                                            </a>
+                                            </button>
                                         </div>
                                     </nav>
                                 </div>

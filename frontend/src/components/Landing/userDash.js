@@ -1,6 +1,6 @@
 import { Fragment, useState } from 'react';
 import { Dialog, Menu, Transition } from '@headlessui/react';
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import agilitek from '../../images/agilitek.svg';
 import {
     BellIcon,
@@ -10,50 +10,27 @@ import {
     HomeIcon,
     MenuAlt1Icon,
     QuestionMarkCircleIcon,
-    ScaleIcon,
     ShieldCheckIcon,
-    UserGroupIcon,
     XIcon,
 } from '@heroicons/react/outline';
 import {
-    CashIcon,
     CheckCircleIcon,
     ChevronDownIcon,
-    ChevronRightIcon,
     OfficeBuildingIcon,
     SearchIcon,
 } from '@heroicons/react/solid';
 import WorkflowTable from '../WorkflowTable/WorkflowTable';
 
 const navigation = [
-    { name: 'Home', href: '#', icon: HomeIcon, current: true },
-    { name: 'History', href: '#', icon: ClockIcon, current: false },
-    { name: 'Statistics', href: '#', icon: DocumentReportIcon, current: false },
+    { name: 'Home', href: '/', icon: HomeIcon, current: true },
+    { name: 'History', href: '/', icon: ClockIcon, current: false },
+    { name: 'Statistics', href: '/', icon: DocumentReportIcon, current: false },
 ];
 const secondaryNavigation = [
-    { name: 'Settings', href: '#', icon: CogIcon },
-    { name: 'Help', href: '#', icon: QuestionMarkCircleIcon },
-    { name: 'Privacy', href: '#', icon: ShieldCheckIcon },
+    { name: 'Settings', href: '/', icon: CogIcon },
+    { name: 'Help', href: '/', icon: QuestionMarkCircleIcon },
+    { name: 'Privacy', href: '/', icon: ShieldCheckIcon },
 ];
-const workflows = [
-    {
-        id: 1,
-        name: 'Customer Create Opprutunity',
-        href: '#',
-        Frequency: '1 Hour',
-        status: 'success',
-        date: 'July 11, 2020',
-        datetime: '2020-07-11',
-    },
-
-    // More transactions...
-];
-
-const statusStyles = {
-    success: 'bg-green-100 text-green-800',
-    processing: 'bg-yellow-100 text-yellow-800',
-    failed: 'bg-gray-100 text-gray-800',
-};
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ');
@@ -339,7 +316,7 @@ export default function UserDash({ children, page }) {
                                                 <Menu.Item>
                                                     {({ active }) => (
                                                         <a
-                                                            href="#"
+                                                            href="/"
                                                             className={classNames(
                                                                 active
                                                                     ? 'bg-gray-100'
@@ -354,7 +331,7 @@ export default function UserDash({ children, page }) {
                                                 <Menu.Item>
                                                     {({ active }) => (
                                                         <a
-                                                            href="#"
+                                                            href="/"
                                                             className={classNames(
                                                                 active
                                                                     ? 'bg-gray-100'
@@ -369,7 +346,7 @@ export default function UserDash({ children, page }) {
                                                 <Menu.Item>
                                                     {({ active }) => (
                                                         <a
-                                                            href="#"
+                                                            href="/"
                                                             className={classNames(
                                                                 active
                                                                     ? 'bg-gray-100'
