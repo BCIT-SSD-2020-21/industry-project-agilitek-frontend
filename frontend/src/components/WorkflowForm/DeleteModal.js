@@ -9,7 +9,6 @@ export default function Modal({ deleteWorkflow, delModalOpen, delModalClose }) {
     const cancelButtonRef = useRef();
     const deleteClicked = async () => {
         await deleteWorkflow();
-        setOpen(false);
     };
 
     useEffect(() => {
