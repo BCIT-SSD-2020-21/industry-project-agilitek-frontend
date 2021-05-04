@@ -1,140 +1,89 @@
-import { Fragment, useState } from "react";
-import { Dialog, Menu, Transition } from "@headlessui/react";
-import { useHistory, Link } from "react-router-dom";
-import agilitek from "../../images/agilitek.svg";
+import { Fragment, useState } from 'react';
+import { Dialog, Menu, Transition } from '@headlessui/react';
+import { useHistory, Link } from 'react-router-dom';
+import agilitek from '../../images/agilitek.svg';
 import {
-  BellIcon,
-  ClockIcon,
-  CogIcon,
-  DocumentReportIcon,
-  HomeIcon,
-  MenuAlt1Icon,
-  QuestionMarkCircleIcon,
-  ScaleIcon,
-  ShieldCheckIcon,
-  UserGroupIcon,
-  XIcon,
-} from "@heroicons/react/outline";
+    BellIcon,
+    ClockIcon,
+    CogIcon,
+    DocumentReportIcon,
+    HomeIcon,
+    MenuAlt1Icon,
+    QuestionMarkCircleIcon,
+    ScaleIcon,
+    ShieldCheckIcon,
+    UserGroupIcon,
+    XIcon,
+} from '@heroicons/react/outline';
 import {
-  CashIcon,
-  CheckCircleIcon,
-  ChevronDownIcon,
-  ChevronRightIcon,
-  OfficeBuildingIcon,
-  SearchIcon,
-} from "@heroicons/react/solid";
-import WorkflowTable from "../WorkflowTable/WorkflowTable";
+    CashIcon,
+    CheckCircleIcon,
+    ChevronDownIcon,
+    ChevronRightIcon,
+    OfficeBuildingIcon,
+    SearchIcon,
+} from '@heroicons/react/solid';
+import WorkflowTable from '../WorkflowTable/WorkflowTable';
 
 const navigation = [
-  { name: "Home", href: "#", icon: HomeIcon, current: true },
-  { name: "History", href: "#", icon: ClockIcon, current: false },
-  { name: "Statistics", href: "#", icon: DocumentReportIcon, current: false },
+    { name: 'Home', href: '#', icon: HomeIcon, current: true },
+    { name: 'History', href: '#', icon: ClockIcon, current: false },
+    { name: 'Statistics', href: '#', icon: DocumentReportIcon, current: false },
 ];
 const secondaryNavigation = [
-  { name: "Settings", href: "#", icon: CogIcon },
-  { name: "Help", href: "#", icon: QuestionMarkCircleIcon },
-  { name: "Privacy", href: "#", icon: ShieldCheckIcon },
+    { name: 'Settings', href: '#', icon: CogIcon },
+    { name: 'Help', href: '#', icon: QuestionMarkCircleIcon },
+    { name: 'Privacy', href: '#', icon: ShieldCheckIcon },
 ];
 const workflows = [
-  {
-    id: 1,
-    name: "Customer Create Opprutunity",
-    href: "#",
-    Frequency: "1 Hour",
-    status: "success",
-    date: "July 11, 2020",
-    datetime: "2020-07-11",
-  },
+    {
+        id: 1,
+        name: 'Customer Create Opprutunity',
+        href: '#',
+        Frequency: '1 Hour',
+        status: 'success',
+        date: 'July 11, 2020',
+        datetime: '2020-07-11',
+    },
 
-  // More transactions...
+    // More transactions...
 ];
 
 const statusStyles = {
-  success: "bg-green-100 text-green-800",
-  processing: "bg-yellow-100 text-yellow-800",
-  failed: "bg-gray-100 text-gray-800",
+    success: 'bg-green-100 text-green-800',
+    processing: 'bg-yellow-100 text-yellow-800',
+    failed: 'bg-gray-100 text-gray-800',
 };
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
+    return classes.filter(Boolean).join(' ');
 }
 
 export default function UserDash({ children, page }) {
-  const [search, setSearch] = useState("");
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-  const history = useHistory();
-  return (
-    <div className="h-screen flex overflow-hidden bg-gray-100">
-      <Transition.Root show={sidebarOpen} as={Fragment}>
-        <Dialog
-          as="div"
-          static
-          className="fixed inset-0 flex z-40 lg:hidden"
-          open={sidebarOpen}
-          onClose={setSidebarOpen}
-        >
-          <Transition.Child
-            as={Fragment}
-            enter="transition-opacity ease-linear duration-300"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="transition-opacity ease-linear duration-300"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
-            <Dialog.Overlay className="fixed inset-0 bg-gray-600 bg-opacity-75" />
-          </Transition.Child>
-          <Transition.Child
-            as={Fragment}
-            enter="transition ease-in-out duration-300 transform"
-            enterFrom="-translate-x-full"
-            enterTo="translate-x-0"
-            leave="transition ease-in-out duration-300 transform"
-            leaveFrom="translate-x-0"
-            leaveTo="-translate-x-full"
-          >
-            <div className="relative flex-1 flex flex-col max-w-xs w-full pt-5 pb-4 bg-cyan-700">
-              <Transition.Child
-                as={Fragment}
-                enter="ease-in-out duration-300"
-                enterFrom="opacity-0"
-                enterTo="opacity-100"
-                leave="ease-in-out duration-300"
-                leaveFrom="opacity-100"
-                leaveTo="opacity-0"
-              >
-                <div className="absolute top-0 right-0 -mr-12 pt-2">
-                  <button
-                    className="ml-1 flex items-center justify-center h-10 w-10 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
-                    onClick={() => setSidebarOpen(false)}
-                  >
-                    <span className="sr-only">Close sidebar</span>
-                    <XIcon className="h-6 w-6 text-white" aria-hidden="true" />
-                  </button>
-                </div>
-              </Transition.Child>
-              <div className="flex-shrink-0 flex items-center px-4">
-                <img className="h-8 w-auto" src="" alt="Agilitek" />
-              </div>
-              <nav
-                className="mt-5 flex-shrink-0 h-full divide-y divide-cyan-800 overflow-y-auto"
-                aria-label="Sidebar"
-              >
-                <div className="px-2 space-y-1">
-                  {navigation.map((item) => (
-                    <a
-                      key={item.name}
-                      href={item.href}
-                      className={classNames(
-                        item.current
-                          ? "bg-cyan-800 text-white"
-                          : "text-cyan-100 hover:text-white hover:bg-cyan-600",
-                        "group flex items-center px-2 py-2 text-base font-medium rounded-md"
-                      )}
-                      aria-current={item.current ? "page" : undefined}
+    const [search, setSearch] = useState('');
+    const [sidebarOpen, setSidebarOpen] = useState(false);
+    const history = useHistory();
+    return (
+        <div className="h-screen flex overflow-hidden bg-gray-100">
+            <Transition.Root show={sidebarOpen} as={Fragment}>
+                <Dialog
+                    as="div"
+                    static
+                    className="fixed inset-0 flex z-40 lg:hidden"
+                    open={sidebarOpen}
+                    onClose={setSidebarOpen}
+                >
+                    <Transition.Child
+                        as={Fragment}
+                        enter="transition-opacity ease-linear duration-300"
+                        enterFrom="opacity-0"
+                        enterTo="opacity-100"
+                        leave="transition-opacity ease-linear duration-300"
+                        leaveFrom="opacity-100"
+                        leaveTo="opacity-0"
                     >
                         <Dialog.Overlay className="fixed inset-0 bg-gray-600 bg-opacity-75" />
-                    </a>
+                    </Transition.Child>
                     <Transition.Child
                         as={Fragment}
                         enter="transition ease-in-out duration-300 transform"
@@ -231,39 +180,65 @@ export default function UserDash({ children, page }) {
                 </Dialog>
             </Transition.Root>
 
-      <div className="flex-1 overflow-auto focus:outline-none">
-        <div className="relative z-10 flex-shrink-0 flex h-16 bg-white border-b border-gray-200 lg:border-none">
-          <button
-            className="px-4 border-r border-gray-200 text-gray-400 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-cyan-500 lg:hidden"
-            onClick={() => setSidebarOpen(true)}
-          >
-            <span className="sr-only">Open sidebar</span>
-            <MenuAlt1Icon className="h-6 w-6" aria-hidden="true" />
-          </button>
-          {/* Search bar */}
-          <div className="flex-1 px-4 flex justify-between sm:px-6 lg:max-w-6xl lg:mx-auto lg:px-8">
-            <div className="flex-1 flex">
-              <form className="w-full flex md:ml-0" action="#" method="GET">
-                <label htmlFor="search_field" className="sr-only">
-                  Search
-                </label>
-                <div className="relative w-full text-gray-400 focus-within:text-gray-600">
-                  <div
-                    className="absolute inset-y-0 left-0 flex items-center pointer-events-none"
-                    aria-hidden="true"
-                  >
-                    <SearchIcon className="h-5 w-5" aria-hidden="true" />
-                  </div>
-                  <input
-                    id="search_field"
-                    name="search_field"
-                    className="block w-full h-full pl-8 pr-3 py-2 border-transparent text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-0 focus:border-transparent sm:text-sm"
-                    placeholder="Search Workflows"
-                    onChange={(e) => {
-                      setSearch(e.target.value);
-                    }}
-                    type="search"
-                  />
+            {/* Static sidebar for desktop */}
+            <div className="hidden lg:flex lg:flex-shrink-0">
+                <div className="flex flex-col w-64">
+                    {/* Sidebar component, swap this element with another sidebar if you like */}
+                    <div className="flex flex-col flex-grow bg-cyan-700 pt-5 pb-4 overflow-y-auto">
+                        <div className="flex items-center flex-shrink-0 px-4">
+                            {/* TODO: fix logo  */}
+                            <img
+                                className="h-8 w-30"
+                                src={agilitek}
+                                alt="Agilitek Logo"
+                            />
+                        </div>
+                        <nav
+                            className="mt-5 flex-1 flex flex-col divide-y divide-cyan-800 overflow-y-auto"
+                            aria-label="Sidebar"
+                        >
+                            <div className="px-2 space-y-1">
+                                {navigation.map((item) => (
+                                    <a
+                                        key={item.name}
+                                        href={item.href}
+                                        className={classNames(
+                                            item.current
+                                                ? 'bg-cyan-800 text-white'
+                                                : 'text-cyan-100 hover:text-white hover:bg-cyan-600',
+                                            'group flex items-center px-2 py-2 text-sm leading-6 font-medium rounded-md'
+                                        )}
+                                        aria-current={
+                                            item.current ? 'page' : undefined
+                                        }
+                                    >
+                                        <item.icon
+                                            className="mr-4 h-6 w-6 text-cyan-200"
+                                            aria-hidden="true"
+                                        />
+                                        {item.name}
+                                    </a>
+                                ))}
+                            </div>
+                            <div className="mt-6 pt-6">
+                                <div className="px-2 space-y-1">
+                                    {secondaryNavigation.map((item) => (
+                                        <a
+                                            key={item.name}
+                                            href={item.href}
+                                            className="group flex items-center px-2 py-2 text-sm leading-6 font-medium rounded-md text-cyan-100 hover:text-white hover:bg-cyan-600"
+                                        >
+                                            <item.icon
+                                                className="mr-4 h-6 w-6 text-cyan-200"
+                                                aria-hidden="true"
+                                            />
+                                            {item.name}
+                                        </a>
+                                    ))}
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
                 </div>
             </div>
 
@@ -305,6 +280,9 @@ export default function UserDash({ children, page }) {
                                         name="search_field"
                                         className="block w-full h-full pl-8 pr-3 py-2 border-transparent text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-0 focus:border-transparent sm:text-sm"
                                         placeholder="Search Workflows"
+                                        onChange={(e) => {
+                                            setSearch(e.target.value);
+                                        }}
                                         type="search"
                                     />
                                 </div>
@@ -361,7 +339,7 @@ export default function UserDash({ children, page }) {
                                                 <Menu.Item>
                                                     {({ active }) => (
                                                         <a
-                                                            href="/"
+                                                            href="#"
                                                             className={classNames(
                                                                 active
                                                                     ? 'bg-gray-100'
@@ -376,7 +354,7 @@ export default function UserDash({ children, page }) {
                                                 <Menu.Item>
                                                     {({ active }) => (
                                                         <a
-                                                            href="/"
+                                                            href="#"
                                                             className={classNames(
                                                                 active
                                                                     ? 'bg-gray-100'
@@ -391,7 +369,7 @@ export default function UserDash({ children, page }) {
                                                 <Menu.Item>
                                                     {({ active }) => (
                                                         <a
-                                                            href="/"
+                                                            href="#"
                                                             className={classNames(
                                                                 active
                                                                     ? 'bg-gray-100'
@@ -495,13 +473,8 @@ export default function UserDash({ children, page }) {
                     </div>
                 </main>
                 {/* <WorkflowForm /> */}
-                {children}
+                {children ? children : <WorkflowTable value={{ search }} />}
             </div>
-          </div>
-
-        {/* <WorkflowForm /> */}
-        {children ? children : <WorkflowTable value={{ search }} />}
-      </div>
-    </div>
-  );
+        </div>
+    );
 }
