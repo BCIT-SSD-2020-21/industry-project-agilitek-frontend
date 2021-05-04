@@ -1,7 +1,7 @@
-import { Fragment, useState } from "react"
-import { Dialog, Menu, Transition } from "@headlessui/react"
-import { useHistory, Link } from "react-router-dom"
-import agilitek from "../../images/agilitek.svg"
+import { Fragment, useState } from "react";
+import { Dialog, Menu, Transition } from "@headlessui/react";
+import { useHistory, Link } from "react-router-dom";
+import agilitek from "../../images/agilitek.svg";
 import {
   BellIcon,
   ClockIcon,
@@ -14,7 +14,7 @@ import {
   ShieldCheckIcon,
   UserGroupIcon,
   XIcon,
-} from "@heroicons/react/outline"
+} from "@heroicons/react/outline";
 import {
   CashIcon,
   CheckCircleIcon,
@@ -22,18 +22,19 @@ import {
   ChevronRightIcon,
   OfficeBuildingIcon,
   SearchIcon,
-} from "@heroicons/react/solid"
+} from "@heroicons/react/solid";
+import WorkflowTable from "../WorkflowTable/WorkflowTable";
 
 const navigation = [
   { name: "Home", href: "#", icon: HomeIcon, current: true },
   { name: "History", href: "#", icon: ClockIcon, current: false },
   { name: "Statistics", href: "#", icon: DocumentReportIcon, current: false },
-]
+];
 const secondaryNavigation = [
   { name: "Settings", href: "#", icon: CogIcon },
   { name: "Help", href: "#", icon: QuestionMarkCircleIcon },
   { name: "Privacy", href: "#", icon: ShieldCheckIcon },
-]
+];
 const workflows = [
   {
     id: 1,
@@ -44,21 +45,24 @@ const workflows = [
     date: "July 11, 2020",
     datetime: "2020-07-11",
   },
+
   // More transactions...
-]
+];
+
 const statusStyles = {
   success: "bg-green-100 text-green-800",
   processing: "bg-yellow-100 text-yellow-800",
   failed: "bg-gray-100 text-gray-800",
-}
+};
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(" ")
+  return classes.filter(Boolean).join(" ");
 }
 
 export default function UserDash({ children, page }) {
-  const [sidebarOpen, setSidebarOpen] = useState(false)
-  const history = useHistory()
+  const [search, setSearch] = useState("");
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const history = useHistory();
   return (
     <div className="h-screen flex overflow-hidden bg-gray-100">
       <Transition.Root show={sidebarOpen} as={Fragment}>
@@ -247,6 +251,9 @@ export default function UserDash({ children, page }) {
                     name="search_field"
                     className="block w-full h-full pl-8 pr-3 py-2 border-transparent text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-0 focus:border-transparent sm:text-sm"
                     placeholder="Search Workflows"
+                    onChange={(e) => {
+                      setSearch(e.target.value);
+                    }}
                     type="search"
                   />
                 </div>
@@ -417,8 +424,8 @@ export default function UserDash({ children, page }) {
           </div>
         </main>
         {/* <WorkflowForm /> */}
-        {children}
+        {children ? children : <WorkflowTable value={{ search }} />}
       </div>
     </div>
-  )
+  );
 }

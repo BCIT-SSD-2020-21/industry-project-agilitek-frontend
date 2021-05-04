@@ -1,20 +1,19 @@
-import React, { useEffect, useState } from "react"
-import WorkflowItem from "../WorkflowItem/WorkflowItem"
-import { useHistory, Link } from "react-router-dom"
-import { getAllWorkflows } from "../../api/network"
-import CircularProgress from "@material-ui/core/CircularProgress"
-import { makeStyles } from "@material-ui/core/styles"
-
+import React, { useEffect, useState } from "react";
+import WorkflowItem from "../WorkflowItem/WorkflowItem";
+import { useHistory, Link } from "react-router-dom";
+import { getAllWorkflows } from "../../api/network";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import { makeStyles } from "@material-ui/core/styles";
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(" ")
+  return classes.filter(Boolean).join(" ");
 }
 
 const statusStyles = {
   true: "bg-green-100 text-green-800",
   false: "bg-red-100 text-red-800",
   failed: "bg-gray-100 text-gray-800",
-}
+};
 
 const useStyles = makeStyles((theme) => ({
   loading: {
@@ -24,46 +23,46 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "center",
   },
-}))
+}));
 
-const WorkflowTable = () => {
-  const history = useHistory()
-  const classes = useStyles()
+const WorkflowTable = (search) => {
+  const history = useHistory();
+  const classes = useStyles();
 
-  const [workflows, setWorkflows] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [limit, setLimit] = useState(5)
-  const [offset, setOffset] = useState(0)
-  const [resData, setResData] = useState([])
+  const [workflows, setWorkflows] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [limit, setLimit] = useState(5);
+  const [offset, setOffset] = useState(0);
+  const [resData, setResData] = useState([]);
 
   const fetchWorkflows = async () => {
-    ;(async () => {
-      const res = await getAllWorkflows()
-      setResData(res)
-      const data = res.slice(offset, offset + limit)
-      setWorkflows(data)
-      setTimeout(() => setLoading(false), 1000)
-    })()
-  }
+    (async () => {
+      const res = await getAllWorkflows();
+      setResData(res);
+      const data = res.slice(offset, offset + limit);
+      setWorkflows(data);
+      setTimeout(() => setLoading(false), 1000);
+    })();
+  };
 
   const handlePrevClicked = async () => {
-    setOffset(Math.max(0, offset - 5))
-  }
+    setOffset(Math.max(0, offset - 5));
+  };
 
   const handleNextClicked = async () => {
     if (resData.length > offset + limit) {
-      setOffset(offset + 5)
+      setOffset(offset + 5);
     }
-  }
+  };
 
   // fetch User Data
   useEffect(() => {
-    fetchWorkflows()
-  }, [])
+    fetchWorkflows();
+  }, []);
 
   useEffect(() => {
-    fetchWorkflows()
-  }, [offset])
+    fetchWorkflows();
+  }, [offset]);
 
   return (
     <>
@@ -81,11 +80,21 @@ const WorkflowTable = () => {
           {/* Activity list (smallest breakpoint only) */}
           <div className="shadow sm:hidden">
             <ul className="mt-2 divide-y divide-gray-200 overflow-hidden shadow sm:hidden">
-              {workflows.map((workflow) => (
-                <li key={workflow.id}>
-                  <WorkflowItem workflow={workflow} />
-                </li>
-              ))}
+              {workflows
+                .filter((e) => {
+                  if (search.value.search == "") {
+                    return e;
+                  } else if (e.name.includes(search.value.search)) {
+                    console.log(search.value.search);
+                    console.log(e);
+                    return e;
+                  }
+                })
+                .map((e) => {
+                  <li key={e.id}>
+                    <WorkflowItem workflow={e} />
+                  </li>;
+                })}
             </ul>
 
             <nav
@@ -132,49 +141,68 @@ const WorkflowTable = () => {
                       </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
-                      {workflows.map((workflow) => (
-                        <tr key={workflow.id} className="bg-white">
-                          <td className="max-w-0 w-full px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                            <div className="flex">
-                              {/* <a
+                      {workflows
+                        .filter((workflow) => {
+                          if (search.value.search == "") {
+                            return workflow;
+                          } else if (
+                            workflow.name
+                              .toLowerCase()
+                              .includes(search.value.search.toLowerCase())
+                          ) {
+                            console.log(search.value.search);
+                            console.log(workflow);
+                            return workflow;
+                          }
+                        })
+                        .map((workflow) => (
+                          <tr key={workflow.id} className="bg-white">
+                            <td className="max-w-0 w-full px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                              <div className="flex">
+                                {/* <a
                               href={workflows.href}
                               className="group inline-flex space-x-2 truncate text-sm"
                             > */}
-                              <p className="text-gray-500 truncate group-hover:text-gray-900">
-                              <Link className="text-blue-500 truncate hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500" to={`/details/${workflow.id}`}>{workflow.name}</Link>
-                              </p>
-                              {/* </a> */}
-                            </div>
-                          </td>
-                          <td className="px-6 py-4 text-right whitespace-nowrap text-sm text-gray-500">
-                            <span className="text-gray-900 font-medium">
-                              {workflow.Frequency}
-                            </span>
-                            {workflow.currency}
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            <span
-                              className={classNames(
-                                statusStyles[workflow.active],
-                                "inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium capitalize"
-                              )}
-                            >
-                              {workflow.active ? "Active" : "Inactive"}
-                            </span>
-                          </td>
-                          <td className="px-6 py-4 text-right whitespace-nowrap text-sm text-gray-500">
-                            <button
-                              type="button"
-                              className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-cyan-600 hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
-                              onClick={() =>
-                                history.push(`/configure/${workflow.id}`)
-                              }
-                            >
-                              Configure
-                            </button>
-                          </td>
-                        </tr>
-                      ))}
+                                <p className="text-gray-500 truncate group-hover:text-gray-900">
+                                  <Link
+                                    className="text-blue-500 truncate hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
+                                    to={`/details/${workflow.id}`}
+                                  >
+                                    {workflow.name}
+                                  </Link>
+                                </p>
+                                {/* </a> */}
+                              </div>
+                            </td>
+                            <td className="px-6 py-4 text-right whitespace-nowrap text-sm text-gray-500">
+                              <span className="text-gray-900 font-medium">
+                                {workflow.Frequency}
+                              </span>
+                              {workflow.currency}
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                              <span
+                                className={classNames(
+                                  statusStyles[workflow.active],
+                                  "inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium capitalize"
+                                )}
+                              >
+                                {workflow.active ? "Active" : "Inactive"}
+                              </span>
+                            </td>
+                            <td className="px-6 py-4 text-right whitespace-nowrap text-sm text-gray-500">
+                              <button
+                                type="button"
+                                className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-cyan-600 hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
+                                onClick={() =>
+                                  history.push(`/configure/${workflow.id}`)
+                                }
+                              >
+                                Configure
+                              </button>
+                            </td>
+                          </tr>
+                        ))}
                     </tbody>
                   </table>
                   {/* Pagination */}
@@ -213,7 +241,7 @@ const WorkflowTable = () => {
         </div>
       )}
     </>
-  )
-}
+  );
+};
 
-export default WorkflowTable
+export default WorkflowTable;
