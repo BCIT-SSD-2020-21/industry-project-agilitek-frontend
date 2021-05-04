@@ -64,6 +64,13 @@ useEffect(() => {
   })()
 }, [])
 
+useEffect(() => {
+console.log(mappings)
+}, [mappings])
+
+
+
+
 // useEffect(() => {
 //   ;(async () => {
 //     try {
@@ -99,8 +106,8 @@ useEffect(() => {
       // the data for that workflow
       if (id) {
         const res = await getWorkflow(id)
-        console.log(res)
-        console.log(res.mapping)
+        // console.log(res)
+        // console.log(res.mapping)
         setFormData({
           name: res.name,
           desc: res.desc,
@@ -256,7 +263,7 @@ const {
                       </div>
                       {/* Mapping dropdown lists */}
                       {sObjectType ? (
-                        <div className="mappings">{mappings}</div>
+                        <div className="mappings">{mappings[0]}</div>
                       ) : null}
                       <div className="grid grid-cols-6 gap-6">
                         <div className="col-span-6 sm:col-span-4 mt-5">
