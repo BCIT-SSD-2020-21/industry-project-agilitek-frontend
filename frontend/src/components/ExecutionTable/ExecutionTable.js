@@ -14,7 +14,6 @@ export default function ExecutionTable() {
                 setLogArray(res);
             }
         })();
-
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
