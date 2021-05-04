@@ -563,23 +563,25 @@ export default function UserForm() {
                                             </div>
                                         </>
                                     ) : null}
-                                    <div className="sm:col-span-6 mt-5">
-                                        <label
-                                            htmlFor="description"
-                                            className="block text-sm font-medium text-gray-700"
-                                        >
-                                            Description
-                                        </label>
-                                        <div className="mt-1">
-                                            <textarea
-                                                id="description"
-                                                name="desc"
-                                                rows={5}
-                                                className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                                placeholder="Enter description..."
-                                                value={desc}
-                                                onChange={handleChange}
-                                            />
+                                    <div className="grid grid-cols-6 gap-6">
+                                        <div className="col-span-6 sm:col-span-3 mt-5">
+                                            <label
+                                                htmlFor="description"
+                                                className="block text-sm font-medium text-gray-700"
+                                            >
+                                                Description
+                                            </label>
+                                            <div className="mt-1">
+                                                <textarea
+                                                    id="description"
+                                                    name="desc"
+                                                    rows={5}
+                                                    className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                                    placeholder="Enter description..."
+                                                    value={desc}
+                                                    onChange={handleChange}
+                                                />
+                                            </div>
                                         </div>
                                     </div>
                                     <div className="col-span-6 sm:col-span-3 mt-5">
