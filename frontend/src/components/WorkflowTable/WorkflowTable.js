@@ -146,7 +146,9 @@ const WorkflowTable = (search) => {
                           if (search.value.search == "") {
                             return workflow;
                           } else if (
-                            workflow.name.includes(search.value.search)
+                            workflow.name
+                              .toLowerCase()
+                              .includes(search.value.search.toLowerCase())
                           ) {
                             console.log(search.value.search);
                             console.log(workflow);
