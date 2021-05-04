@@ -14,14 +14,14 @@ export default function MappingInput({
     const [column, setColumn] = useState('');
     const [isAdded, setIsAdded] = useState(false);
 
-    // CDM
+    // CDM & CDU
     useEffect(() => {
         if (mappingKey && mappingValue) {
             setMetaData(mappingKey);
             setColumn(mappingValue);
             setIsAdded(true);
         }
-    }, []);
+    }, [mappingKey, mappingValue]);
 
     // Handle alert message change
     const handleAlertMessage = ({ type, message }) => {
