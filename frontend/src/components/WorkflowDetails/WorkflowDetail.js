@@ -55,10 +55,6 @@ useEffect(() => {
   })()
 }, [])
 
-useEffect(() => {
-console.log(mappings)
-}, [mappings])
-
   // CDM
   useEffect(() => {
     // try{
@@ -131,6 +127,15 @@ const {
   mapping,
 } = formData
 
+useEffect(() => {
+  console.log(mapping)
+  for (const key in mapping) {
+    console.log(`${key} : ${mapping[key]}`)
+  }
+
+
+  }, [mapping])
+
     return (
         <div className="m-8">
           <div className="hidden sm:block" aria-hidden="true">
@@ -188,7 +193,7 @@ const {
                         <div>
                         </div>
                       </div>
-
+                      {/* Salesforce MetaData field */}
                       <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
                         <div className="sm:col-span-3">
                           <label
@@ -213,7 +218,7 @@ const {
                       </div>
                       {/* Mapping dropdown lists */}
                       {sObjectType ? (
-                        <div className="mappings">{mappings[0]}</div>
+                        <div className="mappings">{formData.mapping[0]}</div>
                       ) : null}
                       <div className="grid grid-cols-6 gap-6">
                         <div className="col-span-6 sm:col-span-4 mt-5">
