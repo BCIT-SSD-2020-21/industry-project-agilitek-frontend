@@ -1,19 +1,16 @@
 import React from 'react';
-
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import UserDash from './components/Landing/userDash';
 import WorkflowForm from './components/WorkflowForm/WorfkflowForm';
 import ErrorPage from './components/ErrorPage/ErrorPage';
-import WorkflowTable from './components/WorkflowTable/WorkflowTable';
 import WorkflowDetail from './components/WorkflowDetails/WorkflowDetail';
 
 function App() {
     return (
         <Router>
-            {/* <div className="bg-gray-800 pb-32"> */}
             <Switch>
                 <Route exact path="/">
-                    <UserDash page="main" children={<WorkflowTable />} />
+                    <UserDash page="main" />
                 </Route>
                 <Route exact path="/create">
                     <UserDash children={<WorkflowForm />} />
@@ -28,7 +25,6 @@ function App() {
                     <UserDash children={<ErrorPage />} />
                 </Route>
             </Switch>
-            {/* </div> */}
         </Router>
     );
 }
