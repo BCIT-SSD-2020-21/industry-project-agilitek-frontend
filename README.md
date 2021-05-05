@@ -99,32 +99,53 @@ TBD with input from team
 
 ### `GET`
 
-### GET All the available custom flows from Salesforce
+### Get all flows from Salesforce
 
 ### `/salesforceflows`
 
 ### Sample response:
 
-{
+    {
+        "actions" : [
+            {
+                "label": "Create Opportunities",
+                "name": "Create_Opportunities",
+                "type": "FLOW",
+                "url": "/services/data/v51.0/actions/custom/flow/Create_Opportunities"
+            },
+            {
+                "label": "Create Opportunity",
+                "name": "Create_Opportunity",
+                "type": "FLOW",
+                "url": "/services/data/v51.0/actions/custom/flow/Create_Opportunity"
+            }
+        ]
+    }
 
-    "actions" : [
-        {
-            "label": "Create Opportunities",
-            "name": "Create_Opportunities",
-            "type": "FLOW",
-            "url": "/services/data/v51.0/actions/custom/flow/Create_Opportunities"
-        },
-        {
-            "label": "Create Opportunity",
-            "name": "Create_Opportunity",
-            "type": "FLOW",
-            "url": "/services/data/v51.0/actions/custom/flow/Create_Opportunity"
-        }
-    ]
+<hr />
 
-}
+### `GET`
 
-<hr>
+### Get flow inputs
+
+### `/salesforceflows/flow`
+
+### Sample query string parameter:
+
+`/salesforceflows/flow?flowUrl=/services/data/v51.0/actions/custom/flow/Create_Opportunity`
+
+OR
+
+`flowUrl=/services/data/v51.0/actions/custom/flow/Create_Opportunity`
+
+### Sample response:
+
+    {
+      "label": "ContactToProcess",
+      "type": "STRING"
+    }
+
+<hr />
 
 ### `POST`
 
@@ -143,6 +164,29 @@ TBD with input from team
         "salesforceFlowName: "create_opportunity",
     }
 
+OR
+
+    {
+        "inputs": [
+            {
+                "ContactsToProcess": [
+                    {
+                        "attributes": {"type": "Contact"},
+                        "Id" : "0034x000007DYA3AAO"
+                    },
+                    {
+                        "attributes": {"type": "Contact"},
+                        "Id" : "0034x000001c4YQAAY"
+                    },
+                    {
+                        "attributes": {"type": "Contact"},
+                        "Id" : "0034x000003YaRvAAK"
+                    }
+                ]
+            }
+        ]
+    }
+
 ### Sample response:
 
     [
@@ -157,16 +201,429 @@ TBD with input from team
         }
     ]
 
-<hr>
+OR
+
+    [
+        {
+            "actionName": "Create_Opportunities",
+            "errors": null,
+            "isSuccess": true,
+            "outputValues": null
+        }
+    ]
+
+<hr />
+
+### `GET`
+
+### Get metadata for sObject type
+
+### `/salesforceflows/metadata`
+
+### Sample query string parameter:
+
+`/salesforceflows/metadata?sObjectType=Contact`
+
+OR
+
+`sObjectType=Contact`
+
+### Sample response:
+
+    {
+      "metadata": [
+        {
+          "aggregatable": true,
+          "aiPredictionField": false,
+          "autoNumber": false,
+          "byteLength": 18,
+          "calculated": false,
+          "calculatedFormula": null,
+          "cascadeDelete": false,
+          "caseSensitive": false,
+          "compoundFieldName": null,
+          "controllerName": null,
+          "createable": false,
+          "custom": false,
+          "defaultValue": null,
+          "defaultValueFormula": null,
+          "defaultedOnCreate": true,
+          "dependentPicklist": false,
+          "deprecatedAndHidden": false,
+          "digits": 0,
+          "displayLocationInDecimal": false,
+          "encrypted": false,
+          "externalId": false,
+          "extraTypeInfo": null,
+          "filterable": true,
+          "filteredLookupInfo": null,
+          "formulaTreatNullNumberAsZero": false,
+          "groupable": true,
+          "highScaleNumber": false,
+          "htmlFormatted": false,
+          "idLookup": true,
+          "inlineHelpText": null,
+          "label": "Contact ID",
+          "length": 18,
+          "mask": null,
+          "maskType": null,
+          "name": "Id",
+          "nameField": false,
+          "namePointing": false,
+          "nillable": false,
+          "permissionable": false,
+          "picklistValues": [],
+          "polymorphicForeignKey": false,
+          "precision": 0,
+          "queryByDistance": false,
+          "referenceTargetField": null,
+          "referenceTo": [],
+          "relationshipName": null,
+          "relationshipOrder": null,
+          "restrictedDelete": false,
+          "restrictedPicklist": false,
+          "scale": 0,
+          "searchPrefilterable": false,
+          "soapType": "tns:ID",
+          "sortable": true,
+          "type": "id",
+          "unique": false,
+          "updateable": false,
+          "writeRequiresMasterRead": false
+        },
+        ...
+    }
+
+<br />
+
+## Database
+
+### `GET`
+
+### Get all database tables
+
+### `/database`
+
+### Sample response:
+
+    {
+       "statusCode":200,
+       "body":[
+          {
+             "table_name":"SalesforceContacts"
+          },
+          {
+             "table_name":"contact_workflows"
+          },
+          {
+             "table_name":"workflows"
+          },
+          {
+             "table_name":"workflow_logs"
+          },
+          {
+             "table_name":"users"
+          }
+       ],
+       "headers":{
+          "Access-Control-Allow-Origin":"*",
+          "Access-Control-Allow-Headers":"*"
+       }
+    }
+
+<hr />
+
+### `GET`
+
+### Get all columns from a table
+
+### `/database/{table_name}/columns`
+
+### Sample URL parameter:
+
+`/database/users/columns`
+
+### Sample response:
+
+    [
+      {
+        "column_name": "salesforce_id"
+      },
+      {
+        "column_name": "first_name"
+      },
+      {
+        "column_name": "last_name"
+      }
+    ]
+
+<br />
+
+## My Workflow
+
+### `GET`
+
+### Get all workflows
+
+### `/myworkflows`
+
+### Sample response:
+
+    [
+      {
+        "id": 20,
+        "flow_url": "/services/data/v51.0/actions/custom/flow/Create_Opportunity",
+        "name": "www",
+        "description": "",
+        "table": "SalesforceContacts",
+        "column": "id",
+        "label": "ContactToProcess",
+        "type": "STRING",
+        "sobject_type": "undefined",
+        "where_clause": "length(title) > 0",
+        "mapping": {},
+        "run_again": true,
+        "active": true,
+        "pk_column": "id"
+      },
+      {
+        "id": 8,
+        "flow_url": "/services/data/v51.0/actions/custom/flow/Create_Opportunities",
+        "name": "Test Create_Opportunity",
+        "description": "undefined",
+        "table": "SalesforceContacts",
+        "column": "",
+        "label": "ContactsToProcess",
+        "type": "SOBJECT",
+        "sobject_type": "Contact",
+        "where_clause": "length(email) > 0",
+        "mapping": {
+          "OtherAddress": "lastmodifieddate",
+          "OtherStreet": "lastmodifiedbyid",
+          "Name": "fan_type__c",
+          "Id": "id"
+        },
+        "run_again": true,
+        "active": true,
+        "pk_column": "id"
+      }
+    ]
+
+<hr />
+    
+### `POST`
+
+### Create a new workflow
+
+### `/myworkflows`
+
+### Sample body:
+
+    {
+       "name":"My Test Workflow",
+       "desc":"Some automation",
+       "flowUrl":"/services/data/v51.0/actions/custom/flow/Create_Opportunities",
+       "table":"SalesforceContacts",
+       "column":"",
+       "label":"ContactsToProcess",
+       "type":"SOBJECT",
+       "sObjectType":"Contact",
+       "whereClause":"length(email) > 0",
+       "mapping":{
+          "Id":"id",
+          "Title":"title"
+       },
+       "active":true,
+       "runAgain":true
+    }
+
+### Sample response:
+
+    {
+       "statusCode":200,
+       "body":{
+          "command":"INSERT",
+          "rowCount":1,
+          "oid":0,
+          "rows":[],
+          "fields":[],
+          "_types":{
+             "_types":{
+                "arrayParser":{
+
+                },
+                "builtins":{
+                   "BOOL":16,
+                   "BYTEA":17,
+                   "CHAR":18,
+                    ...
+                }
+             },
+             "text":{},
+             "binary":{}
+          },
+          "RowCtor":null,
+          "rowAsArray":false
+       },
+       "headers":{
+          "Access-Control-Allow-Origin":"*",
+          "Access-Control-Allow-Headers":"*"
+       }
+    }
+
+<hr />
+
+### `GET`
+
+### Get workflow logs
+
+### `/myworkflows/logs/{id+}`
+
+### Sample URL parameter:
+
+`/myworkflows/logs/8`
+
+### Sample response:
+
+    [
+      {
+        "id": 13,
+        "workflow_id": 8,
+        "action_name": "Create_Opportunity",
+        "time_of_completion": "2021-05-03T18:23:01.267Z",
+        "is_flow_successful": true
+      },
+      {
+        "id": 15,
+        "workflow_id": 8,
+        "action_name": "Create_Opportunity",
+        "time_of_completion": "2021-05-03T18:25:51.146Z",
+        "is_flow_successful": true
+      }
+    ]
+
+<hr />
+
+### `DELETE`
+
+### Delete a workflow
+
+### `/myworkflows/{id+}`
+
+### Sample URL parameter:
+
+`/myworkflows/23`
+
+### Sample response
+
+    {
+       "Access-Control-Allow-Origin":"*",
+       "Access-Control-Allow-Headers":"*",
+       "X-Amzn-Trace-Id":"Root=1-60930ed6-9c95119c8a4e9068020833b3;Sampled=0"
+    }
+
+<hr />
+
+### `GET`
+
+### Get a workflow
+
+### `/myworkflows/{id+}`
+
+### Sample URL parameter:
+
+`/myworkflows/13`
+
+### Sample response:
+
+    {
+      "id": 13,
+      "flow_url": "/services/data/v51.0/actions/custom/flow/Create_Opportunities",
+      "name": "Test test 123",
+      "description": "undefined",
+      "table": "SalesforceContacts",
+      "column": "",
+      "label": "ContactsToProcess",
+      "type": "SOBJECT",
+      "sobject_type": "Contact",
+      "where_clause": "length(title) > 0",
+      "mapping": {
+        "MasterRecordId": "assistantphone",
+        "AccountId": "createddate",
+        "Id": "id"
+      },
+      "run_again": true,
+      "active": true,
+      "pk_column": "id"
+    }
+
+<hr />
+
+### `PUT`
+
+### Update a workflow
+
+### `/myworkflows/{id+}`
+
+### Sample URL paramter:
+
+`/myworkflows/13`
+
+### Sample body:
+
+    {
+      "name": "My Test Workflow",
+      "desc": "Some automation",
+      "flowUrl": "/services/data/v51.0/actions/custom/flow/Create_Opportunities",
+      "table": "SalesforceContacts",
+      "column": "",
+      "label": "ContactsToProcess",
+      "type": "SOBJECT",
+      "sObjectType": "Contact",
+      "whereClause": "length(email) > 0",
+      "mapping": {
+        "Id": "id",
+        "Title": "title"
+      },
+      "active": true,
+      "runAgain": true
+    }
+
+### Sample response:
+
+    {
+      "command": "UPDATE",
+      "rowCount": 1,
+      "oid": null,
+      "rows": [],
+      "fields": [],
+      "_types": {
+        "_types": {
+          "arrayParser": {},
+          "builtins": {
+            "BOOL": 16,
+            "BYTEA": 17,
+            "CHAR": 18,
+             ...
+          }
+        },
+        "text": {},
+        "binary": {}
+      },
+      "RowCtor": null,
+      "rowAsArray": false
+    }
+
+<br />
 
 ## :tada: Credits
 
-Created by:<br>
-[Leanne Sall](https://github.com/LeanneSall),<br>
-[Gökay Abay](https://github.com/gokay-abay),<br>
-[Nick Charvat](https://github.com/nickchvt):poop:,<br>
-[Steven Lai](https://github.com/stevenlai4),<br>
-[Yaroslav Naft](https://github.com/Yaroslav-Naft),<br>
+Created by:
+[Leanne Sall](https://github.com/LeanneSall)
+[Gökay Abay](https://github.com/gokay-abay)
+[Nick Charvat](https://github.com/nickchvt) :poop:
+[Steven Lai](https://github.com/stevenlai4)
+[Yaroslav Naft](https://github.com/Yaroslav-Naft)
 In partnership with [Agilitek Solutions](http://agiliteksolutions.com/)
 
 ## :lock: License
