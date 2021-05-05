@@ -16,7 +16,7 @@ export default function DetailInput({ mapping, mappingKey }) {
                         type="text"
                         name="inputs_type"
                         id="inputs_type"
-                        className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                        className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md bg-gray-50 text-gray-500"
                         value={`${mappingKey} : ${mapping}`}
                         disabled
                     />

@@ -96,40 +96,11 @@ export default function WorkflowDetail() {
                                                 name="name"
                                                 id="name"
                                                 placeholder="Name.."
-                                                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 bg-gray-50 text-gray-500 rounded-md"
                                                 value={name}
                                             />
-                                                <div className="mt-1 flex rounded-md shadow-sm">
-                                                    <span className="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 sm:text-sm">
-                                                    workcation.com/
-                                                    </span>
-                                                    <input type='text'/>
-                                                </div>
-
                                         </div>
                                     </div>
-                                        {/* <div className="grid grid-cols-6 gap-6">
-                                            <div className="col-span-7 sm:col-span-4 mt-5">
-                                            <label
-                                                className="block text-sm font-medium text-gray-700"
-                                            >
-                                                Name of the Workflow
-                                            </label>
-                                                <div className="mt-1 flex rounded-md shadow-sm">
-                                                    <span className="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 sm:text-sm">
-                                                    workcation.com/
-                                                    </span>
-                                                    <input
-                                                    type="text"
-                                                    name="username"
-                                                    id="username"
-                                                    autoComplete="username"
-                                                    className="flex-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full min-w-0 rounded-none rounded-r-md sm:text-sm border-gray-300"
-                                                    />
-                                                </div>
-                                            </div>
-                                        </div> */}
-
                                         <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
                                             <div className="sm:col-span-3">
                                                 <label
@@ -142,7 +113,7 @@ export default function WorkflowDetail() {
                                                     type="text"
                                                     name="inputs_type"
                                                     id="inputs_type"
-                                                    className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                                    className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 bg-gray-50 text-gray-500 rounded-md"
                                                     value={
                                                         sObjectType &&
                                                         sObjectType !==
@@ -184,7 +155,7 @@ export default function WorkflowDetail() {
                                                         type="text"
                                                         name="inputs_type"
                                                         id="inputs_type"
-                                                        className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                                        className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 bg-gray-50 text-gray-500 rounded-md"
                                                         value={column}
                                                         disabled
                                                     />
@@ -206,7 +177,7 @@ export default function WorkflowDetail() {
                                                     name="whereClause"
                                                     id="where_clause"
                                                     placeholder=""
-                                                    className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                                    className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 bg-gray-50 text-gray-500 rounded-md"
                                                     value={whereClause}
                                                     disabled
                                                 />
@@ -225,7 +196,7 @@ export default function WorkflowDetail() {
                                                 id="description"
                                                 rows={5}
                                                 placeholder=""
-                                                className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                                className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 bg-gray-50 text-gray-500 rounded-md"
                                                 value={desc}
                                                 disabled
                                             />
@@ -243,7 +214,7 @@ export default function WorkflowDetail() {
                                                 disabled
                                                 type="text"
                                                 placeholder=""
-                                                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 bg-gray-50 text-gray-500 rounded-md"
                                                 value={active}
                                             />
                                         </div>
@@ -261,7 +232,7 @@ export default function WorkflowDetail() {
                                                 name="query"
                                                 id="query"
                                                 placeholder="SQL Query"
-                                                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 bg-gray-50 text-gray-500 rounded-md"
                                                 value={runAgain}
                                             />
                                         </div>
