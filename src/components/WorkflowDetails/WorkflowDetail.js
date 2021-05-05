@@ -38,7 +38,6 @@ export default function WorkflowDetail() {
         (async () => {
             try {
                 const res = await getWorkflow(id);
-
                 setFormData({
                     name: res.name,
                     desc: res.description,
@@ -63,10 +62,12 @@ export default function WorkflowDetail() {
         name,
         active,
         type,
+        desc,
         label,
         sObjectType,
         whereClause,
         runAgain,
+        column,
         mapping,
     } = formData;
 
@@ -84,7 +85,6 @@ export default function WorkflowDetail() {
                                     <div className="grid grid-cols-6 gap-6 ">
                                         <div className="col-span-7 sm:col-span-4 mt-5">
                                             <label
-                                                htmlFor="email_address"
                                                 className="block text-sm font-medium text-gray-700"
                                             >
                                                 Name of the Workflow
@@ -98,21 +98,6 @@ export default function WorkflowDetail() {
                                                 className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                                 value={name}
                                             />
-                                        </div>
-                                        <div className="mt-6 flex space-x-3 md:mt-0 md:ml-4">
-                                            <td className="text-right px-6 py-4 text-right whitespace-nowrap text-sm text-gray-500">
-                                                <button
-                                                    type="button"
-                                                    className=" inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-cyan-600 hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
-                                                    onClick={() =>
-                                                        history.push(
-                                                            `/configure/${id}`
-                                                        )
-                                                    }
-                                                >
-                                                    Configure
-                                                </button>
-                                            </td>
                                         </div>
                                     </div>
                                     <>
@@ -143,7 +128,8 @@ export default function WorkflowDetail() {
                                         </div>
                                         {/* Salesforce MetaData field */}
                                         {/* {detailInputs}   */}
-                                        {mapping
+                                        {type === 'SOBJECT' ?
+                                         (mapping
                                             ? Object.keys(
                                                   mapping
                                               ).map((key, i) => (
@@ -153,7 +139,31 @@ export default function WorkflowDetail() {
                                                       mappingKey={key}
                                                   />
                                               ))
-                                            : null}
+                                            : null
+                                         ) : (
+                                            <>
+                                            {/* Salesforce MetaData field */}
+                                            <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+                                                <div className="sm:col-span-3">
+                                                    <label
+                                                        htmlFor="inputs_type"
+                                                        className="block text-sm font-medium text-gray-700"
+                                                    >
+                                                        Database Column
+                                                    </label>
+                                                    <input
+                                                        type="text"
+                                                        name="inputs_type"
+                                                        id="inputs_type"
+                                                        className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                                        value={column}
+                                                        disabled
+                                                    />
+                                                </div>
+                                            </div>
+                                        </>
+                                         )
+                                        }
                                         <div className="grid grid-cols-6 gap-6">
                                             <div className="col-span-6 sm:col-span-4 mt-5">
                                                 <label
@@ -174,6 +184,25 @@ export default function WorkflowDetail() {
                                             </div>
                                         </div>
                                     </>
+                                    <div className="grid grid-cols-6 gap-6">
+                                        <div className="col-span-6 sm:col-span-4 mt-5">
+                                            <label
+                                                htmlFor="where_clause"
+                                                className="block text-sm font-medium text-gray-700"
+                                            >
+                                                Description
+                                            </label>
+                                            <textarea
+                                                name="description"
+                                                id="description"
+                                                rows={5}
+                                                placeholder=""
+                                                className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                                value={desc}
+                                                disabled
+                                            />
+                                        </div>
+                                    </div>
                                     <div className="grid grid-cols-6 gap-6 ">
                                         <div className="col-span-6 sm:col-span-4 mt-5">
                                             <label
@@ -185,9 +214,7 @@ export default function WorkflowDetail() {
                                             <input
                                                 disabled
                                                 type="text"
-                                                name="query"
-                                                id="query"
-                                                placeholder="SQL Query"
+                                                placeholder=""
                                                 className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                                 value={active}
                                             />
@@ -196,7 +223,6 @@ export default function WorkflowDetail() {
                                     <div className="grid grid-cols-6 gap-6 ">
                                         <div className="col-span-6 sm:col-span-4 mt-5">
                                             <label
-                                                htmlFor="email_address"
                                                 className="block text-sm font-medium text-gray-700"
                                             >
                                                 Run for Same Contacts Repeatedly
@@ -211,6 +237,19 @@ export default function WorkflowDetail() {
                                                 value={runAgain}
                                             />
                                         </div>
+                                    </div>
+                                    <div className="px-4 py-3 text-right sm:px-6">
+                                                <button
+                                                    type="button"
+                                                    className=" inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-cyan-600 hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
+                                                    onClick={() =>
+                                                        history.push(
+                                                            `/configure/${id}`
+                                                        )
+                                                    }
+                                                >
+                                                    Go to Configuration
+                                                </button>
                                     </div>
                                 </div>
                             </div>
