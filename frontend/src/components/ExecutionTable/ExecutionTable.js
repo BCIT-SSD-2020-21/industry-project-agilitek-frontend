@@ -47,7 +47,7 @@ export default function ExecutionTable() {
                                         scope="col"
                                         className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                                     >
-                                        Record Id
+                                        Execution Result
                                     </th>
                                     <th
                                         scope="col"
@@ -74,7 +74,7 @@ export default function ExecutionTable() {
                                             })}
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                            {logs.record_id}
+                                            {logs.is_flow_successful}
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"></td>
                                     </tr>

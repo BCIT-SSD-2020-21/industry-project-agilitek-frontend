@@ -99,7 +99,7 @@ export default function WorkflowDetail() {
                                                 value={name}
                                             />
                                         </div>
-                                        <div className="px-4 py-3 bg-gray-50 text-right sm:px-6 ">
+                                        <div className="mt-6 flex space-x-3 md:mt-0 md:ml-4">
                                             <td className="text-right px-6 py-4 text-right whitespace-nowrap text-sm text-gray-500">
                                                 <button
                                                     type="button"
