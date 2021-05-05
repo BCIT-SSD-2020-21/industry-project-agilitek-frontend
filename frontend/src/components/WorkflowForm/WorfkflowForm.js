@@ -3,8 +3,6 @@ import {
     createWorkflow,
     getSalesForceFlow,
     getWorkflow,
-    getWorkflowLogs,
-    setQuery,
     updateWorkflow,
     getDBTables,
     getDBColumns,
@@ -17,7 +15,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import MappingInput from './MappingInput';
 import { Snackbar, CircularProgress } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
-import Modal from '../Modal/Modal';
+import DeleteModal from './DeleteModal';
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ');
@@ -52,10 +50,10 @@ export default function UserForm() {
     });
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const [tempMapping, setTempMapping] = useState({});
-    const [modalOpen, setModalOpen] = useState(false);
+    const [delModalOpen, setDelModalOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
-    // CDM
+    // CDM & CDU
     useEffect(() => {
         (async () => {
             // Get all database tables from the database
@@ -73,7 +71,7 @@ export default function UserForm() {
 
                 setFormData({
                     name: res.name,
-                    desc: res.desc,
+                    desc: res.description,
                     flowUrl: res.flow_url,
                     active: res.active,
                     table: res.table,
@@ -98,7 +96,7 @@ export default function UserForm() {
                 setIsLoading(false);
             }
         })();
-    }, []);
+    }, [id]);
 
     // CDU - Update when table selection changed
     useEffect(() => {
@@ -144,6 +142,8 @@ export default function UserForm() {
                 setAlertMessage={setAlertMessage}
             />,
         ]);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [tempMapping]);
 
     // CDU - Reset mapping inputs whenever the workflow changes
@@ -161,6 +161,8 @@ export default function UserForm() {
                 setAlertMessage={setAlertMessage}
             />,
         ]);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [sfMetadata, dbColumns]);
 
     // Form validation
@@ -322,8 +324,8 @@ export default function UserForm() {
         history.push('/');
     };
 
-    const closeModal = () => {
-        setModalOpen(false);
+    const delModalClose = () => {
+        setDelModalOpen(false);
     };
 
     const {
@@ -561,6 +563,27 @@ export default function UserForm() {
                                             </div>
                                         </>
                                     ) : null}
+                                    <div className="grid grid-cols-6 gap-6">
+                                        <div className="col-span-6 sm:col-span-3 mt-5">
+                                            <label
+                                                htmlFor="description"
+                                                className="block text-sm font-medium text-gray-700"
+                                            >
+                                                Description
+                                            </label>
+                                            <div className="mt-1">
+                                                <textarea
+                                                    id="description"
+                                                    name="desc"
+                                                    rows={5}
+                                                    className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                                    placeholder="Enter description..."
+                                                    value={desc}
+                                                    onChange={handleChange}
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div className="col-span-6 sm:col-span-3 mt-5">
                                         <Switch.Group
                                             as="div"
@@ -659,7 +682,9 @@ export default function UserForm() {
                                     {id && (
                                         <button
                                             type="button"
-                                            onClick={() => setModalOpen(true)}
+                                            onClick={() =>
+                                                setDelModalOpen(true)
+                                            }
                                             style={{
                                                 backgroundColor:
                                                     processsing && 'grey',
@@ -701,10 +726,10 @@ export default function UserForm() {
                     {alertMessage.message}
                 </Alert>
             </Snackbar>
-            <Modal
+            <DeleteModal
                 deleteWorkflow={handleDelete}
-                modalOpen={modalOpen}
-                modalClose={closeModal}
+                delModalOpen={delModalOpen}
+                delModalClose={delModalClose}
             />
         </div>
     );
