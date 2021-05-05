@@ -74,7 +74,7 @@ export default function ExecutionTable() {
                                             })}
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                            {logs.is_flow_successful}
+                                            {logs.is_flow_successful.toString()}
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"></td>
                                     </tr>
