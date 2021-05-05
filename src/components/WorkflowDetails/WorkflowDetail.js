@@ -62,6 +62,7 @@ export default function WorkflowDetail() {
         name,
         active,
         type,
+        desc,
         label,
         sObjectType,
         whereClause,
@@ -84,7 +85,6 @@ export default function WorkflowDetail() {
                                     <div className="grid grid-cols-6 gap-6 ">
                                         <div className="col-span-7 sm:col-span-4 mt-5">
                                             <label
-                                                htmlFor="email_address"
                                                 className="block text-sm font-medium text-gray-700"
                                             >
                                                 Name of the Workflow
@@ -184,6 +184,25 @@ export default function WorkflowDetail() {
                                             </div>
                                         </div>
                                     </>
+                                    <div className="grid grid-cols-6 gap-6">
+                                        <div className="col-span-6 sm:col-span-4 mt-5">
+                                            <label
+                                                htmlFor="where_clause"
+                                                className="block text-sm font-medium text-gray-700"
+                                            >
+                                                Description
+                                            </label>
+                                            <textarea
+                                                name="description"
+                                                id="description"
+                                                rows={5}
+                                                placeholder=""
+                                                className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                                value={desc}
+                                                disabled
+                                            />
+                                        </div>
+                                    </div>
                                     <div className="grid grid-cols-6 gap-6 ">
                                         <div className="col-span-6 sm:col-span-4 mt-5">
                                             <label
@@ -195,9 +214,7 @@ export default function WorkflowDetail() {
                                             <input
                                                 disabled
                                                 type="text"
-                                                name="query"
-                                                id="query"
-                                                placeholder="SQL Query"
+                                                placeholder=""
                                                 className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                                 value={active}
                                             />
@@ -206,7 +223,6 @@ export default function WorkflowDetail() {
                                     <div className="grid grid-cols-6 gap-6 ">
                                         <div className="col-span-6 sm:col-span-4 mt-5">
                                             <label
-                                                htmlFor="email_address"
                                                 className="block text-sm font-medium text-gray-700"
                                             >
                                                 Run for Same Contacts Repeatedly
