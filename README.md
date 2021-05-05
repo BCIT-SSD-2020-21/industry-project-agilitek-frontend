@@ -2,6 +2,8 @@
 
 [![GitHub issues](https://img.shields.io/github/issues/BCIT-SSD-2020-21/industry-project-agilitek)](https://github.com/BCIT-SSD-2020-21/industry-project-agilitek/issues) [![GitHub stars](https://img.shields.io/github/stars/BCIT-SSD-2020-21/industry-project-agilitek)](https://github.com/BCIT-SSD-2020-21/industry-project-agilitek/stargazers)
 
+[Heroku Deployment](https://agilitek-fan-data-platform.herokuapp.com/)
+
 ## :bulb: Motivation
 
 For a user to be able to perform an action against a list of customer contacts that match a certain condition
@@ -23,7 +25,6 @@ For a user to be able to perform an action against a list of customer contacts t
 
 ![newconfig](https://user-images.githubusercontent.com/22161200/116915992-96360700-ac01-11eb-8dfa-02b783cd7007.png)
 
-
 ## :computer: Tech/FrameWorks
 
 - AWS (RDS, API Gateway, Lambda, EventBridge, Step Functions)
@@ -38,30 +39,30 @@ TBD with input from team
 
 ### Core Features
 
-* Create, view, pause or un-pause automation
-* Enter any SQL statment(as long as it returns a list of Salesforce Contact IDs)
-* User can select salesforce flow
-* User can select true false indicator indicating whether or not a user workflow can run on the same set of contacts multiple times
-* Show execution logs 
-* Multiple automations 
+- Create, view, pause or un-pause automation
+- Enter any SQL statment(as long as it returns a list of Salesforce Contact IDs)
+- User can select salesforce flow
+- User can select true false indicator indicating whether or not a user workflow can run on the same set of contacts multiple times
+- Show execution logs
+- Multiple automations
 
 ### Nice-To-Have
 
-* Adding capability to "map" additional columns of the SQL statement output to additional "API Input Parameters"
-* Edit and delete automation
-* User authentication/authorization
-* Search functionality for user workflow page
+- Adding capability to "map" additional columns of the SQL statement output to additional "API Input Parameters"
+- Edit and delete automation
+- User authentication/authorization
+- Search functionality for user workflow page
 
 ### Functional
 
-* User can create, view, pause or unpause automation
-* System queries the databases upon triggering automation
-* Contact ID's returned from SQL query are posted to Salesforce flow
+- User can create, view, pause or unpause automation
+- System queries the databases upon triggering automation
+- Contact ID's returned from SQL query are posted to Salesforce flow
 
 ### Non-Functional
 
-* Multiple automations
-* Show output logs
+- Multiple automations
+- Show output logs
 
 ### Roles and Permission
 
@@ -89,6 +90,7 @@ TBD with input from team
 ![](https://i.imgur.com/SivzG0t.png)
 
 ### ERD
+
 ![](https://i.imgur.com/MR8ljRd.png)
 
 # SSD-Agilitek Fan Data Platfrom API Documentation
