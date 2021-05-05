@@ -128,7 +128,7 @@ export default function WorkflowDetail() {
                                         </div>
                                         {/* Salesforce MetaData field */}
                                         {/* {detailInputs}   */}
-                                        {type == 'SOBJECT' ?
+                                        {type === 'SOBJECT' ?
                                          (mapping
                                             ? Object.keys(
                                                   mapping
