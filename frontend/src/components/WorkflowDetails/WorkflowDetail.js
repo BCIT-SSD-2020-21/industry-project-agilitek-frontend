@@ -99,7 +99,7 @@ export default function WorkflowDetail() {
                                                 value={name}
                                             />
                                         </div>
-                                        <div className="grid grid-cols-6 gap-6 ">
+                                        <div className="px-4 py-3 bg-gray-50 text-right sm:px-6 ">
                                             <td className="text-right px-6 py-4 text-right whitespace-nowrap text-sm text-gray-500">
                                                 <button
                                                     type="button"
