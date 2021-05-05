@@ -82,7 +82,7 @@ export default function WorkflowDetail() {
                             <div className="shadow overflow-hidden sm:rounded-md">
                                 <div className="px-4 py-5 bg-white sm:p-6">
                                     <div className="grid grid-cols-6 gap-6 ">
-                                        <div className="col-span-6 sm:col-span-4 mt-5">
+                                        <div className="col-span-7 sm:col-span-4 mt-5">
                                             <label
                                                 htmlFor="email_address"
                                                 className="block text-sm font-medium text-gray-700"
@@ -99,19 +99,21 @@ export default function WorkflowDetail() {
                                                 value={name}
                                             />
                                         </div>
-                                        <td className="px-6 py-4 text-right whitespace-nowrap text-sm text-gray-500">
-                                                            <button
-                                                                type="button"
-                                                                className=" text-right inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-cyan-600 hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
-                                                                onClick={() =>
-                                                                    history.push(
-                                                                        `/configure/${id}`
-                                                                    )
-                                                                }
-                                                            >
-                                                                Configure
-                                                            </button>
-                                                        </td>
+                                        <div className="grid grid-cols-6 gap-6 ">
+                                            <td className="text-right px-6 py-4 text-right whitespace-nowrap text-sm text-gray-500">
+                                                <button
+                                                    type="button"
+                                                    className=" inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-cyan-600 hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
+                                                    onClick={() =>
+                                                        history.push(
+                                                            `/configure/${id}`
+                                                        )
+                                                    }
+                                                >
+                                                    Configure
+                                                </button>
+                                            </td>
+                                        </div>
                                     </div>
                                     <>
                                         <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
