@@ -67,7 +67,7 @@ export default function ProfileDrop() {
                       "block px-4 py-2 text-sm text-gray-700"
                     )}
                   >
-                    Settingsrrere
+                    Settings
                   </a>
                 )}
               </Menu.Item>
@@ -80,7 +80,7 @@ export default function ProfileDrop() {
                       "block px-4 py-2 text-sm text-gray-700"
                     )}
                   >
-                    Logoutrereer
+                    Logouteeee
                   </a>
                 )}
               </Menu.Item>
