@@ -110,7 +110,7 @@ export default function UserForm() {
       const pkColumnRes = await getPkColumn(formData.table);
       setFormData({ ...formData, pkColumn: pkColumnRes[0]?.column_name });
     })();
-  }, [formData.table]);
+  }, [formData.table]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // CDU - Update when new mapping is added
   useEffect(() => {
