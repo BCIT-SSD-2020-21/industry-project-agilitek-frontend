@@ -2,12 +2,14 @@ import React from "react";
 import { Fragment, useState } from "react";
 import { Dialog, Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/solid";
+import { useAuth0 } from "@auth0/auth0-react";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function ProfileDrop() {
+  const { loginWithRedirect } = useAuth0();
   return (
     <Menu as="div" className="ml-3 relative">
       {({ open }) => (
@@ -65,7 +67,7 @@ export default function ProfileDrop() {
                       "block px-4 py-2 text-sm text-gray-700"
                     )}
                   >
-                    Settings
+                    Settingsrrere
                   </a>
                 )}
               </Menu.Item>
@@ -78,7 +80,20 @@ export default function ProfileDrop() {
                       "block px-4 py-2 text-sm text-gray-700"
                     )}
                   >
-                    Logout
+                    Logoutrereer
+                  </a>
+                )}
+              </Menu.Item>
+              <Menu.Item>
+                {({ active }) => (
+                  <a
+                    href="#"
+                    className={classNames(
+                      active ? loginWithRedirect() : "",
+                      "block px-4 py-2 text-sm text-gray-700"
+                    )}
+                  >
+                    Login
                   </a>
                 )}
               </Menu.Item>
