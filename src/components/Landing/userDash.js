@@ -1,6 +1,7 @@
 import { Fragment, useState } from 'react';
 import { Dialog, Menu, Transition } from '@headlessui/react';
 import { useHistory } from 'react-router-dom';
+import { useAuth0 } from "@auth0/auth0-react";
 import agilitek from '../../images/agilitek.svg';
 import {
     BellIcon,
@@ -39,6 +40,7 @@ function classNames(...classes) {
 export default function UserDash({ children, page }) {
     const [search, setSearch] = useState('');
     const [sidebarOpen, setSidebarOpen] = useState(false);
+    const { auth } = useAuth0();
     const history = useHistory();
     return (
         <div className="h-screen flex overflow-hidden bg-gray-100">
@@ -346,6 +348,7 @@ export default function UserDash({ children, page }) {
                                                 <Menu.Item>
                                                     {({ active }) => (
                                                         <a
+                                                            onClick={() => login}
                                                             href="/"
                                                             className={classNames(
                                                                 active
@@ -355,6 +358,21 @@ export default function UserDash({ children, page }) {
                                                             )}
                                                         >
                                                             Logout
+                                                        </a>
+                                                    )}
+                                                </Menu.Item>
+                                                <Menu.Item>
+                                                    {({ active }) => (
+                                                        <a onClick={() => auth({ returnTo: window.location.origin }) }
+                                                            href="/"
+                                                            className={classNames(
+                                                                active
+                                                                    ? 'bg-gray-100'
+                                                                    : '',
+                                                                'block px-4 py-2 text-sm text-gray-700'
+                                                            )}
+                                                        >
+                                                            Login
                                                         </a>
                                                     )}
                                                 </Menu.Item>
