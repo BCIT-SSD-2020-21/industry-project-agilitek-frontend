@@ -123,7 +123,7 @@ export async function getDBColumns(table_name) {
   }
 }
 
-export async function getDBColumns(table_name) {
+export async function getPkColumn(table_name) {
   try {
     const res = await axios.get(`${url}/database/${table_name}/pk_column`);
     return res.data;
