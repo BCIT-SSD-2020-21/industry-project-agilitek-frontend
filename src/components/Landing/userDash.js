@@ -348,7 +348,7 @@ export default function UserDash({ children, page }) {
                                                 <Menu.Item>
                                                     {({ active }) => (
                                                         <a
-                                                            onClick={() => login}
+                                                            onClick={() => auth()}
                                                             href="/"
                                                             className={classNames(
                                                                 active
