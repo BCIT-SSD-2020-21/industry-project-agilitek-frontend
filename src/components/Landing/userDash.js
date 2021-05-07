@@ -40,8 +40,15 @@ function classNames(...classes) {
 export default function UserDash({ children, page }) {
     const [search, setSearch] = useState('');
     const [sidebarOpen, setSidebarOpen] = useState(false);
-    const { auth } = useAuth0();
+    const { user, isAuthenticated, isLoading, logout, loginWithRedirect } = useAuth0();
     const history = useHistory();
+
+    useEffect(() => {
+    console.log(isAuthenticated)
+    console.log(user, isLoading)
+    }, [isAuthenticated,user, isLoading])
+
+
     return (
         <div className="h-screen flex overflow-hidden bg-gray-100">
             <Transition.Root show={sidebarOpen} as={Fragment}>
@@ -348,7 +355,7 @@ export default function UserDash({ children, page }) {
                                                 <Menu.Item>
                                                     {({ active }) => (
                                                         <a
-                                                            onClick={() => auth()}
+                                                            onClick={() => logout({ returnTo: window.location.origin })}
                                                             href="/"
                                                             className={classNames(
                                                                 active
@@ -363,7 +370,7 @@ export default function UserDash({ children, page }) {
                                                 </Menu.Item>
                                                 <Menu.Item>
                                                     {({ active }) => (
-                                                        <a onClick={() => auth({ returnTo: window.location.origin }) }
+                                                        <a onClick={() => loginWithRedirect() }
                                                             href="/"
                                                             className={classNames(
                                                                 active
