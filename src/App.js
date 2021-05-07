@@ -9,9 +9,6 @@ function App() {
     return (
         <Router>
             <Switch>
-                <Route exact path="/">
-                    <UserDash page="main" />
-                </Route>
                 <Route exact path="/create">
                     <UserDash children={<WorkflowForm />} />
                 </Route>
@@ -23,6 +20,9 @@ function App() {
                 </Route>
                 <Route exact path="/404">
                     <UserDash children={<ErrorPage />} />
+                </Route>
+                <Route exact path="/">
+                    <UserDash page="main" />
                 </Route>
             </Switch>
         </Router>

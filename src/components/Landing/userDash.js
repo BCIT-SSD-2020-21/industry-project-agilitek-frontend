@@ -43,6 +43,13 @@ export default function UserDash({ children, page }) {
     const { user, isAuthenticated, isLoading, logout, loginWithRedirect } = useAuth0();
     const history = useHistory();
 
+    // useEffect(() => {
+    //     effect
+    //     return () => {
+    //         cleanup
+    //     }
+    // }, [user])
+
     return (
         <div className="h-screen flex overflow-hidden bg-gray-100">
             <Transition.Root show={sidebarOpen} as={Fragment}>
