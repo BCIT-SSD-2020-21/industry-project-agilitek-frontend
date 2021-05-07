@@ -40,8 +40,19 @@ function classNames(...classes) {
 export default function UserDash({ children, page }) {
     const [search, setSearch] = useState('');
     const [sidebarOpen, setSidebarOpen] = useState(false);
-const { user, isAuthenticated, isLoading, logout, loginWithRedirect } = useAuth0();
+    const { user, isAuthenticated, isLoading, logout, loginWithRedirect } = useAuth0();
     const history = useHistory();
+
+    useEffect(() => {
+    if(!isAuthenticated){
+        loginWithRedirect()
+    } else{
+        return
+    }
+    console.log(isAuthenticated)
+    }, [isAuthenticated])
+
+
 
     return (
         <div className="h-screen flex overflow-hidden bg-gray-100">
@@ -482,5 +493,5 @@ const { user, isAuthenticated, isLoading, logout, loginWithRedirect } = useAuth0
                 {children ? children : <WorkflowTable value={{ search }} />}
             </div>
         </div>
-    );
+    )
 }
