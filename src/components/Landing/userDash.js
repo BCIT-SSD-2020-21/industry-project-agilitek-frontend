@@ -1,5 +1,6 @@
 import { Fragment, useState, useEffect } from 'react';
 import { Dialog, Menu, Transition } from '@headlessui/react';
+import { Redirect } from "react-router-dom"
 import { useHistory } from 'react-router-dom';
 import { useAuth0 } from "@auth0/auth0-react";
 import agilitek from '../../images/agilitek.svg';
@@ -40,19 +41,31 @@ function classNames(...classes) {
 export default function UserDash({ children, page }) {
     const [search, setSearch] = useState('');
     const [sidebarOpen, setSidebarOpen] = useState(false);
-    const { user, isAuthenticated, isLoading, logout, loginWithRedirect } = useAuth0();
+    const { user, isAuthenticated, isLoading, logout, loginWithRedirect, getAccessTokenSilently } = useAuth0();
+    const [userMetadata, setUserMetadata] = useState(null);
     const history = useHistory();
 
     useEffect(() => {
-    if(!isAuthenticated){
-        loginWithRedirect()
-    } else{
-        return
+        if(!isLoading){
+        if(!isAuthenticated){
+            loginWithRedirect()
+        } else{
+            return
+        }
     }
     console.log(isAuthenticated)
+    }, [])
+
+    //Taking care of logout
+    useEffect(() => {
+        if(!isLoading){
+            if(!isAuthenticated){
+                loginWithRedirect()
+            } else{
+                return
+            }
+        }
     }, [isAuthenticated])
-
-
 
     return (
         <div className="h-screen flex overflow-hidden bg-gray-100">
@@ -360,7 +373,7 @@ export default function UserDash({ children, page }) {
                                                 <Menu.Item>
                                                     {({ active }) => (
                                                         <a
-                                                            onClick={() => logout({ returnTo: window.location.origin })}
+                                                            onClick={() => logout()}
                                                             href="/"
                                                             className={classNames(
                                                                 active
