@@ -59,7 +59,6 @@ export default function UserDash({ children, page }) {
     useEffect(() => {
         if(!isLoading){
             if(!isAuthenticated){
-                console.log('test')
                 loginWithRedirect()
             } else{
                 return
@@ -68,6 +67,8 @@ export default function UserDash({ children, page }) {
     }, [isAuthenticated, isLoading])
 
     return (
+        <>
+    {!isAuthenticated ? (null) :
         <div className="h-screen flex overflow-hidden bg-gray-100">
             <Transition.Root show={sidebarOpen} as={Fragment}>
                 <Dialog
@@ -500,5 +501,7 @@ export default function UserDash({ children, page }) {
                 {children ? children : <WorkflowTable value={{ search }} />}
             </div>
         </div>
+    }
+    </>
     )
 }
