@@ -46,6 +46,7 @@ export default function UserDash({ children, page }) {
     useEffect(() => {
     console.log(isAuthenticated)
     console.log(user, isLoading)
+    console.log(user.name)
     }, [isAuthenticated,user, isLoading])
 
 
@@ -292,16 +293,16 @@ export default function UserDash({ children, page }) {
                                     <>
                                         <div>
                                             <Menu.Button className="max-w-xs bg-white rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 lg:p-2 lg:rounded-md lg:hover:bg-gray-50">
-                                                <img
-                                                    className="h-8 w-8 rounded-full"
-                                                    src="https://upload.wikimedia.org/wikipedia/en/thumb/5/5d/Vancouver_Whitecaps_FC_logo.svg/180px-Vancouver_Whitecaps_FC_logo.svg.png"
-                                                    alt=""
-                                                />
+                                            <span className="inline-block h-8 w-8 rounded-full overflow-hidden bg-gray-100">
+                                                <svg className="h-full w-full text-gray-300" fill="currentColor" viewBox="0 0 24 24">
+                                                <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                                                </svg>
+                                            </span>
                                                 <span className="hidden ml-3 text-gray-700 text-sm font-medium lg:block">
                                                     <span className="sr-only">
                                                         Open user menu for{' '}
                                                     </span>
-                                                    White Caps Association
+                                                    {user.name}
                                                 </span>
                                                 <ChevronDownIcon
                                                     className="hidden flex-shrink-0 ml-1 h-5 w-5 text-gray-400 lg:block"
@@ -416,8 +417,7 @@ export default function UserDash({ children, page }) {
                                                     alt=""
                                                 />
                                                 <h1 className="ml-3 text-2xl font-bold leading-7 text-gray-900 sm:leading-9 sm:truncate">
-                                                    Good morning, White Caps
-                                                    Association
+                                                    Good morning, {user.name}
                                                 </h1>
                                             </div>
                                             <dl className="mt-6 flex flex-col sm:ml-3 sm:mt-1 sm:flex-row sm:flex-wrap">
@@ -434,13 +434,17 @@ export default function UserDash({ children, page }) {
                                                 <dt className="sr-only">
                                                     Account status
                                                 </dt>
+                                                {user.email_verified ? (
                                                 <dd className="mt-3 flex items-center text-sm text-gray-500 font-medium sm:mr-6 sm:mt-0 capitalize">
+
                                                     <CheckCircleIcon
                                                         className="flex-shrink-0 mr-1.5 h-5 w-5 text-green-400"
                                                         aria-hidden="true"
                                                     />
                                                     Verified account
                                                 </dd>
+                                                ) :
+                                                null }
                                             </dl>
                                         </div>
                                     </div>
