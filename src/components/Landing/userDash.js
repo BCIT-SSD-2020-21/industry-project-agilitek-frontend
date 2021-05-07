@@ -335,17 +335,15 @@ export default function UserDash({ children, page }) {
                 </Menu>
               ) : (
                 <Menu as="div" className="ml-3 relative">
-                  <div>
-                    <Menu.Button className="max-w-xs bg-white rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 lg:p-2 lg:rounded-md lg:hover:bg-gray-50">
-                      <span
-                        className="hidden ml-3 text-gray-700 text-sm font-medium lg:block"
-                        onClick={() => loginWithRedirect()}
-                      >
-                        <span className="sr-only">Open user menu for </span>
-                        Login
-                      </span>
-                    </Menu.Button>
-                  </div>
+                  <Menu.Button className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    <span
+                      className="hidden text-gray-700 text-sm font-medium lg:block"
+                      onClick={() => loginWithRedirect()}
+                    >
+                      <span className="sr-only">Open user menu for </span>
+                      Login
+                    </span>
+                  </Menu.Button>
                 </Menu>
               )}
             </div>
