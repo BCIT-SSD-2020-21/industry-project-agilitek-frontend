@@ -302,7 +302,7 @@ export default function UserDash({ children, page }) {
                                                     <span className="sr-only">
                                                         Open user menu for{' '}
                                                     </span>
-                                                    {user.name}
+                                                    {/* {user.name} */}
                                                 </span>
                                                 <ChevronDownIcon
                                                     className="hidden flex-shrink-0 ml-1 h-5 w-5 text-gray-400 lg:block"
@@ -417,7 +417,9 @@ export default function UserDash({ children, page }) {
                                                     alt=""
                                                 />
                                                 <h1 className="ml-3 text-2xl font-bold leading-7 text-gray-900 sm:leading-9 sm:truncate">
-                                                    Good morning, {user.name}
+                                                    Good morning,
+                                                    
+                                                     {/* {user.name} */}
                                                 </h1>
                                             </div>
                                             <dl className="mt-6 flex flex-col sm:ml-3 sm:mt-1 sm:flex-row sm:flex-wrap">
