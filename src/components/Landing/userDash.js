@@ -1,6 +1,8 @@
-import { Fragment, useState } from 'react';
+import { Fragment, useState, useEffect } from 'react';
 import { Dialog, Menu, Transition } from '@headlessui/react';
+import { Redirect } from "react-router-dom"
 import { useHistory } from 'react-router-dom';
+import { useAuth0 } from "@auth0/auth0-react";
 import agilitek from '../../images/agilitek.svg';
 import {
     BellIcon,
@@ -39,8 +41,34 @@ function classNames(...classes) {
 export default function UserDash({ children, page }) {
     const [search, setSearch] = useState('');
     const [sidebarOpen, setSidebarOpen] = useState(false);
+    const { user, isAuthenticated, isLoading, logout, loginWithRedirect, getAccessTokenSilently } = useAuth0();
+    const [userMetadata, setUserMetadata] = useState(null);
     const history = useHistory();
+
+    useEffect(() => {
+        if(!isLoading){
+        if(!isAuthenticated){
+            loginWithRedirect()
+        } else{
+            return
+        }
+    }
+    }, [])
+
+    //Taking care of logout
+    useEffect(() => {
+        if(!isLoading){
+            if(!isAuthenticated){
+                loginWithRedirect()
+            } else{
+                return
+            }
+        }
+    }, [isAuthenticated, isLoading])
+
     return (
+        <>
+    {!isAuthenticated ? (null) :
         <div className="h-screen flex overflow-hidden bg-gray-100">
             <Transition.Root show={sidebarOpen} as={Fragment}>
                 <Dialog
@@ -275,23 +303,23 @@ export default function UserDash({ children, page }) {
                                     aria-hidden="true"
                                 />
                             </button>
-
                             {/* Profile dropdown */}
+                            {isAuthenticated ? (
                             <Menu as="div" className="ml-3 relative">
                                 {({ open }) => (
                                     <>
                                         <div>
                                             <Menu.Button className="max-w-xs bg-white rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 lg:p-2 lg:rounded-md lg:hover:bg-gray-50">
-                                                <img
-                                                    className="h-8 w-8 rounded-full"
-                                                    src="https://upload.wikimedia.org/wikipedia/en/thumb/5/5d/Vancouver_Whitecaps_FC_logo.svg/180px-Vancouver_Whitecaps_FC_logo.svg.png"
-                                                    alt=""
-                                                />
+                                            <span className="inline-block h-8 w-8 rounded-full overflow-hidden bg-gray-100">
+                                                <svg className="h-full w-full text-gray-300" fill="currentColor" viewBox="0 0 24 24">
+                                                <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                                                </svg>
+                                            </span>
                                                 <span className="hidden ml-3 text-gray-700 text-sm font-medium lg:block">
                                                     <span className="sr-only">
                                                         Open user menu for{' '}
                                                     </span>
-                                                    White Caps Association
+                                                    {isAuthenticated ? user.name : null}
                                                 </span>
                                                 <ChevronDownIcon
                                                     className="hidden flex-shrink-0 ml-1 h-5 w-5 text-gray-400 lg:block"
@@ -346,6 +374,7 @@ export default function UserDash({ children, page }) {
                                                 <Menu.Item>
                                                     {({ active }) => (
                                                         <a
+                                                            onClick={() => logout()}
                                                             href="/"
                                                             className={classNames(
                                                                 active
@@ -363,6 +392,24 @@ export default function UserDash({ children, page }) {
                                     </>
                                 )}
                             </Menu>
+                        ) : (
+                            <Menu as="div" className="ml-3 relative">
+                            {({ open }) => (
+                                <>
+                                    <div>
+                                        <Menu.Button className="max-w-xs bg-white rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 lg:p-2 lg:rounded-md lg:hover:bg-gray-50">
+                                            <span className="hidden ml-3 text-gray-700 text-sm font-medium lg:block" onClick={() => loginWithRedirect()}>
+                                                <span className="sr-only" >
+                                                    Open user menu for{' '}
+                                                </span>
+                                                Login
+                                            </span>
+                                        </Menu.Button>
+                                    </div>
+                                </>
+                            )}
+                        </Menu>
+                        )}
                         </div>
                     </div>
                 </div>
@@ -387,8 +434,8 @@ export default function UserDash({ children, page }) {
                                                     alt=""
                                                 />
                                                 <h1 className="ml-3 text-2xl font-bold leading-7 text-gray-900 sm:leading-9 sm:truncate">
-                                                    Good morning, White Caps
-                                                    Association
+                                                    Good morning,
+                                                    {isAuthenticated ? user.name : null}
                                                 </h1>
                                             </div>
                                             <dl className="mt-6 flex flex-col sm:ml-3 sm:mt-1 sm:flex-row sm:flex-wrap">
@@ -405,6 +452,7 @@ export default function UserDash({ children, page }) {
                                                 <dt className="sr-only">
                                                     Account status
                                                 </dt>
+                                                {isAuthenticated ? (user.email_verified ? (
                                                 <dd className="mt-3 flex items-center text-sm text-gray-500 font-medium sm:mr-6 sm:mt-0 capitalize">
                                                     <CheckCircleIcon
                                                         className="flex-shrink-0 mr-1.5 h-5 w-5 text-green-400"
@@ -412,6 +460,12 @@ export default function UserDash({ children, page }) {
                                                     />
                                                     Verified account
                                                 </dd>
+                                                ) :
+                                                null
+                                                ) : (
+                                                    null
+                                                )
+                                            }
                                             </dl>
                                         </div>
                                     </div>
@@ -428,12 +482,6 @@ export default function UserDash({ children, page }) {
                                             >
                                                 Add Workflow
                                             </button>
-                                            {/* <button
-                        type="button"
-                        className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-cyan-600 hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
-                      >
-                        Delete Workflow
-                      </button> */}
                                         </>
                                     ) : (
                                         <button
@@ -453,5 +501,7 @@ export default function UserDash({ children, page }) {
                 {children ? children : <WorkflowTable value={{ search }} />}
             </div>
         </div>
-    );
+    }
+    </>
+    )
 }

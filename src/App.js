@@ -1,11 +1,13 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import UserDash from './components/Landing/userDash';
 import WorkflowForm from './components/WorkflowForm/WorfkflowForm';
 import ErrorPage from './components/ErrorPage/ErrorPage';
+import { useAuth0 } from "@auth0/auth0-react";
 import WorkflowDetail from './components/WorkflowDetails/WorkflowDetail';
 
 function App() {
+    const { user, isAuthenticated, isLoading, logout, loginWithRedirect } = useAuth0();
     return (
         <Router>
             <Switch>
