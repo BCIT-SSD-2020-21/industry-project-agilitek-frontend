@@ -8,7 +8,7 @@ ReactDOM.render(
     <Auth0Provider
       domain="agilitek.us.auth0.com"
       clientId="Pn08OIuU2lNszAFLD4WZlelkOIdhwmVu"
-      redirectUri={window.location.origin}
+      redirectUri="http://localhost:3000/create"
     >
       <App />
     </Auth0Provider>,
