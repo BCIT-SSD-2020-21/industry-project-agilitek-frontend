@@ -43,13 +43,6 @@ export default function UserDash({ children, page }) {
     const { user, isAuthenticated, isLoading, logout, loginWithRedirect } = useAuth0();
     const history = useHistory();
 
-    useEffect(() => {
-    console.log(isAuthenticated)
-    console.log(user, isLoading)
-    console.log(user.name)
-    }, [isAuthenticated,user, isLoading])
-
-
     return (
         <div className="h-screen flex overflow-hidden bg-gray-100">
             <Transition.Root show={sidebarOpen} as={Fragment}>
@@ -285,7 +278,6 @@ export default function UserDash({ children, page }) {
                                     aria-hidden="true"
                                 />
                             </button>
-
                             {/* Profile dropdown */}
                             {isAuthenticated ? (
                             <Menu as="div" className="ml-3 relative">
@@ -302,7 +294,7 @@ export default function UserDash({ children, page }) {
                                                     <span className="sr-only">
                                                         Open user menu for{' '}
                                                     </span>
-                                                    {/* {user.name} */}
+                                                    {isAuthenticated ? user.name : null}
                                                 </span>
                                                 <ChevronDownIcon
                                                     className="hidden flex-shrink-0 ml-1 h-5 w-5 text-gray-400 lg:block"
@@ -418,8 +410,7 @@ export default function UserDash({ children, page }) {
                                                 />
                                                 <h1 className="ml-3 text-2xl font-bold leading-7 text-gray-900 sm:leading-9 sm:truncate">
                                                     Good morning,
-                                                    
-                                                     {/* {user.name} */}
+                                                    {isAuthenticated ? user.name : null}
                                                 </h1>
                                             </div>
                                             <dl className="mt-6 flex flex-col sm:ml-3 sm:mt-1 sm:flex-row sm:flex-wrap">
@@ -436,9 +427,8 @@ export default function UserDash({ children, page }) {
                                                 <dt className="sr-only">
                                                     Account status
                                                 </dt>
-                                                {user.email_verified ? (
+                                                {isAuthenticated ? (user.email_verified ? (
                                                 <dd className="mt-3 flex items-center text-sm text-gray-500 font-medium sm:mr-6 sm:mt-0 capitalize">
-
                                                     <CheckCircleIcon
                                                         className="flex-shrink-0 mr-1.5 h-5 w-5 text-green-400"
                                                         aria-hidden="true"
@@ -446,7 +436,11 @@ export default function UserDash({ children, page }) {
                                                     Verified account
                                                 </dd>
                                                 ) :
-                                                null }
+                                                null
+                                                ) : (
+                                                    null
+                                                )
+                                            }
                                             </dl>
                                         </div>
                                     </div>
