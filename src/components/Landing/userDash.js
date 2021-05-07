@@ -53,19 +53,19 @@ export default function UserDash({ children, page }) {
             return
         }
     }
-    console.log(isAuthenticated)
     }, [])
 
     //Taking care of logout
     useEffect(() => {
         if(!isLoading){
             if(!isAuthenticated){
+                console.log('test')
                 loginWithRedirect()
             } else{
                 return
             }
         }
-    }, [isAuthenticated])
+    }, [isAuthenticated, isLoading])
 
     return (
         <div className="h-screen flex overflow-hidden bg-gray-100">
