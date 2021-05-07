@@ -340,7 +340,6 @@ export default function UserDash({ children, page }) {
                       className="hidden text-gray-700 text-sm font-medium lg:block"
                       onClick={() => loginWithRedirect()}
                     >
-                      <span className="sr-only">Open user menu for </span>
                       Login
                     </span>
                   </Menu.Button>
