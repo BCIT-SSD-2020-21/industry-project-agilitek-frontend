@@ -9,12 +9,12 @@ ReactDOM.render(
     domain="agilitek.us.auth0.com"
     clientId="Pn08OIuU2lNszAFLD4WZlelkOIdhwmVu"
     redirectUri={
-      process.env.NODE_ENV === 'production'
+      process.env.NODE_ENV !== 'production'
         ? 'http://localhost:3000/'
         : 'https://agilitek-fan-data-platform.herokuapp.com/'
     }
     returnTo={
-      process.env.NODE_ENV === 'production'
+      process.env.NODE_ENV !== 'production'
         ? 'http://localhost:3000/'
         : 'https://agilitek-fan-data-platform.herokuapp.com/'
     }
