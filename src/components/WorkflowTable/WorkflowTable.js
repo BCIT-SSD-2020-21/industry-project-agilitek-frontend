@@ -129,7 +129,7 @@ const WorkflowTable = (search) => {
                                                     Workflow
                                                 </th>
                                                 <th className="px-6 py-3 bg-gray-50 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                    Frequency
+                                                    
                                                 </th>
                                                 <th className="hidden px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider md:block">
                                                     Status
