@@ -72,11 +72,7 @@ export default function UserDash({ children, page }) {
               Authorization: `Bearer ${accessToken}`,
             },
           });
-          console.log(metadataResponse.data)
-          const { user_metadata } = await metadataResponse.json();
-        //   console.log(data)
-        //   setUserMetadata(user_metadata);
-        //   console.log(user_metadata)
+          setUserMetadata(metadataResponse.data);
         } catch (e) {
           console.log(e.message);
         }
