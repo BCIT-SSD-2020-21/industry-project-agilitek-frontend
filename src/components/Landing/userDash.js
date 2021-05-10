@@ -22,6 +22,7 @@ import {
     SearchIcon,
 } from '@heroicons/react/solid';
 import WorkflowTable from '../WorkflowTable/WorkflowTable';
+import axios from 'axios';
 
 const navigation = [
     { name: 'Home', href: '/', icon: HomeIcon, current: true },
@@ -63,24 +64,23 @@ export default function UserDash({ children, page }) {
             audience: `https://${domain}/api/v2/`,
             scope: "read:current_user",
           });
-    
+          console.log(accessToken)
           const userDetailsByIdUrl = `https://${domain}/api/v2/users/${user.sub}`;
     
-          const metadataResponse = await fetch(userDetailsByIdUrl, {
+          const metadataResponse = await axios.get(userDetailsByIdUrl, {
             headers: {
               Authorization: `Bearer ${accessToken}`,
             },
           });
-    
+          console.log(metadataResponse.data)
           const { user_metadata } = await metadataResponse.json();
-    
-          setUserMetadata(user_metadata);
-
+        //   console.log(data)
+        //   setUserMetadata(user_metadata);
+        //   console.log(user_metadata)
         } catch (e) {
           console.log(e.message);
         }
       };
-
 
       useEffect(() => {
         console.log(userMetadata)
