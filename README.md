@@ -618,12 +618,12 @@ OR
 
 ## :tada: Credits
 
-Created by:
-[Leanne Sall](https://github.com/LeanneSall)
-[Gökay Abay](https://github.com/gokay-abay)
-[Nick Charvat](https://github.com/nickchvt) :poop:
-[Steven Lai](https://github.com/stevenlai4)
-[Yaroslav Naft](https://github.com/Yaroslav-Naft)
+Created by: <br />
+[Leanne Sall](https://github.com/LeanneSall) <br />
+[Gökay Abay](https://github.com/gokay-abay) <br />
+[Nick Charvat](https://github.com/nickchvt) :poop: <br />
+[Steven Lai](https://github.com/stevenlai4) <br />
+[Yaroslav Naft](https://github.com/Yaroslav-Naft) <br />
 In partnership with [Agilitek Solutions](http://agiliteksolutions.com/)
 
 ## :lock: License
