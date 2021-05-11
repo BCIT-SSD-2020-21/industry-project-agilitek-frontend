@@ -4,14 +4,15 @@ import UserDash from './components/Landing/userDash';
 import WorkflowForm from './components/WorkflowForm/WorfkflowForm';
 import ErrorPage from './components/ErrorPage/ErrorPage';
 import WorkflowDetail from './components/WorkflowDetails/WorkflowDetail';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 
 function App() {
   return (
     <Router>
       <Switch>
-        <Route exact path="/">
+        <PrivateRoute exact path="/">
           <UserDash page="main" />
-        </Route>
+        </PrivateRoute>
         <Route exact path="/create">
           <UserDash children={<WorkflowForm />} />
         </Route>
@@ -28,5 +29,6 @@ function App() {
     </Router>
   );
 }
+
 
 export default App;
