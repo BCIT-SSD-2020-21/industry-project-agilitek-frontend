@@ -1,6 +1,5 @@
 import { Fragment, useState, useEffect } from 'react';
 import { Dialog, Menu, Transition } from '@headlessui/react';
-import { Redirect } from "react-router-dom"
 import { useHistory } from 'react-router-dom';
 import { useAuth0 } from "@auth0/auth0-react";
 import agilitek from '../../images/agilitek.svg';
