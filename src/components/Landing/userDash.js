@@ -46,15 +46,15 @@ export default function UserDash({ children, page }) {
     const [userMetadata, setUserMetadata] = useState(null);
     const history = useHistory();
 
-    useEffect(() => {
-        if(!isLoading){
-        if(!isAuthenticated){
-            loginWithRedirect()
-        } else{
-            return
-        }
-    }
-    }, [])
+    // useEffect(() => {
+    //     if(!isLoading){
+    //     if(!isAuthenticated){
+    //         loginWithRedirect()
+    //     } else{
+    //         return
+    //     }
+    // }
+    // }, [])
 
     const getUserMetadata = async () => {
         const domain = "agilitek.us.auth0.com";
@@ -78,20 +78,20 @@ export default function UserDash({ children, page }) {
         }
       };
 
-      useEffect(() => {
-        console.log(userMetadata)
-      }, [userMetadata])
+    //   useEffect(() => {
+    //     console.log(userMetadata)
+    //   }, [userMetadata])
 
     //Taking care of logout
-    useEffect(() => {
-        if(!isLoading){
-            if(!isAuthenticated){
-                loginWithRedirect()
-            } else{
-                return
-            }
-        }
-    }, [isAuthenticated, isLoading])
+    // useEffect(() => {
+    //     if(!isLoading){
+    //         if(!isAuthenticated){
+    //             loginWithRedirect()
+    //         } else{
+    //             return
+    //         }
+    //     }
+    // }, [isAuthenticated, isLoading])
 
     return (
         <>

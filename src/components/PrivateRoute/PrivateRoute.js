@@ -1,10 +1,11 @@
 import { withAuthenticationRequired } from '@auth0/auth0-react'
 import React from 'react'
 import { Route } from 'react-router'
+import Loading from '../Loading/Loading'
 
 const PrivateRoute = ({ component, ...args }) => (
     <Route
-        component={withAuthenticationRequired(component, {onRedirecting: () => <div>Loading ...</div>
+        component={withAuthenticationRequired(component, {onRedirecting: () => <Loading />
         })}
         {...args}
     />
