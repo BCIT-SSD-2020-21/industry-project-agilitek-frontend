@@ -13,10 +13,6 @@ function App() {
     <Router>
       <Switch>
         <PrivateRoute component={UserDash} exact path="/" />
-        {/* <Route exact path="/">
-          <UserDash page="main" />
-        </Route> */}
-        {/* </PrivateRoute> */}
         <Route exact path="/create">
           <UserDash children={<WorkflowForm />} />
         </Route>

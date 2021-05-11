@@ -1,6 +1,5 @@
-import { withAuthenticationRequired } from '@auth0/auth0-react'
 import React from 'react'
-import { Route, Redirect } from 'react-router'
+import { Route } from 'react-router'
 import Loading from '../Loading/Loading'
 import { useEffect } from 'react';
 import { useAuth0 } from "@auth0/auth0-react";
@@ -9,14 +8,18 @@ import { useAuth0 } from "@auth0/auth0-react";
 const PrivateRoute = ({ component: Component, ...args }) => {
     const { loginWithRedirect, isAuthenticated, isLoading } = useAuth0();
 
-    useEffect(() => {
-        console.log(isAuthenticated)
-    }, [isAuthenticated])
+    // useEffect(() => {
+    //     localStorage.setItem("1", isAuthenticated);
+    // }, [isAuthenticated])
 
+
+    // useEffect(() => {
+    //     isAuthenticated = localStorage.getItem("1")
+    // }, [isAuthenticated])
 
     return <Route {...args} render={(props) => (
         !isLoading ?
-            isAuthenticated === true
+        isAuthenticated === true
                 ? <Component {...props} /> 
                 : loginWithRedirect()
             :
