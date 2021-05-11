@@ -78,24 +78,23 @@ export default function UserDash({ children, page }) {
         }
       };
 
-    //   useEffect(() => {
-    //     console.log(userMetadata)
-    //   }, [userMetadata])
+      useEffect(() => {
+        console.log(isAuthenticated)
+      }, [isAuthenticated])
 
     //Taking care of logout
-    // useEffect(() => {
-    //     if(!isLoading){
-    //         if(!isAuthenticated){
-    //             loginWithRedirect()
-    //         } else{
-    //             return
-    //         }
-    //     }
-    // }, [isAuthenticated, isLoading])
+    useEffect(() => {
+        if(!isLoading){
+            if(!isAuthenticated){
+                loginWithRedirect()
+            } else{
+                return
+            }
+        }
+    }, [isAuthenticated, isLoading])
 
     return (
         <>
-    {!isAuthenticated ? (null) :
         <div className="h-screen flex overflow-hidden bg-gray-100">
             <Transition.Root show={sidebarOpen} as={Fragment}>
                 <Dialog
@@ -528,7 +527,6 @@ export default function UserDash({ children, page }) {
                 {children ? children : <WorkflowTable value={{ search }} />}
             </div>
         </div>
-    }
     </>
     )
 }

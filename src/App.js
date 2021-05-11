@@ -1,18 +1,22 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import UserDash from './components/Landing/userDash';
 import WorkflowForm from './components/WorkflowForm/WorfkflowForm';
 import ErrorPage from './components/ErrorPage/ErrorPage';
 import WorkflowDetail from './components/WorkflowDetails/WorkflowDetail';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
+import { useAuth0 } from "@auth0/auth0-react";
 
 function App() {
+  const { user, isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
   return (
     <Router>
       <Switch>
-        <PrivateRoute exact path="/">
+        <PrivateRoute component={UserDash} exact path="/" />
+        {/* <Route exact path="/">
           <UserDash page="main" />
-        </PrivateRoute>
+        </Route> */}
+        {/* </PrivateRoute> */}
         <Route exact path="/create">
           <UserDash children={<WorkflowForm />} />
         </Route>
