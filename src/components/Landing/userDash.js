@@ -210,7 +210,7 @@ export default function UserDash({ children, page }) {
                                 {navigation.map((item) => (
                                     <a
                                         key={item.name}
-                                        href={item.href}
+                                        onClick={() => history.push('/')}
                                         className={classNames(
                                             item.current
                                                 ? 'bg-cyan-800 text-white'
@@ -234,7 +234,7 @@ export default function UserDash({ children, page }) {
                                     {secondaryNavigation.map((item) => (
                                         <a
                                             key={item.name}
-                                            href={item.href}
+                                            onClick={() => history.push('/')}
                                             className="group flex items-center px-2 py-2 text-sm leading-6 font-medium rounded-md text-cyan-100 hover:text-white hover:bg-cyan-600"
                                         >
                                             <item.icon
@@ -348,7 +348,7 @@ export default function UserDash({ children, page }) {
                                                 <Menu.Item>
                                                     {({ active }) => (
                                                         <a
-                                                            href="/"
+                                                            onClick={() => history.push('/')}
                                                             className={classNames(
                                                                 active
                                                                     ? 'bg-gray-100'
@@ -363,7 +363,7 @@ export default function UserDash({ children, page }) {
                                                 <Menu.Item>
                                                     {({ active }) => (
                                                         <a
-                                                            href="/"
+                                                            onClick={() => history.push('/')}
                                                             className={classNames(
                                                                 active
                                                                     ? 'bg-gray-100'
