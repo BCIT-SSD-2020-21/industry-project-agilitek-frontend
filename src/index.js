@@ -18,6 +18,7 @@ ReactDOM.render(
         ? 'http://localhost:3000/'
         : 'https://agilitek-auth.herokuapp.com/'
     }
+    prompt={none}
     audience="https://agilitek.us.auth0.com/api/v2/"
     scope="read:current_user update:current_user_metadata"
   >
