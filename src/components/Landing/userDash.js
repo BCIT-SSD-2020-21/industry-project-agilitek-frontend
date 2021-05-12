@@ -2,6 +2,7 @@ import { Fragment, useState } from 'react';
 import { Dialog, Menu, Transition } from '@headlessui/react';
 import { useHistory } from 'react-router-dom';
 import agilitek from '../../images/agilitek.svg';
+import agilitekBlue from '../../images/agilitekBlue.svg';
 import {
   BellIcon,
   ClockIcon,
@@ -250,7 +251,7 @@ export default function UserDash({ children, page }) {
                       <Menu.Button className="max-w-xs bg-white rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 lg:p-2 lg:rounded-md lg:hover:bg-gray-50">
                         <img
                           className="h-8 w-8 rounded-full"
-                          src="http://www.agiliteksolutions.com/wp-content/uploads/2019/07/agilitek-logo-web.svg"
+                          src={agilitekBlue}
                           alt=""
                           style={{ width: '60px' }}
                         />
@@ -335,7 +336,7 @@ export default function UserDash({ children, page }) {
                   <div className="flex items-center">
                     <img
                       className="hidden h-16 w-16 rounded-full sm:block"
-                      src="http://www.agiliteksolutions.com/wp-content/uploads/2019/07/agilitek-logo-web.svg"
+                      src={agilitekBlue}
                       alt=""
                       style={{ width: '200px' }}
                     />
