@@ -11,12 +11,12 @@ ReactDOM.render(
     redirectUri={
       process.env.NODE_ENV !== 'production'
         ? 'http://localhost:3000/'
-        : 'https://agilitek-fan-data-platform.herokuapp.com/'
+        : 'https://agilitek-auth.herokuapp.com/'
     }
     returnTo={
       process.env.NODE_ENV !== 'production'
         ? 'http://localhost:3000/'
-        : 'https://agilitek-fan-data-platform.herokuapp.com/'
+        : 'https://agilitek-auth.herokuapp.com/'
     }
     audience="https://agilitek.us.auth0.com/api/v2/"
     scope="read:current_user update:current_user_metadata"
