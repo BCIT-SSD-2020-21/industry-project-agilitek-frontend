@@ -3,6 +3,7 @@ import { Dialog, Menu, Transition } from '@headlessui/react';
 import { useHistory } from 'react-router-dom';
 import { useAuth0 } from "@auth0/auth0-react";
 import agilitek from '../../images/agilitek.svg';
+import agilitekBlue from '../../images/agilitekBlue.svg';
 import {
     BellIcon,
     ClockIcon,
@@ -427,8 +428,9 @@ export default function UserDash({ children, page }) {
                                     <div className="flex items-center">
                                         <img
                                             className="hidden h-16 w-16 rounded-full sm:block"
-                                            src={agilitek}
-                                            alt="agilitek logo"
+                                            src={agilitekBlue}
+                                            alt=""
+                                            style={{ width: '200px' }}
                                         />
                                         <div>
                                             <div className="flex items-center">
