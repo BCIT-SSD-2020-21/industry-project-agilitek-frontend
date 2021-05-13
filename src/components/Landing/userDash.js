@@ -131,7 +131,7 @@ export default function UserDash({ children, page }) {
                                 <img
                                     className="h-8 w-auto"
                                     src=""
-                                    alt="Agilitek"
+                                    alt="agilitek logo"
                                 />
                             </div>
                             <nav
@@ -428,7 +428,7 @@ export default function UserDash({ children, page }) {
                                         <img
                                             className="hidden h-16 w-16 rounded-full sm:block"
                                             src={agilitek}
-                                            alt=""
+                                            alt="agilitek logo"
                                         />
                                         <div>
                                             <div className="flex items-center">
