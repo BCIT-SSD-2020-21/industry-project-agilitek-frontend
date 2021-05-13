@@ -427,7 +427,7 @@ export default function UserDash({ children, page }) {
                                     <div className="flex items-center">
                                         <img
                                             className="hidden h-16 w-16 rounded-full sm:block"
-                                            src="https://upload.wikimedia.org/wikipedia/en/thumb/5/5d/Vancouver_Whitecaps_FC_logo.svg/180px-Vancouver_Whitecaps_FC_logo.svg.png"
+                                            src={agilitek}
                                             alt=""
                                         />
                                         <div>
