@@ -4,6 +4,10 @@
 
 [Heroku Deployment](https://agilitek-fan-data-platform.herokuapp.com/)
 
+[Heroku Deployment with Auth](https://agilitek-auth.herokuapp.com/)
+
+Note: The current Beta version of the app with Auth has a bug specific to Login In with google Credentials. The google developper keys for the app are causing issue with user not being able to logout so Auth0 Dev keys are currently used but this creates the problem to prompt the user to log back in whenever the page is refreshed.
+
 ## :bulb: Motivation
 
 For a user to be able to perform an action against a list of customer contacts that match a certain condition
@@ -14,8 +18,15 @@ For a user to be able to perform an action against a list of customer contacts t
 
 ## <i class="fa fa-gear fa-spin fa-1x" style="color: firebrick"></i> Installation
 
-- Installed latest version of NodeJS
-- Clone Repo
+- Install NPM ([Npm Docs](https://docs.npmjs.com/about-npm))
+- Install Git to your local machine ([Git Docs](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git))
+- Git clone repo
+- Open up the project folder
+
+```
+npm install
+npm start
+```
 
 ## :camera: Screenshots
 
@@ -28,10 +39,11 @@ For a user to be able to perform an action against a list of customer contacts t
 ## :computer: Tech/FrameWorks
 
 - AWS (RDS, API Gateway, Lambda, EventBridge, Step Functions)
-- Node.js
+- Node.js 14.15.4
+- NPM 6.14.10
 - PostgreSQL
-- React
-- Tailwind UI
+- React 17.0.2
+- Tailwind UI 0.3.2
 
 ## :chart_with_upwards_trend: Feature List
 
