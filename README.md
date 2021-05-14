@@ -14,7 +14,7 @@ For a user to be able to perform an action against a list of customer contacts t
 
 ## :bell: Status
 
-![In Development](https://img.shields.io/badge/Status-In%20Development-blue)
+![Complete](https://img.shields.io/badge/Status-In%20Development-blue)
 
 ## <i class="fa fa-gear fa-spin fa-1x" style="color: firebrick"></i> Installation
 
@@ -631,10 +631,10 @@ OR
 ## :tada: Credits
 
 Created by:
-[Leanne Sall](https://github.com/LeanneSall)
-[Gökay Abay](https://github.com/gokay-abay)
-[Nick Charvat](https://github.com/nickchvt) :poop:
-[Steven Lai](https://github.com/stevenlai4)
+[Leanne Sall](https://github.com/LeanneSall),
+[Gökay Abay](https://github.com/gokay-abay),
+[Nick Charvat](https://github.com/nickchvt),
+[Steven Lai](https://github.com/stevenlai4),
 [Yaroslav Naft](https://github.com/Yaroslav-Naft)
 In partnership with [Agilitek Solutions](http://agiliteksolutions.com/)
 
