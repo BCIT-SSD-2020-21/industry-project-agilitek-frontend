@@ -4,18 +4,29 @@
 
 [Heroku Deployment](https://agilitek-fan-data-platform.herokuapp.com/)
 
+[Heroku Deployment with Auth](https://agilitek-auth.herokuapp.com/)
+
+⚠️ Note: The current Beta version of the app with Auth has a bug specific to Login In with google Credentials. The google developer keys for the app are causing issue with user not being able to logout so Auth0 Dev keys are currently used; however, this causes the current problem that prompts the user to log back in whenever the page is refreshed.
+
 ## :bulb: Motivation
 
 For a user to be able to perform an action against a list of customer contacts that match a certain condition
 
 ## :bell: Status
 
-![In Development](https://img.shields.io/badge/Status-In%20Development-blue)
+![Complete](https://img.shields.io/badge/Status-Complete-blue)
 
 ## <i class="fa fa-gear fa-spin fa-1x" style="color: firebrick"></i> Installation
 
-- Installed latest version of NodeJS
-- Clone Repo
+- Install NPM ([Npm Docs](https://docs.npmjs.com/about-npm))
+- Install Git to your local machine ([Git Docs](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git))
+- Git clone repo
+- Navigate to the project folder with the command prompt: `cd yourprojectfolder`
+
+```
+npm install
+npm start
+```
 
 ## :camera: Screenshots
 
@@ -28,10 +39,11 @@ For a user to be able to perform an action against a list of customer contacts t
 ## :computer: Tech/FrameWorks
 
 - AWS (RDS, API Gateway, Lambda, EventBridge, Step Functions)
-- Node.js
+- Node.js 14.15.4
+- NPM 6.14.10
 - PostgreSQL
-- React
-- Tailwind UI
+- React 17.0.2
+- Tailwind UI 0.3.2
 
 ## :chart_with_upwards_trend: Feature List
 
@@ -75,7 +87,6 @@ TBD with input from team
   - View Execution Logs/current automations
   - (un)Pause a new automation
 
-## :memo: How to use?
 
 ## :newspaper: Supporting Documents
 
@@ -619,11 +630,11 @@ OR
 ## :tada: Credits
 
 Created by:
-[Leanne Sall](https://github.com/LeanneSall)
-[Gökay Abay](https://github.com/gokay-abay)
-[Nick Charvat](https://github.com/nickchvt) :poop:
-[Steven Lai](https://github.com/stevenlai4)
-[Yaroslav Naft](https://github.com/Yaroslav-Naft)
+[Leanne Sall](https://github.com/LeanneSall),
+[Gökay Abay](https://github.com/gokay-abay),
+[Nick Charvat](https://github.com/nickchvt),
+[Steven Lai](https://github.com/stevenlai4),
+[Yaroslav Naft](https://github.com/Yaroslav-Naft).
 In partnership with [Agilitek Solutions](http://agiliteksolutions.com/)
 
 ## :lock: License
