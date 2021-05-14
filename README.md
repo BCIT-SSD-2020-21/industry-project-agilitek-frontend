@@ -635,7 +635,7 @@ Created by:
 [Gökay Abay](https://github.com/gokay-abay),
 [Nick Charvat](https://github.com/nickchvt),
 [Steven Lai](https://github.com/stevenlai4),
-[Yaroslav Naft](https://github.com/Yaroslav-Naft)
+[Yaroslav Naft](https://github.com/Yaroslav-Naft).
 In partnership with [Agilitek Solutions](http://agiliteksolutions.com/)
 
 ## :lock: License
