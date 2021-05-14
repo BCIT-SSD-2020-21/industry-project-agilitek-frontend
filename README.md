@@ -21,7 +21,7 @@ For a user to be able to perform an action against a list of customer contacts t
 - Install NPM ([Npm Docs](https://docs.npmjs.com/about-npm))
 - Install Git to your local machine ([Git Docs](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git))
 - Git clone repo
-- Open up the project folder
+- Navigate to the project folder with the command prompt: `cd yourprojectfolder`
 
 ```
 npm install
