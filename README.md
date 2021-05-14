@@ -14,7 +14,7 @@ For a user to be able to perform an action against a list of customer contacts t
 
 ## :bell: Status
 
-![Complete](https://img.shields.io/badge/Status-In%20Development-blue)
+![Complete](https://img.shields.io/badge/Status-Complete-blue)
 
 ## <i class="fa fa-gear fa-spin fa-1x" style="color: firebrick"></i> Installation
 
