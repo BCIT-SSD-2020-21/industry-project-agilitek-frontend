@@ -87,7 +87,6 @@ TBD with input from team
   - View Execution Logs/current automations
   - (un)Pause a new automation
 
-## :memo: How to use?
 
 ## :newspaper: Supporting Documents
 
