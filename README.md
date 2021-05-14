@@ -2,7 +2,11 @@
 
 [![GitHub issues](https://img.shields.io/github/issues/BCIT-SSD-2020-21/industry-project-agilitek)](https://github.com/BCIT-SSD-2020-21/industry-project-agilitek/issues) [![GitHub stars](https://img.shields.io/github/stars/BCIT-SSD-2020-21/industry-project-agilitek)](https://github.com/BCIT-SSD-2020-21/industry-project-agilitek/stargazers)
 
-[Heroku Deployment](https://agilitek-fan-data-platform.herokuapp.com/)
+[Heroku Deployment](https://agilitek-fan-data-platform.herokuapp.com/) 
+
+[Heroku Deployment with Auth](https://agilitek-auth.herokuapp.com/)
+
+Note: The current Beta version of the app with Auth has a bug specific to Login In with google Credentials. The google developper keys for the app are causing issue with user not being able to logout so Auth0 Dev keys are currently used but this creates the problem to prompt the user to log back in whenever the page is refreshed.
 
 ## :bulb: Motivation
 
